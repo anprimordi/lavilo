@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Lavilo</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="home_menu_title">Menu</string>
+    <string name="home_order_list_title">Pesanan</string>
+    <string name="home_admin_title">Admin</string>
+    <string name="splashscreen_app_logo_insignia">application logo insignia</string>
+    <string name="splashscreen_app_logo_text">application logo text</string>
+    <string name="home_menu_admin_title">Admin</string>
+    <string name="title_activity_basic">BasicActivity</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!--  Home Admin  -->
+    <string name="home_admin_login_action">login</string>
+    <string name="home_admin_password_hint">Password</string>
+    <string name="home_admin_email_hint">Email</string>
+    <string name="home_admin_email_image">Image for admin\'s email</string>
+    <string name="home_admin_password_image">Image for admin\'s password</string>
+    <string name="home_admin_login_admin_text">Login Admin</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--  Item food  -->
+    <string name="item_food_stock_title">Stok:</string>
+    <string name="item_food_decrease_img">image button for decrease food amount</string>
+    <string name="item_food_increase_img">image button to increase food amount</string>
+    <string name="item_food_thumbnail_img">food\'s thumbnail</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="home_menu_order_action">Pesan</string>
+    <string name="home_menu_detail_nomor_meja_title">Nomor Meja :</string>
+    <string name="home_menu_detail_buat_pesanan_action">Buat Pesanan</string>
+    <string name="home_menu_detail_total_title">Total:</string>
+</resources>

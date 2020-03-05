@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "547236010651",
+    "firebase_url": "https://lavilo.firebaseio.com",
+    "project_id": "lavilo",
+    "storage_bucket": "lavilo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547236010651:android:659d700e19a0ad9b43843e",
+        "android_client_info": {
+          "package_name": "com.makaryostudio.lavilo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547236010651-v9e4ccl15ls2tujlrvg1a7675dbjifin.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.makaryostudio.lavilo",
+            "certificate_hash": "8bee189c2cec820197469f98c82bef85073fe19b"
+          }
+        },
+        {
+          "client_id": "547236010651-isbu200ticq8r0eggk4ghtet8d66r0ss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOWsPF53dbNI1xx-gIhucDbe87m8TrZG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547236010651-isbu200ticq8r0eggk4ghtet8d66r0ss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,7 +5,5 @@ data class Food(
     val imageFood: String,
     val nameFood: String,
     val priceFood: Long,
-    val quantityFood: Int,
-    val totalFood: Int,
     val stockFood: Int
 )

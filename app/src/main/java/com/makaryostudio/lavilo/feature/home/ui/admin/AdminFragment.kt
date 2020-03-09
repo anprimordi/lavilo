@@ -23,9 +23,15 @@ class AdminFragment : Fragment() {
             ViewModelProvider(this).get(AdminViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home_admin, container, false)
         val textView: TextView = root.findViewById(R.id.text_login_admin)
-        adminViewModel.email.observe(this, Observer {
-            textView.text = it
+        adminViewModel.email.observe(viewLifecycleOwner, Observer {
+            it
         })
+        adminViewModel.password.observe(viewLifecycleOwner, Observer {
+            it
+        })
+
+        adminViewModel.doLogin()
+
         return root
     }
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.makaryostudio.lavilo.model.Food
+import com.makaryostudio.lavilo.data.model.Food
 
 class MenuViewModel : ViewModel() {
 

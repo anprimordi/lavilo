@@ -1,4 +1,4 @@
-package com.makaryostudio.lavilo.model
+package com.makaryostudio.lavilo.data.model
 
 data class Admin(
     var email: String? = null,

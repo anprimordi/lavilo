@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Food
+import com.makaryostudio.lavilo.data.model.Food
 import kotlinx.android.synthetic.main.item_food.view.*
 
 class MenuAdapter(

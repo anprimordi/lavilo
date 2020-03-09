@@ -1,4 +1,4 @@
-package com.makaryostudio.lavilo.model
+package com.makaryostudio.lavilo.data.model
 
 data class Order(
     val idOrder: Int,

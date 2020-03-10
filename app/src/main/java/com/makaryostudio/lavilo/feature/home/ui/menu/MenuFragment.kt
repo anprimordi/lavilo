@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.makaryostudio.lavilo.R
+import com.makaryostudio.lavilo.data.model.Food
 import kotlinx.android.synthetic.main.fragment_home_menu.*
 
 class MenuFragment : Fragment() {
@@ -24,9 +25,14 @@ class MenuFragment : Fragment() {
 
         val quantity = listOf<Int>()
 
-        adapter = MenuAdapter(requireContext()) {
-            //  TODO how to increase and decrease quantity?
+        val clickListener: ItemClickListener = object : ItemClickListener {
+            override fun onItemClick(foodQtyHashMap: HashMap<Food, Int>) {
+
+//                TODO show alert dialog to increase and decrease
+            }
         }
+
+        adapter = MenuAdapter(requireContext(), clickListener)
 
         recyclerview_home_menu.layoutManager = LinearLayoutManager(requireContext())
         recyclerview_home_menu.adapter = adapter

@@ -15,12 +15,10 @@ import kotlinx.android.synthetic.main.item_food.view.*
 
 class MenuAdapter(
     private val context: Context,
-    private val onBtnIncreaseClick: (food: Food) -> Unit,
-    private val onBtnDecreaseClick: (food: Food) -> Unit
+    private val clickListener: ItemClickListener
 ) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     private var mListData: List<Food> = emptyList()
-    lateinit var clickListener: ItemClickListener
 
     //    TODO hash data to parse food
     private lateinit var mHashMapFoodQty: HashMap<Food, Int>
@@ -53,7 +51,7 @@ class MenuAdapter(
             quantity + 1
             holder.quantity.text = quantity.toString()
 //            holder.stock.text =
-            onBtnIncreaseClick(food)
+//            onBtnIncreaseClick(food)
         }
 
         holder.decreaseQuantity.setOnClickListener {
@@ -64,7 +62,7 @@ class MenuAdapter(
                 quantity - 1
                 holder.quantity.text = quantity.toString()
             }
-            onBtnDecreaseClick(food)
+//            onBtnDecreaseClick(food)
         }
 
 //        TODO set on click listener to use alert dialog

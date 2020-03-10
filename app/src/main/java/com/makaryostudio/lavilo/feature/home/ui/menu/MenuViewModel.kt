@@ -11,9 +11,9 @@ class MenuViewModel : ViewModel() {
 
     private var database: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    private val _listFood = MutableLiveData<List<Food>>()
+    private val _listFood = MutableLiveData<MutableList<Food>>()
 
-    val listFood: LiveData<List<Food>> = _listFood
+    val listFood: LiveData<MutableList<Food>> = _listFood
 
     val repo = Repo()
 
@@ -29,32 +29,33 @@ class MenuViewModel : ViewModel() {
 //    TODO method to set quantity of food
     }
 
-    fun getData() {
-        database.collection("food").get().addOnSuccessListener { result ->
-            val foodie = mutableListOf<Food>()
-            for (document in result) {
-                val idFood = document.getString("idFood")
-                val imageFood = document.getString("imageFood")
-                val nameFood = document.getString("nameFood")
-                val priceFood = document.getString("priceFood")
-                val stockFood = document.getString("stockFood")
-                val food = Food(
-                    idFood!!.toInt(),
-                    imageFood!!,
-                    nameFood!!,
-                    priceFood!!.toLong(),
-                    stockFood!!.toInt()
-                )
-                foodie.add(food)
-            }
-            _listFood.postValue(foodie)
-        }
-    }
+//    fun getData() {
+//        database.collection("food").get().addOnSuccessListener { result ->
+//            val foodie = mutableListOf<Food>()
+//            for (document in result) {
+//                val idFood = document.getString("idFood")
+//                val imageFood = document.getString("imageFood")
+//                val nameFood = document.getString("nameFood")
+//                val priceFood = document.getString("priceFood")
+//                val stockFood = document.getString("stockFood")
+//                val food = Food(
+//                    idFood!!.toInt(),
+//                    imageFood!!,
+//                    nameFood!!,
+//                    priceFood!!.toLong(),
+//                    stockFood!!.toInt()
+//                )
+//                foodie.add(food)
+//            }
+//            _listFood.postValue(foodie)
+//        }
+//    }
 
     fun fetchData(): LiveData<MutableList<Food>> {
         val mutableData = MutableLiveData<MutableList<Food>>()
         repo.getFoodData().observeForever {
             mutableData.value = it
+            _listFood.postValue(it)
         }
         return mutableData
     }

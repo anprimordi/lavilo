@@ -14,14 +14,13 @@ import com.makaryostudio.lavilo.data.model.Food
 import kotlinx.android.synthetic.main.item_food.view.*
 
 class MenuAdapter(
-    private val context: Context,
-    private val clickListener: ItemClickListener
+    private val context: Context
 ) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     private var mListData: List<Food> = emptyList()
 
     //    TODO hash data to parse food
-    private lateinit var mHashMapFoodQty: HashMap<Food, Int>
+//    private var mHashMapFoodQty: HashMap<Food, Int>? = null
 
     internal fun setListData(mListData: List<Food>) {
         this.mListData = mListData
@@ -43,7 +42,7 @@ class MenuAdapter(
         val quantity = 0
         //TODO decreases stock when quantity increases?
 
-        mHashMapFoodQty.put(food, quantity)
+//        this.mHashMapFoodQty!![food] = quantity
 
         holder.bindView(food)
         holder.increaseQuantity.setOnClickListener {
@@ -56,7 +55,7 @@ class MenuAdapter(
 
         holder.decreaseQuantity.setOnClickListener {
 
-            if (quantity <= 0) {
+            if (quantity < 0) {
                 holder.quantity.text = 0.toString()
             } else {
                 quantity - 1
@@ -66,9 +65,9 @@ class MenuAdapter(
         }
 
 //        TODO set on click listener to use alert dialog
-        holder.layoutItem.setOnClickListener {
-            clickListener.onItemClick(mHashMapFoodQty)
-        }
+//        holder.layoutItem.setOnClickListener {
+//            clickListener.onItemClick(food, mHashMapFoodQty!!, food.imageFood, food.nameFood, food.nameFood)
+//        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

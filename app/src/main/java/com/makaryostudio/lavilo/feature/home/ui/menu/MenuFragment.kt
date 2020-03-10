@@ -23,33 +23,98 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val orderFood = arrayListOf<HashMap<Food, Int>>()
+
         val quantity = listOf<Int>()
 
-        val clickListener: ItemClickListener = object : ItemClickListener {
-            override fun onItemClick(foodQtyHashMap: HashMap<Food, Int>) {
-
-//                TODO show alert dialog to increase and decrease
-            }
-        }
-
-        adapter = MenuAdapter(requireContext(), clickListener)
-
-        recyclerview_home_menu.layoutManager = LinearLayoutManager(requireContext())
-        recyclerview_home_menu.adapter = adapter
+//        val clickListener: ItemClickListener = object : ItemClickListener {
+//            override fun onItemClick(
+//                food: Food,
+//                foodQtyHashMap: HashMap<Food, Int>,
+//                imgFood: String,
+//                nameFood: String,
+//                priceFood: String
+//            ) {
+//
+//                var foodQty = 0
+//                var totalPrice = 0
+//
+//                val dialog = MaterialAlertDialogBuilder(requireContext())
+//                val dialogView = layoutInflater.inflate(R.layout.item_quantity, null)
+//
+//                val textQty: TextView = dialogView.findViewById(R.id.text_item_food_quantity)
+//                val btnDecrease: ImageButton =
+//                    dialogView.findViewById(R.id.image_item_food_decrease)
+//                val btnIncrease: ImageButton =
+//                    dialogView.findViewById(R.id.image_item_food_increase)
+//
+//                val textTotalPrice: TextView =
+//                    dialogView.findViewById(R.id.text_item_qty_total_price)
+//                val imageFood: ImageView = dialogView.findViewById(R.id.image_item_food)
+//                val textNameFood: TextView = dialogView.findViewById(R.id.text_food_name)
+//
+//                imageFood.setImageResource(imgFood.toInt())
+//                textNameFood.text = nameFood
+//
+//                textQty.text = "$foodQty"
+//                textTotalPrice.text = "$totalPrice"
+//
+//                totalPrice *= foodQty
+//
+//                dialog.setView(dialogView)
+//                dialog.setCancelable(false)
+//                dialog.setPositiveButton("Ok") { dialogInterface: DialogInterface, i: Int -> }
+//
+//                btnDecrease.setOnClickListener {
+//                    if (foodQty < 0) foodQty = 0
+//                    foodQty -= 1
+////                    totalPrice *= foodQty
+////                    return@setOnClickListener
+//                }
+//
+//                btnIncrease.setOnClickListener {
+//                    foodQty += 1
+////                    totalPrice *= foodQty
+////                    textQty.text = "$foodQty"
+////                    textTotalPrice.text = "$totalPrice"
+////                    return@setOnClickListener
+//                }
+//
+//                val customDialog = dialog.create()
+//                customDialog.show()
+//                customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+//
+//                    foodQtyHashMap[food] = foodQty
+//
+//                    orderFood.add(foodQtyHashMap)
+//
+//                    System.out.println(foodQty)
+//                    System.out.println(nameFood)
+//                }
+////                TODO show alert dialog to increase and decrease
+//            }
+//        }
 
         menuViewModel =
             ViewModelProvider(this).get(MenuViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home_menu, container, false)
 //        val textView: TextView = root.findViewById(R.id.text_home)
-        menuViewModel.getData()
+//        menuViewModel.getData()
         menuViewModel.listFood.observe(viewLifecycleOwner, Observer {
             it
         })
 
-        menuViewModel.fetchData()
+
+        adapter = MenuAdapter(requireContext())
+
+//        menuViewModel.fetchData()
         menuViewModel.fetchData().observe(viewLifecycleOwner, Observer {
             adapter.setListData(it)
+            recyclerview_home_menu.adapter = adapter
+            recyclerview_home_menu.layoutManager = LinearLayoutManager(requireContext())
         })
+
+
 
         return root
     }

@@ -68,7 +68,16 @@
                 android:background="@android:color/white"
                 android:contentDescription="@string/item_food_increase_img"
                 android:src="@drawable/ic_item_food_increase_orange_24dp" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_item_qty_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="10000" />
 </LinearLayout>

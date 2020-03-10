@@ -24,6 +24,7 @@ class AdminViewModel : ViewModel() {
     val email: LiveData<String> = _email
     val password: LiveData<String> = _password
 
+
     fun doLogin() {
         _email.value
         _password.value

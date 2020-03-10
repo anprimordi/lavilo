@@ -12,17 +12,10 @@
         tools:layout="@layout/fragment_home_menu">
         <action
             android:id="@+id/action_navigation_home_to_navigation_orderlist"
-            app:destination="@id/navigation_orderlist"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/navigation_orderlist" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_notifications"
             app:destination="@id/navigation_admin" />
-        <action
-            android:id="@+id/action_navigation_menu_to_detailMenuFragment"
-            app:destination="@id/detailMenuFragment" />
     </fragment>
 
     <fragment
@@ -31,14 +24,11 @@
         android:label="@string/home_order_list_title"
         tools:layout="@layout/fragment_home_order_list">
         <action
-            android:id="@+id/action_navigation_orderlist_to_navigation_notifications"
+            android:id="@+id/action_navigation_orderlist_to_navigation_admin"
             app:destination="@id/navigation_admin" />
         <action
-            android:id="@+id/action_navigation_orderlist_to_navigation_home"
+            android:id="@+id/action_navigation_orderlist_to_navigation_menu"
             app:destination="@id/navigation_menu" />
-        <action
-            android:id="@+id/action_navigation_orderlist_to_detailOrderListFragment"
-            app:destination="@id/detailOrderListFragment" />
     </fragment>
 
     <fragment
@@ -47,21 +37,10 @@
         android:label="@string/home_admin_title"
         tools:layout="@layout/fragment_home_admin">
         <action
-            android:id="@+id/action_navigation_notifications_to_navigation_orderlist"
+            android:id="@+id/action_navigation_admin_to_navigation_orderlist"
             app:destination="@id/navigation_orderlist" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailOrderListFragment"
-        android:name="com.makaryostudio.lavilo.feature.home.ui.orderlist.detail.DetailOrderListFragment"
-        android:label="detail_order_list_fragment"
-        tools:layout="@layout/fragment_home_order_list_detail" />
-    <fragment
-        android:id="@+id/detailMenuFragment"
-        android:name="com.makaryostudio.lavilo.feature.home.ui.menu.detail.DetailMenuFragment"
-        android:label="detail_menu_fragment"
-        tools:layout="@layout/fragment_home_menu_detail">
         <action
-            android:id="@+id/action_detailMenuFragment_to_navigation_menu"
+            android:id="@+id/action_navigation_admin_to_navigation_menu"
             app:destination="@id/navigation_menu" />
     </fragment>
 </navigation>

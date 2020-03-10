@@ -24,6 +24,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.navigation_menu, R.id.navigation_orderlist, R.id.navigation_admin
             )
         )
+
+//        TODO please fix the nav controller cant get back to menu!
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

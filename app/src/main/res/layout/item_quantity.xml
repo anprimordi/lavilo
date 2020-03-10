@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_item_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:src="@drawable/ic_item_food_placeholder_orange_128dp" />
+
+    <TextView
+        android:id="@+id/text_food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        tools:text="ayam goreng" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_item_food_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:elevation="2dp"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintBottom_toTopOf="@id/div_bottom"
+        app:layout_constraintEnd_toEndOf="@id/image_item_food_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/image_item_food_thumbnail">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/image_item_food_decrease"
+                android:layout_width="@dimen/imgbtn_item_food_amount"
+                android:layout_height="@dimen/imgbtn_item_food_amount"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                android:contentDescription="@string/item_food_decrease_img"
+                android:src="@drawable/ic_item_food_decrease_orange_24dp" />
+
+            <TextView
+                android:id="@+id/text_item_food_quantity"
+                android:layout_width="@dimen/tv_item_food_amount"
+                android:layout_height="@dimen/tv_item_food_amount"
+                android:gravity="center"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/black"
+                tools:text="0" />
+
+            <ImageButton
+                android:id="@+id/image_item_food_increase"
+                android:layout_width="@dimen/imgbtn_item_food_amount"
+                android:layout_height="@dimen/imgbtn_item_food_amount"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                android:contentDescription="@string/item_food_increase_img"
+                android:src="@drawable/ic_item_food_increase_orange_24dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

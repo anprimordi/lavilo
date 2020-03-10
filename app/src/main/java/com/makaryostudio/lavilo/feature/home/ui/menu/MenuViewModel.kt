@@ -4,15 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.makaryostudio.lavilo.data.Repo
 import com.makaryostudio.lavilo.data.model.Food
 
 class MenuViewModel : ViewModel() {
 
-    var database: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var database: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     private val _listFood = MutableLiveData<List<Food>>()
 
     val listFood: LiveData<List<Food>> = _listFood
+
+    val repo = Repo()
 
 //    private val _text = MutableLiveData<String>().apply {
 //        value = "This is home Fragment"
@@ -46,5 +49,13 @@ class MenuViewModel : ViewModel() {
             }
             _listFood.postValue(foodie)
         }
+    }
+
+    fun fetchData(): LiveData<MutableList<Food>> {
+        val mutableData = MutableLiveData<MutableList<Food>>()
+        repo.getFoodData().observeForever {
+            mutableData.value = it
+        }
+        return mutableData
     }
 }

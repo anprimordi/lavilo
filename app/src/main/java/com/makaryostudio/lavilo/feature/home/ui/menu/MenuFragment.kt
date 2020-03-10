@@ -39,9 +39,13 @@ class MenuFragment : Fragment() {
         menuViewModel.listFood.observe(viewLifecycleOwner, Observer {
             it
         })
-//        menuViewModel.text.observe(this, Observer {
-//            textView.text = it
-//        })
+
+        menuViewModel.fetchData()
+        menuViewModel.fetchData().observe(viewLifecycleOwner, Observer {
+            adapter.setListData(it)
+        })
+
         return root
     }
+
 }

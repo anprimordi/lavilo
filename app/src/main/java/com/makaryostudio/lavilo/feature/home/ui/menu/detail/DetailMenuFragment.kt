@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.makaryostudio.lavilo.R
 
 class DetailMenuFragment : Fragment() {
@@ -25,7 +25,7 @@ class DetailMenuFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DetailMenuViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DetailMenuViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

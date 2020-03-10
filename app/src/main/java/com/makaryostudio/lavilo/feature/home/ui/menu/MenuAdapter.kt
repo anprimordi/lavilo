@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
@@ -19,6 +20,10 @@ class MenuAdapter(
 ) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     private var mListData: List<Food> = emptyList()
+    lateinit var clickListener: ItemClickListener
+
+    //    TODO hash data to parse food
+    private lateinit var mHashMapFoodQty: HashMap<Food, Int>
 
     internal fun setListData(mListData: List<Food>) {
         this.mListData = mListData
@@ -40,6 +45,8 @@ class MenuAdapter(
         val quantity = 0
         //TODO decreases stock when quantity increases?
 
+        mHashMapFoodQty.put(food, quantity)
+
         holder.bindView(food)
         holder.increaseQuantity.setOnClickListener {
 
@@ -59,11 +66,16 @@ class MenuAdapter(
             }
             onBtnDecreaseClick(food)
         }
+
+//        TODO set on click listener to use alert dialog
+        holder.layoutItem.setOnClickListener {
+            clickListener.onItemClick(mHashMapFoodQty)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        //        var layoutItem: ConstraintLayout = itemView.findViewById(R.id.layout_food_item)
+        var layoutItem: ConstraintLayout = itemView.findViewById(R.id.layout_food_item)
         var increaseQuantity: ImageButton = itemView.findViewById(R.id.image_item_food_increase)
         var decreaseQuantity: ImageButton = itemView.findViewById(R.id.image_item_food_decrease)
         var quantity: TextView = itemView.findViewById(R.id.text_item_food_quantity)

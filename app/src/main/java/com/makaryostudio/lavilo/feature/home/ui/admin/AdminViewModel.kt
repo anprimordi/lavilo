@@ -34,10 +34,13 @@ class AdminViewModel : ViewModel() {
                     Log.d(TAG, "sign in with email success")
                     val user = mAuth.currentUser
 
+//                    Toast.makeText(, "Success",Toast.LENGTH_SHORT).show()
+                    System.out.println("login successful")
 //                    TODO change successful sign in
                 } else {
                     Log.d(TAG, "sign in failed")
 
+                    System.out.println("login failed")
 //                    TODO change failed sign in
                 }
             }

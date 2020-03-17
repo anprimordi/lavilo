@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/image_item_food"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
         android:layout_gravity="center"
         tools:src="@drawable/ic_item_food_placeholder_orange_128dp" />
 
     <TextView
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:id="@+id/text_food_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +25,7 @@
         tools:text="ayam goreng" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_item_food_amount"
+        android:id="@+id/card_item_dish_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -32,8 +34,8 @@
         android:elevation="2dp"
         app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toTopOf="@id/div_bottom"
-        app:layout_constraintEnd_toEndOf="@id/image_item_food_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/image_item_food_thumbnail">
+        app:layout_constraintEnd_toEndOf="@id/image_item_dish_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,7 +43,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/image_item_food_decrease"
+                android:id="@+id/image_item_dish_decrease"
                 android:layout_width="@dimen/imgbtn_item_food_amount"
                 android:layout_height="@dimen/imgbtn_item_food_amount"
                 android:layout_gravity="center"
@@ -50,7 +52,7 @@
                 android:src="@drawable/ic_item_food_decrease_orange_24dp" />
 
             <TextView
-                android:id="@+id/text_item_food_quantity"
+                android:id="@+id/text_item_dish_quantity"
                 android:layout_width="@dimen/tv_item_food_amount"
                 android:layout_height="@dimen/tv_item_food_amount"
                 android:gravity="center"
@@ -61,7 +63,7 @@
                 tools:text="0" />
 
             <ImageButton
-                android:id="@+id/image_item_food_increase"
+                android:id="@+id/image_item_dish_increase"
                 android:layout_width="@dimen/imgbtn_item_food_amount"
                 android:layout_height="@dimen/imgbtn_item_food_amount"
                 android:layout_gravity="center"
@@ -79,5 +81,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         android:textStyle="bold"
+        android:layout_marginBottom="24dp"
         tools:text="10000" />
+
+    <Button
+        android:id="@+id/button_item_qty_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="pesan" />
 </LinearLayout>

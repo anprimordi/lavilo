@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/image_item_food_thumbnail"
+        android:id="@+id/image_item_dish_thumbnail"
         android:layout_width="0dp"
         android:layout_height="256dp"
         android:layout_margin="16dp"
@@ -18,7 +18,7 @@
         tools:src="@drawable/ic_item_food_placeholder_orange_128dp" />
 
     <TextView
-        android:id="@+id/title_item_food_name"
+        android:id="@+id/text_item_dish_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,50 +27,50 @@
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@id/text_item_food_price"
-        app:layout_constraintEnd_toStartOf="@id/card_item_food_amount"
+        app:layout_constraintBottom_toTopOf="@id/text_item_dish_price"
+        app:layout_constraintEnd_toStartOf="@id/card_item_dish_amount"
         app:layout_constraintStart_toStartOf="@id/div_bottom"
-        app:layout_constraintTop_toBottomOf="@id/image_item_food_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView
-        android:id="@+id/text_item_food_price"
+        android:id="@+id/text_item_dish_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/title_item_food_stock"
-        app:layout_constraintStart_toStartOf="@id/image_item_food_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/title_item_food_name"
+        app:layout_constraintBottom_toTopOf="@id/title_item_dish_stock"
+        app:layout_constraintStart_toStartOf="@id/image_item_dish_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/text_item_dish_name"
         tools:text="200000" />
 
     <TextView
-        android:id="@+id/title_item_food_stock"
+        android:id="@+id/title_item_dish_stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/item_food_stock_title"
         app:layout_constraintBottom_toTopOf="@id/div_bottom"
-        app:layout_constraintStart_toStartOf="@id/image_item_food_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/text_item_food_price" />
+        app:layout_constraintStart_toStartOf="@id/image_item_dish_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/text_item_dish_price" />
 
     <TextView
-        android:id="@+id/text_item_food_stock"
+        android:id="@+id/text_item_dish_stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/title_item_food_stock"
-        app:layout_constraintTop_toBottomOf="@id/text_item_food_price"
+        app:layout_constraintStart_toEndOf="@id/title_item_dish_stock"
+        app:layout_constraintTop_toBottomOf="@id/text_item_dish_price"
         tools:text="100" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_item_food_amount"
+        android:id="@+id/card_item_dish_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="2dp"
         app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toTopOf="@id/div_bottom"
-        app:layout_constraintEnd_toEndOf="@id/image_item_food_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/image_item_food_thumbnail">
+        app:layout_constraintEnd_toEndOf="@id/image_item_dish_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/image_item_food_decrease"
+                android:id="@+id/image_item_dish_decrease"
                 android:layout_width="@dimen/imgbtn_item_food_amount"
                 android:layout_height="@dimen/imgbtn_item_food_amount"
                 android:layout_gravity="center"
@@ -87,7 +87,7 @@
                 android:src="@drawable/ic_item_food_decrease_orange_24dp" />
 
             <TextView
-                android:id="@+id/text_item_food_quantity"
+                android:id="@+id/text_item_dish_quantity"
                 android:layout_width="@dimen/tv_item_food_amount"
                 android:layout_height="@dimen/tv_item_food_amount"
                 android:gravity="center"
@@ -98,7 +98,7 @@
                 tools:text="0" />
 
             <ImageButton
-                android:id="@+id/image_item_food_increase"
+                android:id="@+id/image_item_dish_increase"
                 android:layout_width="@dimen/imgbtn_item_food_amount"
                 android:layout_height="@dimen/imgbtn_item_food_amount"
                 android:layout_gravity="center"
@@ -119,5 +119,5 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_item_food_stock" />
+        app:layout_constraintTop_toBottomOf="@id/title_item_dish_stock" />
 </androidx.constraintlayout.widget.ConstraintLayout>

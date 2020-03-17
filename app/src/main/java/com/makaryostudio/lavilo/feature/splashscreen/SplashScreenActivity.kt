@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.feature.home.HomeActivity
+import com.makaryostudio.lavilo.feature.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -16,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity() {
             override fun run() {
                 try {
                     sleep(500)
-                    startActivity(Intent(baseContext, HomeActivity::class.java))
+                    startActivity(Intent(baseContext, MainActivity::class.java))
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

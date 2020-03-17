@@ -1,5 +1,6 @@
 package com.makaryostudio.lavilo.feature.home.ui.menu
 
+import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Food
-import kotlinx.android.synthetic.main.item_food.view.*
+import kotlinx.android.synthetic.main.item_dish.view.*
 
 class MenuAdapter(
-    private val context: Context
+    private val context: Context,
+    private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     private var mListData: List<Food> = emptyList()
 
+    private lateinit var dialog: Dialog
     //    TODO hash data to parse food
-//    private var mHashMapFoodQty: HashMap<Food, Int>? = null
+    private lateinit var mHashMapFoodQty: HashMap<Food, Int>
 
     internal fun setListData(mListData: List<Food>) {
         this.mListData = mListData
@@ -29,7 +32,7 @@ class MenuAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_food, parent, false)
+            .inflate(R.layout.item_dish, parent, false)
         return ViewHolder(view)
     }
 
@@ -39,50 +42,26 @@ class MenuAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val food = mListData[position]
-        val quantity = 0
         //TODO decreases stock when quantity increases?
 
-//        this.mHashMapFoodQty!![food] = quantity
 
         holder.bindView(food)
-        holder.increaseQuantity.setOnClickListener {
 
-            quantity + 1
-            holder.quantity.text = quantity.toString()
-//            holder.stock.text =
-//            onBtnIncreaseClick(food)
-        }
-
-        holder.decreaseQuantity.setOnClickListener {
-
-            if (quantity < 0) {
-                holder.quantity.text = 0.toString()
-            } else {
-                quantity - 1
-                holder.quantity.text = quantity.toString()
-            }
-//            onBtnDecreaseClick(food)
-        }
-
-//        TODO set on click listener to use alert dialog
-//        holder.layoutItem.setOnClickListener {
-//            clickListener.onItemClick(food, mHashMapFoodQty!!, food.imageFood, food.nameFood, food.nameFood)
-//        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var layoutItem: ConstraintLayout = itemView.findViewById(R.id.layout_food_item)
-        var increaseQuantity: ImageButton = itemView.findViewById(R.id.image_item_food_increase)
-        var decreaseQuantity: ImageButton = itemView.findViewById(R.id.image_item_food_decrease)
-        var quantity: TextView = itemView.findViewById(R.id.text_item_food_quantity)
-        var stock: TextView = itemView.findViewById(R.id.text_item_food_stock)
+        var increaseQuantity: ImageButton = itemView.findViewById(R.id.image_item_dish_increase)
+        var decreaseQuantity: ImageButton = itemView.findViewById(R.id.image_item_dish_decrease)
+        var quantity: TextView = itemView.findViewById(R.id.text_item_dish_quantity)
+        var stock: TextView = itemView.findViewById(R.id.text_item_dish_stock)
 
         fun bindView(food: Food) {
-            Glide.with(context).load(food.imageFood).into(itemView.image_item_food_thumbnail)
-            itemView.title_item_food_name.text = food.nameFood
-            itemView.text_item_food_price.text = food.priceFood.toString()
-            itemView.text_item_food_stock.text = food.stockFood.toString()
+            Glide.with(context).load(food.imageUrlFood).into(itemView.image_item_dish_thumbnail)
+            itemView.text_item_dish_name.text = food.nameFood
+            itemView.text_item_dish_price.text = food.priceFood.toString()
+            itemView.text_item_dish_stock.text = food.stockFood.toString()
 //            itemView.text_item_food_quantity.text = food.quantityFood.toString()
         }
     }

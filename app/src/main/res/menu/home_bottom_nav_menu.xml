@@ -2,18 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_dish"
-        android:icon="@drawable/ic_restaurant_black_24dp"
-        android:title="Hidangan" />
+        android:id="@+id/navigation_fnb"
+        android:icon="@drawable/ic_home_menu_black_24dp"
+        android:title="@string/home_menu_title" />
 
     <item
-        android:id="@+id/navigation_order"
+        android:id="@+id/navigation_orderlist"
         android:icon="@drawable/ic_home_order_list_black_24dp"
-        android:title="Pesanan" />
+        android:title="@string/home_order_list_title" />
 
     <item
         android:id="@+id/navigation_admin"
         android:icon="@drawable/ic_home_admin_black_24dp"
-        android:title="Admin" />
-
+        android:title="@string/home_admin_title" />
 </menu>

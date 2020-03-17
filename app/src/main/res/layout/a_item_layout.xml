@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_item_tutorial_boi"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_item_bo"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_margin="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_item_food_placeholder_orange_128dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_item_name_boi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_item_bo"
+        app:layout_constraintTop_toTopOf="@id/image_item_bo"
+        tools:text="@tools:sample/lorem/random" />
+
+    <TextView
+        android:id="@+id/text_item_price_boi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_item_name_boi"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="100000" />
+
+    <TextView
+        android:id="@+id/title_item_hidangan_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="stok: "
+        app:layout_constraintStart_toStartOf="@id/text_item_name_boi"
+        app:layout_constraintTop_toBottomOf="@id/text_item_price_boi" />
+
+    <TextView
+        android:id="@+id/text_item_quantity_boi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100"
+        app:layout_constraintStart_toEndOf="@id/title_item_hidangan_stock"
+        app:layout_constraintTop_toTopOf="@id/title_item_hidangan_stock" />
+
+    <TextView
+        android:id="@+id/title_item_threshold_boi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kadaluarsa: "
+        app:layout_constraintStart_toStartOf="@id/title_item_hidangan_stock"
+        app:layout_constraintTop_toBottomOf="@id/title_item_hidangan_stock" />
+
+    <TextView
+        android:id="@+id/text_item_threshold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="27/02/2019"
+        app:layout_constraintStart_toEndOf="@id/title_item_threshold_boi"
+        app:layout_constraintTop_toTopOf="@id/title_item_threshold_boi" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_item_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_item_cart_delete_red_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/title_item_threshold_boi"
+        app:layout_constraintEnd_toEndOf="@id/text_item_name_boi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

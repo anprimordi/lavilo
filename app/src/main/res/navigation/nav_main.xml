@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_dish">
+
+    <fragment
+        android:id="@+id/navigation_dish"
+        android:name="com.makaryostudio.lavilo.feature.main.ui.dish.DishFragment"
+        android:label="Hidangan"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_order"
+        android:name="com.makaryostudio.lavilo.feature.main.ui.order.OrderFragment"
+        android:label="Pesanan"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_admin"
+        android:name="com.makaryostudio.lavilo.feature.main.ui.notifications.NotificationsFragment"
+        android:label="Admin"
+        tools:layout="@layout/fragment_notifications" />
+</navigation>

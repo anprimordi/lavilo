@@ -37,6 +37,7 @@ class MenuFragment : Fragment() {
 //            ) {
 //
 //                var foodQty = 0
+//                val itemPrice = 0
 //                var totalPrice = 0
 //
 //                val dialog = MaterialAlertDialogBuilder(requireContext())
@@ -59,7 +60,7 @@ class MenuFragment : Fragment() {
 //                textQty.text = "$foodQty"
 //                textTotalPrice.text = "$totalPrice"
 //
-//                totalPrice *= foodQty
+//                totalPrice = itemPrice * foodQty
 //
 //                dialog.setView(dialogView)
 //                dialog.setCancelable(false)
@@ -95,17 +96,28 @@ class MenuFragment : Fragment() {
 //            }
 //        }
 
+        val itemClickListener: ItemClickListener = object : ItemClickListener {
+            override fun onItemClick(
+                food: Food
+            ) {
+
+            }
+
+            override fun onAmountClick(quantity: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+
         menuViewModel =
             ViewModelProvider(this).get(MenuViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home_menu, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_home)
-//        menuViewModel.getData()
+
         menuViewModel.listFood.observe(viewLifecycleOwner, Observer {
             it
         })
 
 
-        adapter = MenuAdapter(requireContext())
+        adapter = MenuAdapter(requireContext(), itemClickListener)
 
 //        menuViewModel.fetchData()
         menuViewModel.fetchData().observe(viewLifecycleOwner, Observer {
@@ -117,6 +129,7 @@ class MenuFragment : Fragment() {
 
 
         return root
+//        return inflater.inflate(R.layout.fragment_home_menu, container, false)
     }
 
 }

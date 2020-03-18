@@ -48,8 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         holder.name.setText(model.getName());
         holder.price.setText(model.getPrice());
-        holder.quantity.setText(model.getQuantity());
-        holder.threshold.setText(model.getThreshold());
+        holder.stock.setText(model.getQuantity());
 
         holder.layout.setOnClickListener(v -> {
 
@@ -69,8 +68,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         ImageView image;
         TextView name;
         TextView price;
-        TextView quantity;
-        TextView threshold;
+        TextView stock;
         ImageView delete;
 
         public ViewHolder(@NonNull View itemView) {
@@ -80,8 +78,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             name = itemView.findViewById(R.id.text_item_name_boi);
             image = itemView.findViewById(R.id.image_item_bo);
             price = itemView.findViewById(R.id.text_item_price_boi);
-            quantity = itemView.findViewById(R.id.text_item_quantity_boi);
-            threshold = itemView.findViewById(R.id.text_item_threshold);
+            stock = itemView.findViewById(R.id.text_item_quantity_boi);
             delete = itemView.findViewById(R.id.image_item_delete);
         }
     }

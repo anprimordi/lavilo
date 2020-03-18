@@ -4,10 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Drink(
-    val imageUrlDrink: String?,
-    val nameDrink: String?,
-    val priceDrink: String?,
-    val stockDrink: String?
+    val imageUrl: String?,
+    val name: String?,
+    val price: String?,
+    val stock: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -18,10 +18,10 @@ data class Drink(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(imageUrlDrink)
-        parcel.writeString(nameDrink)
-        parcel.writeString(priceDrink)
-        parcel.writeString(stockDrink)
+        parcel.writeString(imageUrl)
+        parcel.writeString(name)
+        parcel.writeString(price)
+        parcel.writeString(stock)
     }
 
     override fun describeContents(): Int {

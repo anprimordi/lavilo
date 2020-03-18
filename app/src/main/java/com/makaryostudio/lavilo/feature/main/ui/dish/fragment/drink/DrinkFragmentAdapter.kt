@@ -34,10 +34,10 @@ class DrinkFragmentAdapter(
     override fun onBindViewHolder(holder: DrinkFragmentAdapter.ViewHolder, position: Int) {
         val drink = listDrink[position]
 
-        Glide.with(context).load(drink.imageUrlDrink).into(holder.image)
-        holder.name.text = drink.nameDrink
-        holder.price.text = drink.priceDrink
-        holder.stock.text = drink.stockDrink
+        Glide.with(context).load(drink.imageUrl).into(holder.image)
+        holder.name.text = drink.name
+        holder.price.text = drink.price
+        holder.stock.text = drink.stock
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

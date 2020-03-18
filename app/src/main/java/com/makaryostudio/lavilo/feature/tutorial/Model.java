@@ -21,7 +21,6 @@ public class Model implements Parcelable {
     String name;
     String price;
     String quantity;
-    String threshold;
     String key;
 
     protected Model(Parcel in) {
@@ -29,18 +28,16 @@ public class Model implements Parcelable {
         name = in.readString();
         price = in.readString();
         quantity = in.readString();
-        threshold = in.readString();
     }
 
     public Model() {
     }
 
-    public Model(String image, String name, String price, String quantity, String threshold) {
+    public Model(String image, String name, String price, String quantity) {
         this.image = image;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.threshold = threshold;
     }
 
     @Override
@@ -49,7 +46,6 @@ public class Model implements Parcelable {
         dest.writeString(name);
         dest.writeString(price);
         dest.writeString(quantity);
-        dest.writeString(threshold);
     }
 
     @Override
@@ -87,14 +83,6 @@ public class Model implements Parcelable {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
-    }
-
-    public String getThreshold() {
-        return threshold;
-    }
-
-    public void setThreshold(String threshold) {
-        this.threshold = threshold;
     }
 
     @Exclude

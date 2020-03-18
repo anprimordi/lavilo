@@ -18,6 +18,8 @@ class DrinkFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_drink, container, false)
+
+//        TODO create drink adapter
     }
 
 }

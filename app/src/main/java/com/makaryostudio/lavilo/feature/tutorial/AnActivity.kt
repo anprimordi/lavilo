@@ -22,31 +22,31 @@ class AnActivity : AppCompatActivity(), TutorialItemClickListener {
     var mDbListener: ValueEventListener? = null
     var mStorage: FirebaseStorage? = null
     lateinit var progressBar: ProgressBar
-    lateinit var fabAn: FloatingActionButton
-    var tutorialItemClickListener: TutorialItemClickListener? = null
+    private lateinit var fabAn: FloatingActionButton
+    private lateinit var tutorialItemClickListener: TutorialItemClickListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_an)
         modelList = ArrayList()
         progressBar = findViewById(R.id.progress_an)
         fabAn = findViewById(R.id.fab_an)
-        progressBar.setVisibility(View.VISIBLE)
+        progressBar.visibility = View.VISIBLE
         recyclerView = findViewById(R.id.rv_an)
         recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(LinearLayoutManager(this))
+        recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = Adapter(
             this@AnActivity,
             modelList,
             tutorialItemClickListener
         )
-        recyclerView.setAdapter(adapter)
+        recyclerView.adapter = adapter
         mStorage = FirebaseStorage.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().getReference("uploads")
-        fabAn.setOnClickListener(View.OnClickListener { v: View? ->
+        databaseReference = FirebaseDatabase.getInstance().getReference("food")
+        fabAn.setOnClickListener {
             startActivity(
                 Intent(this, TutorialActivity::class.java)
             )
-        })
+        }
         databaseReference!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 modelList.clear()
@@ -63,14 +63,14 @@ class AnActivity : AppCompatActivity(), TutorialItemClickListener {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                progressBar.setVisibility(View.GONE)
+                progressBar.visibility = View.GONE
                 Toast.makeText(this@AnActivity, databaseError.toString(), Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     override fun onDeleteListener(position: Int) {
-        val selectedItem = modelList!![position]
+        val selectedItem = modelList[position]
         val selectedKey = selectedItem.getKey()
         val mReference = mStorage!!.getReferenceFromUrl(selectedItem.getImage())
         mReference.delete().addOnSuccessListener {

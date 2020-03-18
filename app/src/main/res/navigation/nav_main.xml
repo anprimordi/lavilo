@@ -15,11 +15,11 @@
         android:id="@+id/navigation_order"
         android:name="com.makaryostudio.lavilo.feature.main.ui.order.OrderFragment"
         android:label="Pesanan"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_admin" />
 
     <fragment
         android:id="@+id/navigation_admin"
-        android:name="com.makaryostudio.lavilo.feature.main.ui.notifications.NotificationsFragment"
+        android:name="com.makaryostudio.lavilo.feature.main.ui.admin.AdminFragment"
         android:label="Admin"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

@@ -17,6 +17,7 @@ class Repo {
                 val nameFood = document.getString("nameFood")
                 val priceFood = document.getString("priceFood")
                 val stockFood = document.getString("stockFood")
+                val key = document.getString("imageFood")
                 val food = Food(
                     imageFood!!,
                     nameFood!!,

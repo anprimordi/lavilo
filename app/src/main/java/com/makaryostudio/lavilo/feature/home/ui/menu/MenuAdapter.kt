@@ -58,10 +58,10 @@ class MenuAdapter(
         var stock: TextView = itemView.findViewById(R.id.text_item_dish_stock)
 
         fun bindView(food: Food) {
-            Glide.with(context).load(food.imageUrlFood).into(itemView.image_item_dish_thumbnail)
-            itemView.text_item_dish_name.text = food.nameFood
-            itemView.text_item_dish_price.text = food.priceFood.toString()
-            itemView.text_item_dish_stock.text = food.stockFood.toString()
+            Glide.with(context).load(food.imageUrl).into(itemView.image_item_dish_thumbnail)
+            itemView.text_item_dish_name.text = food.name
+            itemView.text_item_dish_price.text = food.price.toString()
+            itemView.text_item_dish_stock.text = food.stock.toString()
 //            itemView.text_item_food_quantity.text = food.quantityFood.toString()
         }
     }

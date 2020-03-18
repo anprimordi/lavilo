@@ -34,10 +34,10 @@ class FoodFragmentAdapter(
     override fun onBindViewHolder(holder: FoodFragmentAdapter.ViewHolder, position: Int) {
         val food = listData[position]
 
-        Glide.with(context).load(food.imageUrlFood).into(holder.image)
-        holder.name.text = food.nameFood
-        holder.price.text = food.priceFood
-        holder.stock.text = food.stockFood
+        Glide.with(context).load(food.imageUrl).into(holder.image)
+        holder.name.text = food.name
+        holder.price.text = food.price
+        holder.stock.text = food.stock
 
         holder.decrease.setOnClickListener {
             if (quantity != 0) quantity--

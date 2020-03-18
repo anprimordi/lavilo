@@ -1,8 +1,6 @@
 package com.makaryostudio.lavilo.feature.tutorial
 
 import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,7 +17,9 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.makaryostudio.lavilo.R
-import java.util.*
+import com.makaryostudio.lavilo.data.model.Food
+import com.makaryostudio.lavilo.feature.main.MainActivity
+
 
 class TutorialActivity : AppCompatActivity() {
 
@@ -29,15 +29,17 @@ class TutorialActivity : AppCompatActivity() {
     private lateinit var increaseQty: ImageView
     private var nameUpload: EditText? = null
     private var priceUpload: EditText? = null
-    private lateinit var quantityUpload: EditText
-    private lateinit var thresholdUpload: EditText
+    private lateinit var stockUpload: EditText
+    private lateinit var rgType: RadioGroup
     private var pathFile: TextView? = null
+    private lateinit var textGotoMain: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var btnUpload: Button
     private var imageUri: Uri? = null
-    private var datePickerDialog: DatePickerDialog? = null
-    private var storageReference: StorageReference? = null
-    private var databaseReference: DatabaseReference? = null
+    private var storageReferenceFood: StorageReference? = null
+    private lateinit var storageReferenceDrink: StorageReference
+    private lateinit var databaseReferenceDrink: DatabaseReference
+    private var databaseReferenceFood: DatabaseReference? = null
     private var uploadTask: StorageTask<*>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,51 +50,74 @@ class TutorialActivity : AppCompatActivity() {
         increaseQty = findViewById(R.id.image_increase)
         nameUpload = findViewById(R.id.edit_name)
         priceUpload = findViewById(R.id.edit_price)
-        quantityUpload = findViewById(R.id.edit_quantity)
-        thresholdUpload = findViewById(R.id.edit_threshold)
+        stockUpload = findViewById(R.id.edit_quantity)
         pathFile = findViewById(R.id.text_upload_image)
         progressBar = findViewById(R.id.progressbar_tutorial)
         btnUpload = findViewById(R.id.button_upload)
-        storageReference = FirebaseStorage.getInstance().getReference("hidangan")
-        databaseReference = FirebaseDatabase.getInstance().getReference("hidangan")
+        rgType = findViewById(R.id.rg_type)
+
+        textGotoMain = findViewById(R.id.text_gotomain)
+
+        textGotoMain.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        storageReferenceFood = FirebaseStorage.getInstance().getReference("food")
+        storageReferenceDrink = FirebaseStorage.getInstance().getReference("drink")
+        databaseReferenceFood = FirebaseDatabase.getInstance().getReference("food")
+        databaseReferenceDrink = FirebaseDatabase.getInstance().getReference("drink")
         progressBar.visibility = View.GONE
         //        onclick listener event
-        imageUpload.setOnClickListener(View.OnClickListener { v: View? -> openFileChooser() })
-        decreaseQty.setOnClickListener(View.OnClickListener { v: View? ->
+        imageUpload.setOnClickListener {
+            openFileChooser()
+        }
+        decreaseQty.setOnClickListener {
             if (quantity <= 0) {
                 quantity = 0
             } else {
                 quantity -= 1
             }
-            quantityUpload.setText(quantity.toString())
-        })
+            stockUpload.setText(quantity.toString())
+        }
         increaseQty.setOnClickListener {
             quantity += 1
-            quantityUpload.setText(quantity.toString())
+            stockUpload.setText(quantity.toString())
         }
-        btnUpload.setOnClickListener {
-            if (uploadTask != null && uploadTask!!.isInProgress) {
-                Toast.makeText(this, "upload is in progress", Toast.LENGTH_SHORT).show()
-            } else {
-                uploadFile()
+
+        rgType.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radio_food -> {
+                    btnUpload.setOnClickListener {
+                        if (uploadTask != null && uploadTask!!.isInProgress)
+                            Toast.makeText(
+                                this,
+                                "upload is in progress",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        else
+                            uploadFileFood()
+                    }
+                }
+                R.id.radio_drink -> {
+                    btnUpload.setOnClickListener {
+                        if (uploadTask != null && uploadTask!!.isInProgress)
+                            Toast.makeText(
+                                this,
+                                "upload is in progress",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        else
+                            uploadFileDrink()
+                    }
+                }
+                -1 -> {
+                    Toast.makeText(this, "pilih jenis hidangan", Toast.LENGTH_SHORT).show()
+                }
             }
         }
-        thresholdUpload.setOnClickListener(View.OnClickListener { v: View? ->
-            val calendar = Calendar.getInstance()
-            val day = calendar[Calendar.DAY_OF_MONTH]
-            val month = calendar[Calendar.MONTH]
-            val year = calendar[Calendar.YEAR]
-            datePickerDialog = DatePickerDialog(
-                this,
-                OnDateSetListener { view: DatePicker?, year1: Int, month1: Int, dayOfMonth: Int ->
-                    thresholdUpload.setText(dayOfMonth.toString() + "/" + (month1 + 1) + "/" + year1)
-                },
-                year,
-                month,
-                day
-            )
-            datePickerDialog!!.show()
-        })
+
+
     }
 
     //    buka file manager
@@ -125,9 +150,9 @@ class TutorialActivity : AppCompatActivity() {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
     }
 
-    private fun uploadFile() {
+    private fun uploadFileFood() {
         if (imageUri != null) {
-            val fileReference = storageReference
+            val fileReference = storageReferenceFood
                 ?.child(
                     System.currentTimeMillis().toString() + "." + getFileExtension(
                         imageUri!!
@@ -147,22 +172,21 @@ class TutorialActivity : AppCompatActivity() {
                             result.addOnSuccessListener { uri: Uri ->
                                 val imageUrl = uri.toString()
                                 //createNewPost(imageUrl);
-                                val model =
-                                    Model(
+                                val food =
+                                    Food(
                                         imageUrl,
                                         nameUpload!!.text.toString(),
                                         priceUpload!!.text.toString(),
-                                        quantityUpload.text.toString(),
-                                        thresholdUpload.text.toString()
+                                        stockUpload.text.toString()
                                     )
-                                val uid = databaseReference!!.push().key
-                                databaseReference!!.child(uid!!).setValue(model)
+                                val uid = databaseReferenceFood!!.push().key
+                                databaseReferenceFood!!.child(uid!!).setValue(food)
                             }
                         }
                     }
                     //                        progressBar.setVisibility(View.GONE);
                     Toast.makeText(this, "upload successful", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, AnActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                 }
                 ?.addOnFailureListener { e: Exception ->
                     Toast.makeText(
@@ -172,6 +196,62 @@ class TutorialActivity : AppCompatActivity() {
                     ).show()
                 }
                 ?.addOnProgressListener { taskSnapshot: UploadTask.TaskSnapshot ->
+                    //                        progressBar.setVisibility(View.VISIBLE);
+                    val progress =
+                        100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                    progressBar.progress = progress.toInt()
+                }
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun uploadFileDrink() {
+        if (imageUri != null) {
+            val fileReference = storageReferenceDrink
+                .child(
+                    System.currentTimeMillis().toString() + "." + getFileExtension(
+                        imageUri!!
+                    )
+                )
+            uploadTask = fileReference.putFile(imageUri!!)
+                .addOnSuccessListener { taskSnapshot: UploadTask.TaskSnapshot ->
+                    val handler = Handler()
+                    handler.postDelayed(
+                        { progressBar.progress = 0 },
+                        5000
+                    )
+                    if (taskSnapshot.metadata != null) {
+                        if (taskSnapshot.metadata!!.reference != null) {
+                            val result =
+                                taskSnapshot.storage.downloadUrl
+                            result.addOnSuccessListener { uri: Uri ->
+                                val imageUrl = uri.toString()
+                                //createNewPost(imageUrl);
+                                val food =
+                                    Food(
+                                        imageUrl,
+                                        nameUpload!!.text.toString(),
+                                        priceUpload!!.text.toString(),
+                                        stockUpload.text.toString()
+                                    )
+                                val uid = databaseReferenceDrink.push().key
+                                databaseReferenceDrink.child(uid!!).setValue(food)
+                            }
+                        }
+                    }
+                    //                        progressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, "upload successful", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+                .addOnFailureListener { e: Exception ->
+                    Toast.makeText(
+                        this,
+                        e.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnProgressListener { taskSnapshot: UploadTask.TaskSnapshot ->
                     //                        progressBar.setVisibility(View.VISIBLE);
                     val progress =
                         100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount

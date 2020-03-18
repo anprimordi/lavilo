@@ -1,10 +1,10 @@
-package com.makaryostudio.lavilo.feature.main.ui.notifications
+package com.makaryostudio.lavilo.feature.main.ui.admin
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class AdminViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"

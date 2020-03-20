@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_home"
+        android:id="@+id/tab_dish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Widget.MaterialComponents.TabLayout.Colored"
@@ -15,10 +15,10 @@
         app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_home"
+        android:id="@+id/vp_dish"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_home" />
+        app:layout_constraintTop_toBottomOf="@id/tab_dish" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

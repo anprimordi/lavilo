@@ -8,18 +8,24 @@
     <fragment
         android:id="@+id/navigation_dish"
         android:name="com.makaryostudio.lavilo.feature.main.ui.dish.DishFragment"
-        android:label="Hidangan"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_order"
-        android:name="com.makaryostudio.lavilo.feature.main.ui.order.OrderFragment"
-        android:label="Pesanan"
-        tools:layout="@layout/fragment_admin" />
+        tools:layout="@layout/fragment_dish">
+        <action
+            android:id="@+id/action_navigation_dish_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_admin"
         android:name="com.makaryostudio.lavilo.feature.main.ui.admin.AdminFragment"
-        android:label="Admin"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_admin" />
+
+    <fragment
+        android:id="@+id/navigation_order"
+        android:name="com.makaryostudio.lavilo.feature.main.ui.order.OrderFragment"
+        tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
 </navigation>

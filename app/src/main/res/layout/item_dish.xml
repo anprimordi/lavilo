@@ -12,6 +12,7 @@
         android:layout_height="256dp"
         android:layout_margin="16dp"
         android:contentDescription="@string/item_food_thumbnail_img"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +29,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@id/text_item_dish_price"
-        app:layout_constraintEnd_toStartOf="@id/card_item_dish_amount"
+        app:layout_constraintEnd_toStartOf="@id/button_item_dish_add"
         app:layout_constraintStart_toStartOf="@id/div_bottom"
         app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail"
         tools:text="@tools:sample/lorem/random" />
@@ -62,52 +63,62 @@
         app:layout_constraintTop_toBottomOf="@id/text_item_dish_price"
         tools:text="100" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_item_dish_amount"
+    <Button
+        android:id="@+id/button_item_dish_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="2dp"
-        app:cardCornerRadius="4dp"
+        android:text="@string/item_dish_add_action"
         app:layout_constraintBottom_toTopOf="@id/div_bottom"
         app:layout_constraintEnd_toEndOf="@id/image_item_dish_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail">
+        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/card_item_dish_amount"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:elevation="2dp"-->
+    <!--        app:cardCornerRadius="4dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/div_bottom"-->
+    <!--        app:layout_constraintEnd_toEndOf="@id/image_item_dish_thumbnail"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail">-->
 
-            <ImageButton
-                android:id="@+id/image_item_dish_decrease"
-                android:layout_width="@dimen/imgbtn_item_food_amount"
-                android:layout_height="@dimen/imgbtn_item_food_amount"
-                android:layout_gravity="center"
-                android:background="@android:color/white"
-                android:contentDescription="@string/item_food_decrease_img"
-                android:src="@drawable/ic_item_food_decrease_orange_24dp" />
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/text_item_dish_quantity"
-                android:layout_width="@dimen/tv_item_food_amount"
-                android:layout_height="@dimen/tv_item_food_amount"
-                android:gravity="center"
-                android:maxLength="2"
-                android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/black"
-                tools:text="0" />
+    <!--            <ImageButton-->
+    <!--                android:id="@+id/image_item_dish_decrease"-->
+    <!--                android:layout_width="@dimen/imgbtn_item_food_amount"-->
+    <!--                android:layout_height="@dimen/imgbtn_item_food_amount"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:background="@android:color/white"-->
+    <!--                android:contentDescription="@string/item_food_decrease_img"-->
+    <!--                android:src="@drawable/ic_item_food_decrease_orange_24dp" />-->
 
-            <ImageButton
-                android:id="@+id/image_item_dish_increase"
-                android:layout_width="@dimen/imgbtn_item_food_amount"
-                android:layout_height="@dimen/imgbtn_item_food_amount"
-                android:layout_gravity="center"
-                android:background="@android:color/white"
-                android:contentDescription="@string/item_food_increase_img"
-                android:src="@drawable/ic_item_food_increase_orange_24dp" />
+    <!--            <TextView-->
+    <!--                android:id="@+id/text_item_dish_quantity"-->
+    <!--                android:layout_width="@dimen/tv_item_food_amount"-->
+    <!--                android:layout_height="@dimen/tv_item_food_amount"-->
+    <!--                android:gravity="center"-->
+    <!--                android:maxLength="2"-->
+    <!--                android:maxLines="1"-->
+    <!--                android:text="0"-->
+    <!--                android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+    <!--                android:textColor="@android:color/black"-->
+    <!--                tools:text="0" />-->
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    <!--            <ImageButton-->
+    <!--                android:id="@+id/image_item_dish_increase"-->
+    <!--                android:layout_width="@dimen/imgbtn_item_food_amount"-->
+    <!--                android:layout_height="@dimen/imgbtn_item_food_amount"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:background="@android:color/white"-->
+    <!--                android:contentDescription="@string/item_food_increase_img"-->
+    <!--                android:src="@drawable/ic_item_food_increase_orange_24dp" />-->
+
+    <!--        </LinearLayout>-->
+    <!--    </androidx.cardview.widget.CardView>-->
 
     <View
         android:id="@+id/div_bottom"

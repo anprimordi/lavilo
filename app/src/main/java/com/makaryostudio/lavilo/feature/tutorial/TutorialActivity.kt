@@ -45,6 +45,7 @@ class TutorialActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial)
+
         imageUpload = findViewById(R.id.image_detail_hidangan)
         decreaseQty = findViewById(R.id.image_decrease)
         increaseQty = findViewById(R.id.image_increase)

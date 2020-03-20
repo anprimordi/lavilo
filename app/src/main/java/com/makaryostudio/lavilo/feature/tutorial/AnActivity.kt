@@ -15,6 +15,7 @@ import com.makaryostudio.lavilo.R
 import java.util.*
 
 class AnActivity : AppCompatActivity(), TutorialItemClickListener {
+
     lateinit var recyclerView: RecyclerView
     var adapter: Adapter? = null
     lateinit var modelList: MutableList<Model>
@@ -24,6 +25,7 @@ class AnActivity : AppCompatActivity(), TutorialItemClickListener {
     lateinit var progressBar: ProgressBar
     private lateinit var fabAn: FloatingActionButton
     private lateinit var tutorialItemClickListener: TutorialItemClickListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_an)

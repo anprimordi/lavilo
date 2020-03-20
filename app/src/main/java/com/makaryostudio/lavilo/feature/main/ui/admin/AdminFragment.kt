@@ -58,10 +58,12 @@ class AdminFragment : Fragment() {
             var go = true
             if (edit_email.text.toString() == "") {
                 edit_email.error = "email gak boleh kosong ya"
+                edit_email.requestFocus()
                 go = false
             }
             if (edit_password.text.toString() == "") {
                 edit_password.error = "password gak boleh kosong ya"
+                edit_email.requestFocus()
                 go = false
             }
             if (go) {

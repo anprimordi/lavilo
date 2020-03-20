@@ -18,8 +18,8 @@ import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    List<Model> mListData;
-    TutorialItemClickListener tutorialItemClickListener;
+    private List<Model> mListData;
+    private TutorialItemClickListener tutorialItemClickListener;
     private Context mContext;
 
     public Adapter(Context mContext, List<Model> mListData, TutorialItemClickListener tutorialItemClickListener) {
@@ -62,7 +62,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return mListData.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         ConstraintLayout layout;
         ImageView image;
@@ -71,7 +71,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         TextView stock;
         ImageView delete;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             layout = itemView.findViewById(R.id.layout_item_tutorial);

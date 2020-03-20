@@ -17,6 +17,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.makaryostudio.lavilo.R
+import com.makaryostudio.lavilo.data.model.Drink
 import com.makaryostudio.lavilo.data.model.Food
 import com.makaryostudio.lavilo.feature.main.MainActivity
 
@@ -181,6 +182,7 @@ class TutorialActivity : AppCompatActivity() {
                                         stockUpload.text.toString()
                                     )
                                 val uid = databaseReferenceFood!!.push().key
+                                food.key = uid
                                 databaseReferenceFood!!.child(uid!!).setValue(food)
                             }
                         }
@@ -229,15 +231,16 @@ class TutorialActivity : AppCompatActivity() {
                             result.addOnSuccessListener { uri: Uri ->
                                 val imageUrl = uri.toString()
                                 //createNewPost(imageUrl);
-                                val food =
-                                    Food(
+                                val drink =
+                                    Drink(
                                         imageUrl,
                                         nameUpload!!.text.toString(),
                                         priceUpload!!.text.toString(),
                                         stockUpload.text.toString()
                                     )
                                 val uid = databaseReferenceDrink.push().key
-                                databaseReferenceDrink.child(uid!!).setValue(food)
+                                drink.key = uid
+                                databaseReferenceDrink.child(uid!!).setValue(drink)
                             }
                         }
                     }

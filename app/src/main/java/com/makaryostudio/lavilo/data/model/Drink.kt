@@ -9,6 +9,9 @@ data class Drink(
     val price: String?,
     val stock: String?
 ) : Parcelable {
+
+    var key: String? = ""
+
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),

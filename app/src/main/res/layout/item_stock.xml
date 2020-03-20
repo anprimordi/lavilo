@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_food_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/image_item_dish_thumbnail"
+        android:id="@+id/image_item_stock_thumbnail"
         android:layout_width="0dp"
         android:layout_height="256dp"
         android:layout_margin="16dp"
@@ -19,7 +18,7 @@
         tools:src="@drawable/ic_item_food_placeholder_orange_128dp" />
 
     <TextView
-        android:id="@+id/text_item_dish_name"
+        android:id="@+id/text_item_stock_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -28,49 +27,59 @@
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@id/text_item_dish_price"
-        app:layout_constraintEnd_toStartOf="@id/button_item_dish_add"
+        app:layout_constraintBottom_toTopOf="@id/text_item_stock_price"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/div_bottom"
-        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/image_item_stock_thumbnail"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView
-        android:id="@+id/text_item_dish_price"
+        android:id="@+id/text_item_stock_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/title_item_dish_stock"
-        app:layout_constraintStart_toStartOf="@id/image_item_dish_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/text_item_dish_name"
+        app:layout_constraintBottom_toTopOf="@id/title_item_stock_quantity"
+        app:layout_constraintStart_toStartOf="@id/image_item_stock_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/text_item_stock_name"
         tools:text="200000" />
 
     <TextView
-        android:id="@+id/title_item_dish_stock"
+        android:id="@+id/title_item_stock_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/item_food_stock_title"
         app:layout_constraintBottom_toTopOf="@id/div_bottom"
-        app:layout_constraintStart_toStartOf="@id/image_item_dish_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/text_item_dish_price" />
+        app:layout_constraintStart_toStartOf="@id/image_item_stock_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/text_item_stock_price" />
 
     <TextView
-        android:id="@+id/text_item_dish_stock"
+        android:id="@+id/text_item_stock_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/title_item_dish_stock"
-        app:layout_constraintTop_toBottomOf="@id/text_item_dish_price"
+        app:layout_constraintStart_toEndOf="@id/title_item_stock_quantity"
+        app:layout_constraintTop_toBottomOf="@id/text_item_stock_price"
         tools:text="100" />
 
-    <Button
-        android:id="@+id/button_item_dish_add"
+    <ImageButton
+        android:id="@+id/image_button_item_stock_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/item_dish_add_action"
-        app:layout_constraintBottom_toTopOf="@id/div_bottom"
-        app:layout_constraintEnd_toEndOf="@id/image_item_dish_thumbnail"
-        app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail" />
+        android:background="?android:attr/windowBackground"
+        android:src="@drawable/ic_item_stock_delete_red_32dp"
+        app:layout_constraintBottom_toBottomOf="@id/title_item_stock_quantity"
+        app:layout_constraintEnd_toEndOf="@id/text_item_stock_name" />
+
+    <ImageButton
+        android:id="@+id/image_button_item_stock_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="?android:attr/windowBackground"
+        android:src="@drawable/ic_item_stock_edit_black_32dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_button_item_stock_delete"
+        app:layout_constraintEnd_toStartOf="@id/image_button_item_stock_delete" />
 
     <View
         android:id="@+id/div_bottom"
@@ -82,5 +91,6 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_item_dish_stock" />
+        app:layout_constraintTop_toBottomOf="@id/title_item_stock_quantity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

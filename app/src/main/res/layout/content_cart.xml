@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="pilih nomor meja: "
+        android:text="Pilih nomor meja: "
         app:layout_constraintBottom_toBottomOf="@id/spinner_cart_table_number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/spinner_cart_table_number" />

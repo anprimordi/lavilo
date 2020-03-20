@@ -17,13 +17,13 @@ public class Model implements Parcelable {
             return new Model[size];
         }
     };
-    String image;
-    String name;
-    String price;
-    String quantity;
-    String key;
+    private String image;
+    private String name;
+    private String price;
+    private String quantity;
+    private String key;
 
-    protected Model(Parcel in) {
+    private Model(Parcel in) {
         image = in.readString();
         name = in.readString();
         price = in.readString();

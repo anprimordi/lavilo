@@ -6,6 +6,13 @@ import android.os.Parcelable;
 import com.google.firebase.database.Exclude;
 
 public class Food implements Parcelable {
+
+    String imageUrl;
+    String name;
+    String price;
+    String stock;
+    String key;
+
     public static final Creator<Food> CREATOR = new Creator<Food>() {
         @Override
         public Food createFromParcel(Parcel in) {
@@ -17,11 +24,6 @@ public class Food implements Parcelable {
             return new Food[size];
         }
     };
-    String imageUrl;
-    String name;
-    String price;
-    String stock;
-    String key;
 
     public Food() {
     }

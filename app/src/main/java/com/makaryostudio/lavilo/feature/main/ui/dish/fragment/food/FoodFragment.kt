@@ -73,7 +73,7 @@ class FoodFragment : Fragment() {
                         postSnapshot.getValue(
                             Food::class.java
                         )!!
-//                    food.key = postSnapshot.key
+                    food.key = postSnapshot.key
                     listFood.add(food)
                 }
                 foodAdapter.notifyDataSetChanged()
@@ -167,14 +167,32 @@ class FoodFragment : Fragment() {
                 return@setPositiveButton
             }
 
-            val key: String = refCart.push().key.toString()
-//            val user = Users(user.id,nama,status)
+            val key: String = food.key
             val cart = Cart(key, dishName, quantity, price)
 
+//            TODO decrease food quantity when cart item added
             refCart.child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
-            }
 
+                dbReference.child(key).addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError) {
+                        Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onDataChange(p0: DataSnapshot) {
+                        for (postSnapshot in p0.children) {
+                            val foodie = postSnapshot.value as Food
+                            if (dishName == foodie.name) {
+                                var stockInt = foodie.stock!!.toInt()
+                                stockInt -= quantity.toInt()
+
+                                dbReference.child(key).child("quantity")
+                                    .setValue(stockInt.toString())
+                            }
+                        }
+                    }
+                })
+            }
         }
 
         builder.setNegativeButton("BATAL") { dialog, which ->

@@ -73,6 +73,7 @@ class DrinkFragment : Fragment() {
                         postSnapshot.getValue(
                             Drink::class.java
                         )!!
+                    drink.key = postSnapshot.key
                     listDrink.add(drink)
                 }
                 adapter.notifyDataSetChanged()
@@ -168,16 +169,15 @@ class DrinkFragment : Fragment() {
                 return@setPositiveButton
             }
 
-            val key: String = refCart.push().key.toString()
-            val cart = Cart(key, dishName, quantity, price)
+//            val key: String = refCart.push().key.toString()
+            val key = drink.key
+            val cart = Cart(key!!, dishName, quantity, price)
 
+//            TODO decrease drink quantity when cart item added
             refCart.child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-//                TODO decrease stock when item added to cart
-                val uid = dbReference.push().key
-
-                dbReference.child(uid!!)
+                dbReference.child(key)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {
                             Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -185,12 +185,12 @@ class DrinkFragment : Fragment() {
 
                         override fun onDataChange(p0: DataSnapshot) {
                             for (postSnapshot in p0.children) {
-                                val drunk = postSnapshot.value as Drink
-                                if (dishName == drunk.name) {
-                                    var stockInt = drunk.stock!!.toInt()
+                                val drinkie = postSnapshot.value as Drink
+                                if (dishName == drinkie.name) {
+                                    var stockInt = drinkie.stock!!.toInt()
                                     stockInt -= quantity.toInt()
 
-                                    dbReference.child(uid).child("quantity")
+                                    dbReference.child(key).child("quantity")
                                         .setValue(stockInt.toString())
                                 }
                             }

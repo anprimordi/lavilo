@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,6 +14,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
+import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.data.model.Food
 
 /**
  * A simple [Fragment] subclass.
@@ -20,15 +23,18 @@ import com.makaryostudio.lavilo.data.model.Cart
 class CartFragment : Fragment() {
 
     private lateinit var listCart: ArrayList<Cart>
+    private lateinit var listDrink: ArrayList<Drink>
+    private lateinit var listFood: ArrayList<Food>
 
-    private lateinit var dbReference: DatabaseReference
     private lateinit var adapter: CartFragmentAdapter
     private lateinit var clickListener: CartFragmentItemClickListener
+    private lateinit var dbReference: DatabaseReference
 
-    private lateinit var textBill: TextView
+    private lateinit var exFabMakeOrder: ExtendedFloatingActionButton
     private lateinit var rvCart: RecyclerView
-    private lateinit var exfabMakeOrder: ExtendedFloatingActionButton
-
+    private lateinit var spinnerTableNumber: Spinner
+    private lateinit var textBill: TextView
+    private lateinit var textTableNumber: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +48,16 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         listCart = ArrayList()
+        listFood = ArrayList()
+        listDrink = ArrayList()
+
         rvCart = view.findViewById(R.id.rv_cart)
+        textBill = view.findViewById(R.id.text_cart_bill)
+        textTableNumber = view.findViewById(R.id.text_cart_table_number)
 
         rvCart.layoutManager = LinearLayoutManager(requireContext())
+
+//        spinnerTableNumber
 
         dbReference = FirebaseDatabase.getInstance().getReference("cart")
 
@@ -52,12 +65,48 @@ class CartFragment : Fragment() {
             override fun deleteCartItem(position: Int) {
                 val selectedItem = listCart[position]
 
+
                 val key = selectedItem.id
 
                 dbReference.child(key).removeValue()
                 adapter.notifyItemRemoved(position)
 
-//                TODO increase dish stock when item on cart deleted
+                val selectedName = selectedItem.dishName
+                val selectedQuantity = selectedItem.quantity.toInt()
+
+                val ref = FirebaseDatabase.getInstance().reference.child(key)
+
+//                TODO add dish quantity when item in cart deleted
+                ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError) {
+                        Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onDataChange(p0: DataSnapshot) {
+                        val food = p0.value as Food
+                        val drink = p0.value as Drink
+
+                        for (postSnapshot in p0.children) {
+                            if (selectedName == food.name) {
+                                var stockItemFood = food.stock.toInt()
+
+                                stockItemFood += selectedQuantity
+
+                                ref.child("stock").setValue(stockItemFood.toString())
+                            }
+                        }
+
+                        for (postSnapshot in p0.children) {
+                            if (selectedName == drink.name) {
+                                var stockItemDrink = drink.stock!!.toInt()
+
+                                stockItemDrink += selectedQuantity
+
+                                ref.child("stock").setValue(stockItemDrink.toString())
+                            }
+                        }
+                    }
+                })
             }
         }
 
@@ -75,14 +124,26 @@ class CartFragment : Fragment() {
                 listCart.clear()
 
                 for (postSnapshot in dataSnapshot.children) {
-                    val drink =
+                    val cart =
                         postSnapshot.getValue(
                             Cart::class.java
                         )!!
-                    listCart.add(drink)
+                    listCart.add(cart)
                 }
                 adapter.notifyDataSetChanged()
             }
         })
+
+        var totalBill = 0
+
+        for (i in 0 until listCart.size) {
+            totalBill += listCart[i].price.toInt()
+        }
+
+        textBill.text = totalBill.toString()
+
+        exFabMakeOrder.setOnClickListener {
+
+        }
     }
 }

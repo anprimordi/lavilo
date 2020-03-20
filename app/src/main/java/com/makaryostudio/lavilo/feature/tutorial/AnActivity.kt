@@ -57,7 +57,7 @@ class AnActivity : AppCompatActivity(), TutorialItemClickListener {
                         postSnapshot.getValue(
                             Model::class.java
                         )!!
-                    model.setKey(postSnapshot.key)
+                    model.key = postSnapshot.key
                     modelList.add(model)
                 }
                 adapter!!.notifyDataSetChanged()
@@ -73,8 +73,8 @@ class AnActivity : AppCompatActivity(), TutorialItemClickListener {
 
     override fun onDeleteListener(position: Int) {
         val selectedItem = modelList[position]
-        val selectedKey = selectedItem.getKey()
-        val mReference = mStorage!!.getReferenceFromUrl(selectedItem.getImage())
+        val selectedKey = selectedItem.key
+        val mReference = mStorage!!.getReferenceFromUrl(selectedItem.image)
         mReference.delete().addOnSuccessListener {
             databaseReference!!.child(selectedKey).removeValue()
             Toast.makeText(this@AnActivity, "item deleted", Toast.LENGTH_SHORT).show()

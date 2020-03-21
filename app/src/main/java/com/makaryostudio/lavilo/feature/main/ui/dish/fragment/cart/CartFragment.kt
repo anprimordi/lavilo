@@ -8,14 +8,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Cart
-import com.makaryostudio.lavilo.data.model.Drink
-import com.makaryostudio.lavilo.data.model.Food
+import com.makaryostudio.lavilo.data.model.*
 
 /**
  * A simple [Fragment] subclass.
@@ -143,7 +142,40 @@ class CartFragment : Fragment() {
         textBill.text = totalBill.toString()
 
         exFabMakeOrder.setOnClickListener {
-            //            TODO make order list
+            //            TODO make order list and go to order list menu
+            val refOrder: DatabaseReference = FirebaseDatabase.getInstance().getReference("Order")
+            val refOrderDetail: DatabaseReference =
+                FirebaseDatabase.getInstance().getReference("OrderDetail")
+
+            val orderKey = refOrder.push().key
+            val orderDetailKey = refOrderDetail.push().key
+
+            val order = Order(
+                orderKey!!,
+                "unpaid",
+                "",
+                totalBill.toString(),
+                "",
+                "",
+                ""
+            )
+
+            refOrder.child(orderKey).setValue(order)
+
+            for (i in 0 until listCart.size) {
+                val cart = listCart[i]
+
+                val orderDetail = OrderDetail(
+                    orderKey,
+                    cart.dishName,
+                    cart.quantity,
+                    cart.price
+                )
+
+                refOrderDetail.child(orderKey).setValue(orderDetail)
+            }
+
+            findNavController().navigate(R.id.action_cartFragment_to_navigation_order)
         }
     }
 }

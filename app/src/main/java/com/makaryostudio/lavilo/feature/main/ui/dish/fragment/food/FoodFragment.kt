@@ -95,10 +95,7 @@ class FoodFragment : Fragment() {
 
         builder.setTitle("Tambahin makanan")
 
-        val inflater = LayoutInflater.from(requireContext())
-
-        val view = inflater.inflate(R.layout.dialog_dish, null)
-
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_dish, null)
 
         var quantityInt = 1
         var priceInt = food.price!!.toInt()

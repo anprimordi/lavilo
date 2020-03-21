@@ -31,7 +31,11 @@
         android:id="@+id/cartFragment"
         android:name="com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart.CartFragment"
         android:label="Keranjang"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_navigation_order"
+            app:destination="@id/navigation_order" />
+    </fragment>
     <fragment
         android:id="@+id/managementFragment"
         android:name="com.makaryostudio.lavilo.feature.management.ManagementFragment"

@@ -62,7 +62,7 @@ class DrinkFragment : Fragment() {
 
         rvDrink.adapter = adapter
 
-        dbReference = FirebaseDatabase.getInstance().getReference("drink")
+        dbReference = FirebaseDatabase.getInstance().getReference("Dish").child("Drink")
 
         dbReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

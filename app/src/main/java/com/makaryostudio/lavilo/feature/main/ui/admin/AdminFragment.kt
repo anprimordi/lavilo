@@ -1,8 +1,6 @@
 package com.makaryostudio.lavilo.feature.main.ui.admin
 
 import android.app.ProgressDialog
-import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,13 +11,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.feature.tutorial.TutorialActivity
 import kotlinx.android.synthetic.main.fragment_admin.*
 
 class AdminFragment : Fragment() {
@@ -70,16 +68,15 @@ class AdminFragment : Fragment() {
                 val progressDialog =
                     ProgressDialog.show(
                         requireContext(),
-                        "please wait",
-                        "processing",
+                        "Mohon tunggu sebentar",
+                        "memroses",
                         true
                     )
 
                 firebaseAuth.signInWithEmailAndPassword(
                     edit_email.text.toString(),
                     edit_password.text.toString()
-                )
-                    .addOnCompleteListener {
+                ).addOnCompleteListener {
                         progressDialog.dismiss()
                         if (it.isSuccessful) {
 
@@ -120,26 +117,26 @@ class AdminFragment : Fragment() {
 //                                    }
                                     if (edit_email.text.toString() == "admin@gmail.com") {
                                         databaseReference.removeEventListener(this)
-                                        val intent = Intent(
-                                            requireContext(),
-                                            TutorialActivity::class.java
-                                        )
-                                        intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+
                                         Toast.makeText(
                                             requireContext(),
                                             "You are " + edit_email.text.toString(),
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        startActivity(intent)
+                                        findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
                                     }
                                 }
 
                                 override fun onCancelled(databaseError: DatabaseError) {
-                                    Log.w(TAG, "canceled", databaseError.toException())
+                                    Log.w(
+                                        "ERROR",
+                                        databaseError.message,
+                                        databaseError.toException()
+                                    )
                                 }
                             })
                         } else {
-                            Log.e("Error", it.exception.toString())
+                            Log.e("ERROR", it.exception.toString())
                             Toast.makeText(
                                 requireContext(),
                                 it.exception!!.message,
@@ -148,7 +145,6 @@ class AdminFragment : Fragment() {
                         }
                     }
             }
-
         }
     }
 }

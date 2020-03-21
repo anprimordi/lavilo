@@ -59,7 +59,7 @@ class CartFragment : Fragment() {
 
 //        spinnerTableNumber
 
-        dbReference = FirebaseDatabase.getInstance().getReference("cart")
+        dbReference = FirebaseDatabase.getInstance().getReference("Cart")
 
         clickListener = object : CartFragmentItemClickListener {
             override fun deleteCartItem(position: Int) {
@@ -143,7 +143,7 @@ class CartFragment : Fragment() {
         textBill.text = totalBill.toString()
 
         exFabMakeOrder.setOnClickListener {
-
+            //            TODO make order list
         }
     }
 }

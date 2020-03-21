@@ -63,7 +63,7 @@ class FoodFragment : Fragment() {
         rvFood.layoutManager = LinearLayoutManager(requireContext())
         rv_food.adapter = foodAdapter
 
-        dbReference = FirebaseDatabase.getInstance().getReference("food")
+        dbReference = FirebaseDatabase.getInstance().getReference("Dish").child("Food")
 
         dbReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

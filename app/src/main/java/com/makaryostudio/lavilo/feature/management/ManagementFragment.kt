@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.makaryostudio.lavilo.R
 
 /**
@@ -20,5 +22,34 @@ class ManagementFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_management, container, false)
     }
 
-//    TODO implement admin management ui
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val cardAddDish: CardView = view.findViewById(R.id.card_management_add_dish)
+        val cardAddTable: CardView = view.findViewById(R.id.card_management_add_table)
+        val cardAddEmployee: CardView = view.findViewById(R.id.card_management_add_employee)
+
+        val cardCheckDish: CardView = view.findViewById(R.id.card_management_check_dish)
+        val cardCheckReport: CardView = view.findViewById(R.id.card_management_check_report)
+
+        cardAddDish.setOnClickListener {
+            findNavController().navigate(R.id.action_managementFragment_to_addDishFragment)
+        }
+
+        cardAddTable.setOnClickListener {
+            findNavController().navigate(R.id.action_managementFragment_to_addTableFragment)
+        }
+
+        cardAddEmployee.setOnClickListener {
+            findNavController().navigate(R.id.action_managementFragment_to_addEmployeeFragment)
+        }
+
+        cardCheckDish.setOnClickListener {
+            findNavController().navigate(R.id.action_managementFragment_to_checkDishFragment)
+        }
+
+        cardCheckReport.setOnClickListener {
+            findNavController().navigate(R.id.action_managementFragment_to_checkReportFragment)
+        }
+    }
 }

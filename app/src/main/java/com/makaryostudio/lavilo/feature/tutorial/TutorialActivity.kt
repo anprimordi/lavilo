@@ -118,8 +118,6 @@ class TutorialActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
     //    buka file manager

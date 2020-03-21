@@ -1,21 +1,23 @@
 package com.makaryostudio.lavilo.data.model;
 
 public class Employee {
-    String id, name, email, password, specialty, salary, type;
+    String id;
+    String name;
+    String email;
+    String password;
+    String salary;
+    String type;
 
-    public Employee(String id, String name, String email, String password, String specialty, String salary, String type) {
-        this.id = id;
+    public Employee(String name, String email, String password, String salary, String type) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.specialty = specialty;
         this.salary = salary;
         this.type = type;
     }
 
     public Employee() {
     }
-
     public String getId() {
         return id;
     }
@@ -46,14 +48,6 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
     }
 
     public String getSalary() {

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -41,15 +40,6 @@ class CheckDrinkFragment : Fragment() {
         rv_check_drink.layoutManager = LinearLayoutManager(requireContext())
 
         val clickListener = object : CheckDrinkItemClickListener {
-            //implementasi menggunakan parcelable
-            override fun onEdit(drink: Drink) {
-
-                val action =
-                    CheckDrinkFragmentDirections.actionCheckDrinkFragmentToEditDrinkFragment(drink)
-
-                findNavController().navigate(action)
-            }
-
             //implementasi menggunakan position
             override fun onDelete(position: Int) {
                 val selectedItem = listDrink[position]
@@ -60,6 +50,10 @@ class CheckDrinkFragment : Fragment() {
                     dbReference.child("Dish").child("Drink").child(selectedKey!!).removeValue()
                     Toast.makeText(requireContext(), "item berhasil dihapus", Toast.LENGTH_SHORT)
                         .show()
+                    adapter.notifyItemRemoved(position)
+                }.addOnFailureListener {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Log.d("Failed to delete item", it.message, it.cause)
                 }
             }
         }

@@ -3,6 +3,7 @@
     package="com.makaryostudio.lavilo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,13 +16,6 @@
             android:name=".feature.main.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".feature.BasicActivity"
-            android:label="@string/title_activity_basic"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".feature.home.HomeActivity"
-            android:label="@string/title_activity_home" />
         <activity
             android:name=".feature.splashscreen.SplashScreenActivity"
             android:noHistory="true"
@@ -36,6 +30,17 @@
             android:name=".feature.tutorial.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".feature.tutorial.AnActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.makaryostudio.lavilo.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.makaryostudio.lavilo.feature.main.ui.order.detail
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +12,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Order
 import com.makaryostudio.lavilo.data.model.OrderDetail
 import kotlinx.android.synthetic.main.fragment_order_detail.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class OrderDetailFragment : Fragment() {
@@ -62,6 +72,26 @@ class OrderDetailFragment : Fragment() {
 
         text_order_detail_bill.text = args.order!!.bill
 
+        Dexter.withActivity(requireActivity())
+            .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+//                    TODO implement print to pdf feature
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest?,
+                    token: PermissionToken?
+                ) {
+
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+
+                }
+            })
+            .check()
+
         button_order_list_payment.setOnClickListener {
             updateOrderStatus(receivedOrderId)
         }
@@ -76,8 +106,10 @@ class OrderDetailFragment : Fragment() {
                 Log.d("Order detail fragment", p0.message)
             }
 
-            var tsLong = System.currentTimeMillis() / 1000
-            var ts = tsLong.toString()
+            val calendar = Calendar.getInstance()
+            var simpleDateFormat = SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a", Locale.getDefault())
+
+            val timestamp: String = simpleDateFormat.format(calendar.time)
 
             override fun onDataChange(p0: DataSnapshot) {
                 for (postSnapshot in p0.children) {
@@ -87,7 +119,7 @@ class OrderDetailFragment : Fragment() {
                         order = Order(
                             receivedOrderId,
                             "paid",
-                            ts,
+                            timestamp,
                             order.bill,
                             order.tableNumber,
                             order.bill,
@@ -95,8 +127,7 @@ class OrderDetailFragment : Fragment() {
                         )
 
                         dbReference.child("Order").child(receivedOrderId!!).setValue(order)
-
-//                        TODO create bill from order and convert to pdf
+                        
                         findNavController().navigate(R.id.action_orderDetailFragment_to_navigation_order)
                     }
                 }

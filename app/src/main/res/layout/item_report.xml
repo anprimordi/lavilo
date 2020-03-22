@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_item_report"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_item_report_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_dish_placeholder_grey_128dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_item_report_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@id/text_item_report_timestamp"
+        app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem/random" />
+
+    <TextView
+        android:id="@+id/title_item_report_table_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nomor meja: "
+        app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/text_item_report_bill" />
+
+    <TextView
+        android:id="@+id/text_item_report_table_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        app:layout_constraintStart_toEndOf="@id/title_item_report_table_number"
+        app:layout_constraintTop_toTopOf="@id/title_item_report_table_number" />
+
+    <TextView
+        android:id="@+id/title_item_report_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="status: "
+        app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/title_item_report_table_number" />
+
+    <TextView
+        android:id="@+id/text_item_report_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="paid"
+        app:layout_constraintStart_toEndOf="@id/title_item_report_status"
+        app:layout_constraintTop_toTopOf="@id/title_item_report_status" />
+
+    <TextView
+        android:id="@+id/text_item_report_bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/text_item_report_id"
+        tools:text="50000" />
+
+    <TextView
+        android:id="@+id/text_item_report_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="24/03/2020 24:10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_item_report_delete"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="hapus"
+        android:textColor="@android:color/holo_red_light"
+        app:icon="@drawable/ic_item_stock_delete_red_24dp"
+        app:iconTint="@android:color/holo_red_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

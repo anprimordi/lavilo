@@ -17,6 +17,9 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -62,7 +65,7 @@ class CartFragment : Fragment() {
 
 //        spinnerTableNumber
 
-        dbReference = FirebaseDatabase.getInstance().getReference("Cart")
+        dbReference = FirebaseDatabase.getInstance().reference
         val refTable = FirebaseDatabase.getInstance().reference.child("Table")
 
         clickListener = object : CartFragmentItemClickListener {
@@ -72,7 +75,7 @@ class CartFragment : Fragment() {
 
                 val key = selectedItem.id
 
-                dbReference.child(key).removeValue()
+                dbReference.child("Cart").child(key).removeValue()
                 adapter.notifyItemRemoved(position)
 
                 val selectedName = selectedItem.dishName
@@ -118,7 +121,7 @@ class CartFragment : Fragment() {
 
         rvCart.adapter = adapter
 
-        dbReference.addValueEventListener(object : ValueEventListener {
+        dbReference.child("Cart").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), databaseError.toString(), Toast.LENGTH_SHORT)
                     .show()
@@ -171,24 +174,25 @@ class CartFragment : Fragment() {
 
         exFabMakeOrder.setOnClickListener {
             //            TODO make order list and go to order list menu
-            val refOrder: DatabaseReference = FirebaseDatabase.getInstance().getReference("Order")
-            val refOrderDetail: DatabaseReference =
-                FirebaseDatabase.getInstance().getReference("OrderDetail")
 
-            val orderKey = refOrder.push().key
-//            val orderDetailKey = refOrderDetail.push().key
+            val orderKey = dbReference.child("Order").push().key
+
+            val calendar = Calendar.getInstance()
+            val simpleDateFormat = SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a", Locale.getDefault())
+
+            val timestamp: String = simpleDateFormat.format(calendar.time)
 
             val order = Order(
                 orderKey!!,
-                "unpaid",
-                "",
+                "belum dibayar",
+                timestamp,
                 totalBill.toString(),
                 spinnerTableNumber.selectedItem.toString(),
                 "",
                 ""
             )
 
-            refOrder.child(orderKey).setValue(order)
+            dbReference.child("Order").child(orderKey).setValue(order)
 
             for (i in 0 until listCart.size) {
                 val cart = listCart[i]
@@ -200,7 +204,7 @@ class CartFragment : Fragment() {
                     cart.price
                 )
 
-                refOrderDetail.child(orderKey).setValue(orderDetail)
+                dbReference.child("OrderDetail").child(orderKey).setValue(orderDetail)
             }
 
             findNavController().navigate(R.id.action_cartFragment_to_navigation_order)

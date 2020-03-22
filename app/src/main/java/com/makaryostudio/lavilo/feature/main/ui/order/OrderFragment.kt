@@ -70,7 +70,7 @@ class OrderFragment : Fragment() {
                 for (postSnapshot in dataSnapshot.children) {
                     val order = postSnapshot.value as Order
 
-                    if (order.status == "unpaid") {
+                    if (order.status == "belum dibayar") {
 
                         listOrder.add(order)
                     }

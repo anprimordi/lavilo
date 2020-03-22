@@ -99,7 +99,11 @@
         android:id="@+id/checkReportFragment"
         android:name="com.makaryostudio.lavilo.feature.management.check.report.CheckReportFragment"
         android:label="fragment_check_report"
-        tools:layout="@layout/fragment_check_report" />
+        tools:layout="@layout/fragment_check_report">
+        <action
+            android:id="@+id/action_checkReportFragment_to_checkReportDetailFragment"
+            app:destination="@id/checkReportDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="com.makaryostudio.lavilo.feature.main.ui.order.detail.OrderDetailFragment"
@@ -114,39 +118,12 @@
             app:destination="@id/navigation_order" />
     </fragment>
     <fragment
-        android:id="@+id/checkDrinkFragment"
-        android:name="com.makaryostudio.lavilo.feature.management.check.dish.drink.CheckDrinkFragment"
-        android:label="fragment_check_drink"
-        tools:layout="@layout/fragment_check_drink">
-        <action
-            android:id="@+id/action_checkDrinkFragment_to_editDrinkFragment"
-            app:destination="@id/editDrinkFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editDrinkFragment"
-        android:name="com.makaryostudio.lavilo.feature.management.check.dish.drink.EditDrinkFragment"
-        android:label="fragment_edit_drink"
-        tools:layout="@layout/fragment_edit_drink">
+        android:id="@+id/checkReportDetailFragment"
+        android:name="com.makaryostudio.lavilo.feature.management.check.report.detail.CheckReportDetailFragment"
+        android:label="fragment_check_report_detail"
+        tools:layout="@layout/fragment_check_report_detail">
         <argument
-            android:name="drink"
-            app:argType="com.makaryostudio.lavilo.data.model.Drink" />
-    </fragment>
-    <fragment
-        android:id="@+id/checkFoodFragment"
-        android:name="com.makaryostudio.lavilo.feature.management.check.dish.food.CheckFoodFragment"
-        android:label="fragment_check_food"
-        tools:layout="@layout/fragment_check_food">
-        <action
-            android:id="@+id/action_checkFoodFragment_to_editFoodFragment"
-            app:destination="@id/editFoodFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editFoodFragment"
-        android:name="com.makaryostudio.lavilo.feature.management.check.dish.food.EditFoodFragment"
-        android:label="fragment_edit_food"
-        tools:layout="@layout/fragment_edit_food">
-        <argument
-            android:name="food"
-            app:argType="com.makaryostudio.lavilo.data.model.Food" />
+            android:name="order"
+            app:argType="com.makaryostudio.lavilo.data.model.Order" />
     </fragment>
 </navigation>

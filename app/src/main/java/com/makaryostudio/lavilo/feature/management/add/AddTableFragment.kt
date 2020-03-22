@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_add_table.*
 
 class AddTableFragment : Fragment() {
 
-    private val TAG: String = "AddTableFragment"
     private lateinit var dbReference: DatabaseReference
 
     override fun onCreateView(
@@ -30,7 +29,7 @@ class AddTableFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dbReference = FirebaseDatabase.getInstance().getReference("Table")
+        dbReference = FirebaseDatabase.getInstance().reference
 
         button_add_table.setOnClickListener {
             var go = true
@@ -57,13 +56,13 @@ class AddTableFragment : Fragment() {
                 edit_add_table_capacity.text.toString()
             )
 
-        dbReference.child(edit_add_table_number.text.toString()).setValue(table)
+        dbReference.child("Table").child(edit_add_table_number.text.toString()).setValue(table)
             .addOnCompleteListener {
                 Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_addEmployeeFragment_to_managementFragment)
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
-                Log.e(TAG, it.message!!)
+                Log.e("AddTableFragment", it.message!!)
             }
     }
 }

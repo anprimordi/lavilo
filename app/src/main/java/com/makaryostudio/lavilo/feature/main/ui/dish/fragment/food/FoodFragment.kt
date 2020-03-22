@@ -49,7 +49,6 @@ class FoodFragment : Fragment() {
         listFood = ArrayList()
 
         rvFood = view.findViewById(R.id.rv_food)
-//        val mExFabCart: ExtendedFloatingActionButton = view.findViewById(R.id.exfab_go_to_cart)
         progressBar = view.findViewById(R.id.progress_food)
 
         foodFragmentItemClickListener = object : FoodFragmentItemClickListener {
@@ -63,9 +62,9 @@ class FoodFragment : Fragment() {
         rvFood.layoutManager = LinearLayoutManager(requireContext())
         rv_food.adapter = foodAdapter
 
-        dbReference = FirebaseDatabase.getInstance().getReference("Dish").child("Food")
+        dbReference = FirebaseDatabase.getInstance().reference
 
-        dbReference.addValueEventListener(object : ValueEventListener {
+        dbReference.child("Dish").child("Food").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listFood.clear()
                 for (postSnapshot in dataSnapshot.children) {
@@ -91,8 +90,6 @@ class FoodFragment : Fragment() {
     private fun showDialog(food: Food) {
         val builder = AlertDialog.Builder(requireContext())
 
-        val refCart = FirebaseDatabase.getInstance().getReference("Cart")
-
         builder.setTitle("Tambahin makanan")
 
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_dish, null)
@@ -108,7 +105,7 @@ class FoodFragment : Fragment() {
 
         textDishName.text = food.name
 
-        refCart.addListenerForSingleValueEvent(object : ValueEventListener {
+        dbReference.child("Cart").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), databaseError.toString(), Toast.LENGTH_SHORT)
                     .show()
@@ -168,10 +165,11 @@ class FoodFragment : Fragment() {
             val cart = Cart(key, dishName, quantity, price)
 
 //            TODO decrease food quantity when cart item added
-            refCart.child(key).setValue(cart).addOnCompleteListener {
+            dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child(key).addListenerForSingleValueEvent(object : ValueEventListener {
+                dbReference.child("Dish").child("Food").child(key)
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                         Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
                     }
@@ -183,7 +181,7 @@ class FoodFragment : Fragment() {
                                 var stockInt = foodie.stock!!.toInt()
                                 stockInt -= quantity.toInt()
 
-                                dbReference.child(key).child("quantity")
+                                dbReference.child("Dish").child("Food").child(key).child("quantity")
                                     .setValue(stockInt.toString())
                             }
                         }

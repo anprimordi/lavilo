@@ -1,4 +1,4 @@
-package com.makaryostudio.lavilo.feature.management.check.dish.drink
+package com.makaryostudio.lavilo.feature.management.check.dish.food
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,13 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.data.model.Food
 
-class CheckDrinkFragmentAdapter(
+class CheckFoodFragmentAdapter(
     val context: Context,
-    val listDrink: ArrayList<Drink>,
-    val listener: CheckDrinkItemClickListener
-) : RecyclerView.Adapter<CheckDrinkFragmentAdapter.ViewHolder>() {
+    val listFood: ArrayList<Food>,
+    val listener: CheckFoodItemClickListener
+) : RecyclerView.Adapter<CheckFoodFragmentAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageThumbnail: ImageView = itemView.findViewById(R.id.image_item_stock_thumbnail)
@@ -33,16 +33,16 @@ class CheckDrinkFragmentAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listDrink.size
+        return listFood.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val drink = listDrink[position]
+        val food = listFood[position]
 
-        Glide.with(context).load(drink.imageUrl).into(holder.imageThumbnail)
-        holder.textName.text = drink.name
-        holder.textPrice.text = drink.price
-        holder.textStock.text = drink.stock
+        Glide.with(context).load(food.imageUrl).into(holder.imageThumbnail)
+        holder.textName.text = food.name
+        holder.textPrice.text = food.price
+        holder.textStock.text = food.stock
 
         holder.buttonDelete.setOnClickListener {
             listener.onDelete(position)

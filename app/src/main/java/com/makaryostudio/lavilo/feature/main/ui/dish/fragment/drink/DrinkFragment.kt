@@ -59,9 +59,9 @@ class DrinkFragment : Fragment() {
 
         rvDrink.adapter = adapter
 
-        dbReference = FirebaseDatabase.getInstance().getReference("Dish").child("Drink")
+        dbReference = FirebaseDatabase.getInstance().reference
 
-        dbReference.addValueEventListener(object : ValueEventListener {
+        dbReference.child("Dish").child("Drink").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listDrink.clear()
 
@@ -90,8 +90,6 @@ class DrinkFragment : Fragment() {
     fun showDialog(drink: Drink) {
         val builder = AlertDialog.Builder(requireContext())
 
-        val refCart = FirebaseDatabase.getInstance().getReference("Cart")
-
         builder.setTitle("Tambahin minuman")
 
         val inflater = LayoutInflater.from(requireContext())
@@ -109,7 +107,7 @@ class DrinkFragment : Fragment() {
 
         textDishName.text = drink.name
 
-        refCart.addListenerForSingleValueEvent(object : ValueEventListener {
+        dbReference.child("Cart").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), databaseError.toString(), Toast.LENGTH_SHORT)
                     .show()
@@ -147,7 +145,7 @@ class DrinkFragment : Fragment() {
 
         builder.setView(view)
 
-        builder.setPositiveButton("TAMBAH") { dialog, which ->
+        builder.setPositiveButton("TAMBAH") { _, _ ->
 
 
             val dishName = textDishName.text.toString().trim()
@@ -171,10 +169,10 @@ class DrinkFragment : Fragment() {
             val cart = Cart(key!!, dishName, quantity, price)
 
 //            TODO decrease drink quantity when cart item added
-            refCart.child(key).setValue(cart).addOnCompleteListener {
+            dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child(key)
+                dbReference.child("Dish").child("Drink").child(key)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {
                             Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -187,7 +185,8 @@ class DrinkFragment : Fragment() {
                                     var stockInt = drinkie.stock!!.toInt()
                                     stockInt -= quantity.toInt()
 
-                                    dbReference.child(key).child("quantity")
+                                    dbReference.child("Dish").child("Drink").child(key)
+                                        .child("quantity")
                                         .setValue(stockInt.toString())
                                 }
                             }

@@ -77,12 +77,12 @@ class AdminFragment : Fragment() {
                     edit_email.text.toString(),
                     edit_password.text.toString()
                 ).addOnCompleteListener {
-                        progressDialog.dismiss()
-                        if (it.isSuccessful) {
+                    progressDialog.dismiss()
+                    if (it.isSuccessful) {
 
-                            databaseReference.addListenerForSingleValueEvent(object :
-                                ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        databaseReference.addListenerForSingleValueEvent(object :
+                            ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
 //                                    val admin: Admin = dataSnapshot.value as Admin
 //                                    if (admin != null) {
 //                                        if (admin.type == "Hall Manager" && editEmail.text.toString() == admin.email) {
@@ -115,35 +115,35 @@ class AdminFragment : Fragment() {
 //                                        }
 //
 //                                    }
-                                    if (edit_email.text.toString() == "admin@gmail.com") {
-                                        databaseReference.removeEventListener(this)
+                                if (edit_email.text.toString() == "admin@gmail.com") {
+                                    databaseReference.removeEventListener(this)
 
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "You are " + edit_email.text.toString(),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
-                                    }
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "You are " + edit_email.text.toString(),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
                                 }
+                            }
 
-                                override fun onCancelled(databaseError: DatabaseError) {
-                                    Log.w(
-                                        "ERROR",
-                                        databaseError.message,
-                                        databaseError.toException()
-                                    )
-                                }
-                            })
-                        } else {
-                            Log.e("ERROR", it.exception.toString())
-                            Toast.makeText(
-                                requireContext(),
-                                it.exception!!.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                            override fun onCancelled(databaseError: DatabaseError) {
+                                Log.w(
+                                    "ERROR",
+                                    databaseError.message,
+                                    databaseError.toException()
+                                )
+                            }
+                        })
+                    } else {
+                        Log.e("ERROR", it.exception.toString())
+                        Toast.makeText(
+                            requireContext(),
+                            it.exception!!.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+                }
             }
         }
     }

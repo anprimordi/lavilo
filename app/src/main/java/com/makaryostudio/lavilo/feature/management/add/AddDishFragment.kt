@@ -26,7 +26,6 @@ import com.makaryostudio.lavilo.data.model.Food
 
 class AddDishFragment : Fragment() {
 
-    private val TAG = "AddDishFragment"
     private var quantity = 0
     private lateinit var btnUpload: Button
     private lateinit var editName: EditText
@@ -39,10 +38,8 @@ class AddDishFragment : Fragment() {
     private lateinit var textFileDirectory: TextView
     private lateinit var progressBar: ProgressBar
     private var imageUri: Uri? = null
-    private lateinit var storageReferenceFood: StorageReference
-    private lateinit var storageReferenceDrink: StorageReference
-    private lateinit var databaseReferenceDrink: DatabaseReference
-    private lateinit var databaseReferenceFood: DatabaseReference
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var storageReference: StorageReference
     private var uploadTask: StorageTask<*>? = null
 
     override fun onCreateView(
@@ -71,10 +68,8 @@ class AddDishFragment : Fragment() {
         textFileDirectory = view.findViewById(R.id.text_add_dish_directory)
         progressBar = view.findViewById(R.id.progressbar_add_dish)
 
-        storageReferenceFood = FirebaseStorage.getInstance().getReference("Food")
-        storageReferenceDrink = FirebaseStorage.getInstance().getReference("Drink")
-        databaseReferenceFood = FirebaseDatabase.getInstance().getReference("Dish").child("Food")
-        databaseReferenceDrink = FirebaseDatabase.getInstance().getReference("Dish").child("Drink")
+        databaseReference = FirebaseDatabase.getInstance().reference
+        storageReference = FirebaseStorage.getInstance().reference
 
         imageThumbnail.setOnClickListener {
             openFileChooser()
@@ -214,7 +209,7 @@ class AddDishFragment : Fragment() {
 
     private fun uploadFileFood() {
         if (imageUri != null) {
-            val fileReference = storageReferenceFood
+            val fileReference = storageReference.child("Food")
                 .child(
                     System.currentTimeMillis().toString() + "." + getFileExtension(
                         imageUri!!
@@ -241,9 +236,10 @@ class AddDishFragment : Fragment() {
                                         editPrice.text.toString(),
                                         editStock.text.toString()
                                     )
-                                val uid = databaseReferenceFood.push().key
+                                val uid = databaseReference.child("Dish").child("Food").push().key
                                 food.key = uid
-                                databaseReferenceFood.child(uid!!).setValue(food)
+                                databaseReference.child("Dish").child("Food").child(uid!!)
+                                    .setValue(food)
                             }
                         }
                     }
@@ -259,7 +255,7 @@ class AddDishFragment : Fragment() {
                         e.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    Log.e(TAG, e.message!!)
+                    Log.e("AddDishFragment", e.message!!)
                 }
                 .addOnProgressListener { taskSnapshot: UploadTask.TaskSnapshot ->
                     //                        progressBar.setVisibility(View.VISIBLE);
@@ -275,7 +271,7 @@ class AddDishFragment : Fragment() {
 
     private fun uploadFileDrink() {
         if (imageUri != null) {
-            val fileReference = storageReferenceDrink
+            val fileReference = storageReference.child("Drink")
                 .child(
                     System.currentTimeMillis().toString() + "." + getFileExtension(
                         imageUri!!
@@ -302,9 +298,10 @@ class AddDishFragment : Fragment() {
                                         editPrice.text.toString(),
                                         editStock.text.toString()
                                     )
-                                val uid = databaseReferenceDrink.push().key
+                                val uid = databaseReference.child("Dish").child("Drink").push().key
                                 drink.key = uid
-                                databaseReferenceDrink.child(uid!!).setValue(drink)
+                                databaseReference.child("Dish").child("Drink").child(uid!!)
+                                    .setValue(drink)
                             }
                         }
                     }
@@ -319,7 +316,7 @@ class AddDishFragment : Fragment() {
                         e.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    Log.e(TAG, e.message!!)
+                    Log.e("AddDishFragment", e.message!!)
                 }
                 .addOnProgressListener { taskSnapshot: UploadTask.TaskSnapshot ->
                     //                        progressBar.setVisibility(View.VISIBLE);

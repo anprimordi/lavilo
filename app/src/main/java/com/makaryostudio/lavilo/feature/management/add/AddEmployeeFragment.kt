@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_add_employee.*
 
 class AddEmployeeFragment : Fragment() {
 
-    private val TAG = "AddEmployeeFragment"
     private lateinit var dbReference: DatabaseReference
 
     override fun onCreateView(
@@ -24,7 +23,7 @@ class AddEmployeeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        dbReference = FirebaseDatabase.getInstance().getReference("Employee")
+        dbReference = FirebaseDatabase.getInstance().reference
 
 //        spinner_add_employee_type.onItemSelectedListener =
 //            object : AdapterView.OnItemSelectedListener {
@@ -82,14 +81,14 @@ class AddEmployeeFragment : Fragment() {
             edit_add_employee_salary.text.toString(),
             spinner_add_employee_type.selectedItem.toString()
         )
-        val key = dbReference.push().key
-        dbReference.child(key!!).setValue(employee)
+        val key = dbReference.child("Employee").push().key
+        dbReference.child("Employee").child(key!!).setValue(employee)
             .addOnCompleteListener {
                 Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_addTableFragment_to_managementFragment)
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
-                Log.e(TAG, it.message!!)
+                Log.e("AddEmployeeFragment", it.message!!)
             }
     }
 

@@ -13,14 +13,14 @@ import com.makaryostudio.lavilo.data.model.Cart
 class CartFragmentAdapter(
     val context: Context,
     private val listCart: ArrayList<Cart>,
-    val clickListener: CartFragmentItemClickListener
+    private val clickListener: CartFragmentItemClickListener
 ) :
     RecyclerView.Adapter<CartFragmentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CartFragmentAdapter.ViewHolder {
+    ): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_cart, parent, false)
 
         return ViewHolder(view)
@@ -30,7 +30,7 @@ class CartFragmentAdapter(
         return listCart.size
     }
 
-    override fun onBindViewHolder(holder: CartFragmentAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cart = listCart[position]
 
         holder.textQuantity.text = cart.quantity + "x"

@@ -1,9 +1,11 @@
 package com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -54,11 +56,14 @@ class CartFragment : Fragment() {
         textBill = view.findViewById(R.id.text_cart_bill)
         textTableNumber = view.findViewById(R.id.text_cart_table_number)
 
+        spinnerTableNumber = view.findViewById(R.id.spinner_cart_table_number)
+
         rvCart.layoutManager = LinearLayoutManager(requireContext())
 
 //        spinnerTableNumber
 
         dbReference = FirebaseDatabase.getInstance().getReference("Cart")
+        val refTable = FirebaseDatabase.getInstance().reference.child("Table")
 
         clickListener = object : CartFragmentItemClickListener {
             override fun deleteCartItem(position: Int) {
@@ -133,6 +138,29 @@ class CartFragment : Fragment() {
             }
         })
 
+        refTable.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
+                Log.e("Error Cart Fragment", p0.message)
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                val listTable = ArrayList<String>()
+
+                for (postSnapshot in p0.children) {
+                    val tableNumber = postSnapshot.child("number").getValue(String::class.java)
+                    listTable.add(tableNumber!!)
+                }
+
+                val tableAdapter =
+                    ArrayAdapter<String>(requireContext(), R.layout.fragment_cart, listTable)
+
+                tableAdapter.setDropDownViewResource(R.layout.fragment_cart)
+
+                spinnerTableNumber.adapter = tableAdapter
+            }
+        })
+
         var totalBill = 0
 
         for (i in 0 until listCart.size) {
@@ -148,14 +176,14 @@ class CartFragment : Fragment() {
                 FirebaseDatabase.getInstance().getReference("OrderDetail")
 
             val orderKey = refOrder.push().key
-            val orderDetailKey = refOrderDetail.push().key
+//            val orderDetailKey = refOrderDetail.push().key
 
             val order = Order(
                 orderKey!!,
                 "unpaid",
                 "",
                 totalBill.toString(),
-                "",
+                spinnerTableNumber.selectedItem.toString(),
                 "",
                 ""
             )

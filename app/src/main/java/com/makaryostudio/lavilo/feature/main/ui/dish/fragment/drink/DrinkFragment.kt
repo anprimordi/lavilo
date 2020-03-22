@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
 import com.makaryostudio.lavilo.data.model.Drink
@@ -28,8 +27,6 @@ class DrinkFragment : Fragment() {
     private lateinit var listDrink: ArrayList<Drink>
     private lateinit var clickListener: DrinkFragmentItemClickListener
     private lateinit var dbReference: DatabaseReference
-    private lateinit var dbListener: ValueEventListener
-    private lateinit var storage: FirebaseStorage
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(

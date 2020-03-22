@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.management.check.CheckDishFragment">
+    tools:context=".feature.management.check.dish.CheckDishFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_check_dish"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:theme="@style/Widget.MaterialComponents.TabLayout.Colored"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
 
-</FrameLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_check_dish"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_dish" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

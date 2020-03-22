@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_item_food_placeholder_orange_128dp" />
+        tools:src="@drawable/ic_add_dish_placeholder_grey_256dp" />
 
     <TextView
         android:id="@+id/text_item_stock_name"

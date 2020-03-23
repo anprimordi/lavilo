@@ -12,8 +12,8 @@ import com.makaryostudio.lavilo.data.model.Order
 
 class OrderFragmentAdapter(
     val context: Context,
-    val listOrder: ArrayList<Order>,
-    val listener: OrderFragmentListener
+    private val listOrder: ArrayList<Order>,
+    private val listener: OrderFragmentListener
 ) : RecyclerView.Adapter<OrderFragmentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -41,6 +41,6 @@ class OrderFragmentAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout: LinearLayout = itemView.findViewById(R.id.layout_order_list)
-        var tableNumber = itemView.findViewById<TextView>(R.id.text_item_order_list_table_number)
+        var tableNumber: TextView = itemView.findViewById(R.id.text_item_order_list_table_number)
     }
 }

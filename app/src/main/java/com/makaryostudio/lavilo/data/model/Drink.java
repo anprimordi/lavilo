@@ -5,41 +5,44 @@ import android.os.Parcelable;
 
 import com.google.firebase.database.Exclude;
 
-public class Food implements Parcelable {
+public class Drink implements Parcelable {
 
+    public static final Creator<Drink> CREATOR = new Creator<Drink>() {
+        @Override
+        public Drink createFromParcel(Parcel in) {
+            return new Drink(in);
+        }
+
+        @Override
+        public Drink[] newArray(int size) {
+            return new Drink[size];
+        }
+    };
     private String imageUrl;
     private String name;
     private String price;
     private String stock;
     private String key;
 
-    public static final Creator<Food> CREATOR = new Creator<Food>() {
-        @Override
-        public Food createFromParcel(Parcel in) {
-            return new Food(in);
-        }
-
-        @Override
-        public Food[] newArray(int size) {
-            return new Food[size];
-        }
-    };
-
-    public Food() {
+    public Drink() {
     }
 
-    public Food(String imageUrl, String name, String price, String stock) {
+    private Drink(Parcel in) {
+        imageUrl = in.readString();
+        name = in.readString();
+        price = in.readString();
+        stock = in.readString();
+    }
+
+    public Drink(String imageUrl, String name, String price, String stock) {
         this.imageUrl = imageUrl;
         this.name = name;
         this.price = price;
         this.stock = stock;
     }
 
-    protected Food(Parcel in) {
-        imageUrl = in.readString();
-        name = in.readString();
-        price = in.readString();
-        stock = in.readString();
+    public static Creator<Drink> getCREATOR() {
+        return CREATOR;
     }
 
     @Override

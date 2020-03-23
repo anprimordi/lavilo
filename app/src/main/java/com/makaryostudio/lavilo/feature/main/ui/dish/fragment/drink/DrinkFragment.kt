@@ -83,8 +83,6 @@ class DrinkFragment : Fragment() {
                     .show()
             }
         })
-
-
     }
 
     fun showDialog(drink: Drink) {
@@ -172,7 +170,7 @@ class DrinkFragment : Fragment() {
             dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child("Dish").child("Drink").child(key)
+                dbReference.child("Dish").child("Drink")
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {
                             Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -180,7 +178,7 @@ class DrinkFragment : Fragment() {
 
                         override fun onDataChange(p0: DataSnapshot) {
                             for (postSnapshot in p0.children) {
-                                val drinkie = postSnapshot.value as Drink
+                                val drinkie = postSnapshot.getValue(Drink::class.java)!!
                                 if (dishName == drinkie.name) {
                                     var stockInt = drinkie.stock!!.toInt()
                                     stockInt -= quantity.toInt()
@@ -197,7 +195,7 @@ class DrinkFragment : Fragment() {
         }
 
         builder.setNegativeButton("BATAL") { dialog, which ->
-
+            dialog.dismiss()
         }
 
         val alert = builder.create()

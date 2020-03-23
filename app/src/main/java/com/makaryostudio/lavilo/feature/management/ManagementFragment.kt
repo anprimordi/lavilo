@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -31,6 +32,9 @@ class ManagementFragment : Fragment() {
 
         val cardCheckDish: CardView = view.findViewById(R.id.card_management_check_dish)
         val cardCheckReport: CardView = view.findViewById(R.id.card_management_check_report)
+
+        (activity as AppCompatActivity).supportActionBar?.title =
+            "Example 1 two plus two that's four"
 
         cardAddDish.setOnClickListener {
             findNavController().navigate(R.id.action_managementFragment_to_addDishFragment)

@@ -29,7 +29,6 @@ class FoodFragment : Fragment() {
     private lateinit var rvFood: RecyclerView
     private lateinit var listFood: ArrayList<Food>
     private lateinit var foodFragmentItemClickListener: FoodFragmentItemClickListener
-    private val listHashMap: List<HashMap<Food, Int>> = emptyList()
     private lateinit var dbReference: DatabaseReference
     private lateinit var dbListener: ValueEventListener
     private lateinit var mStorage: FirebaseStorage
@@ -168,7 +167,7 @@ class FoodFragment : Fragment() {
             dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child("Dish").child("Food").child(key)
+                dbReference.child("Dish").child("Food")
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                         Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -176,7 +175,7 @@ class FoodFragment : Fragment() {
 
                     override fun onDataChange(p0: DataSnapshot) {
                         for (postSnapshot in p0.children) {
-                            val foodie = postSnapshot.value as Food
+                            val foodie = postSnapshot.getValue(Food::class.java)!!
                             if (dishName == foodie.name) {
                                 var stockInt = foodie.stock!!.toInt()
                                 stockInt -= quantity.toInt()
@@ -191,7 +190,7 @@ class FoodFragment : Fragment() {
         }
 
         builder.setNegativeButton("BATAL") { dialog, which ->
-
+            dialog.dismiss()
         }
 
         val alert = builder.create()

@@ -30,7 +30,7 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/home_menu_go_to_cart_text"
         android:textColor="@android:color/white"

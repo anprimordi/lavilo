@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".feature.management.check.dish.food.CheckFoodFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="ABOGOBOGAOafgafgqergdfgargaerg" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_check_food"
         android:layout_width="match_parent"

@@ -22,6 +22,7 @@ class CheckDishFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_check_dish, container, false)
     }
 
+    //    TODO check dish won't show
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -58,7 +58,7 @@ class OrderFragment : Fragment() {
                 listOrder.clear()
 
                 for (postSnapshot in dataSnapshot.children) {
-                    val order = postSnapshot.value as Order
+                    val order = postSnapshot.getValue(Order::class.java)!!
 
                     if (order.status == "belum dibayar") {
 

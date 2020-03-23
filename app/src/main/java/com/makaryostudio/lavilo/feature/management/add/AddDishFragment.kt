@@ -291,6 +291,7 @@ class AddDishFragment : Fragment() {
                             result.addOnSuccessListener { uri: Uri ->
                                 val imageUrl = uri.toString()
                                 //createNewPost(imageUrl);
+
                                 val drink =
                                     Drink(
                                         imageUrl,
@@ -298,6 +299,7 @@ class AddDishFragment : Fragment() {
                                         editPrice.text.toString(),
                                         editStock.text.toString()
                                     )
+
                                 val uid = databaseReference.child("Dish").child("Drink").push().key
                                 drink.key = uid
                                 databaseReference.child("Dish").child("Drink").child(uid!!)

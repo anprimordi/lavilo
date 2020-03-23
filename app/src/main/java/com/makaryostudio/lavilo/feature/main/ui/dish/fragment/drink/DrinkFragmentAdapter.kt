@@ -48,7 +48,6 @@ class DrinkFragmentAdapter(
         val name: TextView = itemView.findViewById(R.id.text_item_dish_name)
         val price: TextView = itemView.findViewById(R.id.text_item_dish_price)
         val stock: TextView = itemView.findViewById(R.id.text_item_dish_stock)
-        val quantity: TextView = itemView.findViewById(R.id.text_item_dish_quantity)
         val button: Button = itemView.findViewById(R.id.button_item_dish_add)
     }
 }

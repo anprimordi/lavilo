@@ -66,6 +66,25 @@ class CheckFoodFragment : Fragment() {
 
         rv_check_food.adapter = adapter
 
+        dbReference.child("Dish").child("Food")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
+                    Log.d("call check food db", p0.message)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    listFood.clear()
+
+                    for (postSnapshot in p0.children) {
+                        val food = postSnapshot.getValue(Food::class.java)!!
+
+                        listFood.add(food)
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            })
+
         dbListener = dbReference.child("Dish").child("Food")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
@@ -77,9 +96,9 @@ class CheckFoodFragment : Fragment() {
                     listFood.clear()
 
                     for (postSnapshot in p0.children) {
-                        val drink = postSnapshot.value as Food
+                        val food = postSnapshot.getValue(Food::class.java)!!
 
-                        listFood.add(drink)
+                        listFood.add(food)
                     }
                     adapter.notifyDataSetChanged()
                 }

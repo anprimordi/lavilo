@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".feature.main.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_main" />
         <activity
             android:name=".feature.splashscreen.SplashScreenActivity"
             android:noHistory="true"

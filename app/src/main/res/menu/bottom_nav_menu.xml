@@ -7,12 +7,12 @@
         android:title="Hidangan" />
 
     <item
-        android:id="@+id/navigation_admin"
+        android:id="@+id/navigation_order"
         android:icon="@drawable/ic_home_order_list_black_24dp"
         android:title="Pesanan" />
 
     <item
-        android:id="@+id/navigation_order"
+        android:id="@+id/navigation_admin"
         android:icon="@drawable/ic_home_admin_black_24dp"
         android:title="Admin" />
 

@@ -18,13 +18,16 @@ class CheckDishFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val fragmentAdapter = CheckDishViewPagerAdapter(childFragmentManager)
-
-        vp_check_dish.adapter = fragmentAdapter
-        tab_check_dish.setupWithViewPager(vp_check_dish)
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_check_dish, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val fragmentAdapter = CheckDishViewPagerAdapter(childFragmentManager)
+
+        vp_check_dish.adapter = fragmentAdapter
+        tab_check_dish.setupWithViewPager(vp_check_dish)
+    }
 }

@@ -23,6 +23,13 @@ class AddEmployeeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_add_employee, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         dbReference = FirebaseDatabase.getInstance().reference
 
 //        spinner_add_employee_type.onItemSelectedListener =
@@ -68,9 +75,6 @@ class AddEmployeeFragment : Fragment() {
                 uploadEmployee()
             }
         }
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_employee, container, false)
     }
 
     private fun uploadEmployee() {
@@ -85,7 +89,7 @@ class AddEmployeeFragment : Fragment() {
         dbReference.child("Employee").child(key!!).setValue(employee)
             .addOnCompleteListener {
                 Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_addTableFragment_to_managementFragment)
+                findNavController().navigate(R.id.action_addEmployeeFragment_to_managementFragment)
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 Log.e("AddEmployeeFragment", it.message!!)

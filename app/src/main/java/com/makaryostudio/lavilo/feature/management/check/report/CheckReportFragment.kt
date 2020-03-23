@@ -31,6 +31,15 @@ class CheckReportFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_check_report, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         listOrder = ArrayList()
 
         rv_check_report.layoutManager = LinearLayoutManager(requireContext())
@@ -88,9 +97,5 @@ class CheckReportFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             })
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_report, container, false)
     }
-
 }

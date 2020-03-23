@@ -27,8 +27,6 @@ import kotlin.collections.ArrayList
 class CartFragment : Fragment() {
 
     private lateinit var listCart: ArrayList<Cart>
-    private lateinit var listDrink: ArrayList<Drink>
-    private lateinit var listFood: ArrayList<Food>
 
     private lateinit var adapter: CartFragmentAdapter
     private lateinit var clickListener: CartFragmentItemClickListener
@@ -52,12 +50,12 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         listCart = ArrayList()
-        listFood = ArrayList()
-        listDrink = ArrayList()
 
         rvCart = view.findViewById(R.id.rv_cart)
         textBill = view.findViewById(R.id.text_cart_bill)
         textTableNumber = view.findViewById(R.id.text_cart_table_number)
+
+        exFabMakeOrder = view.findViewById(R.id.exfab_cart_make_order)
 
         spinnerTableNumber = view.findViewById(R.id.spinner_cart_table_number)
 
@@ -81,7 +79,7 @@ class CartFragment : Fragment() {
                 val selectedName = selectedItem.dishName
                 val selectedQuantity = selectedItem.quantity.toInt()
 
-                val ref = FirebaseDatabase.getInstance().reference.child(key)
+                val ref = FirebaseDatabase.getInstance().reference.child("Cart").child(key)
 
 //                TODO add dish quantity when item in cart deleted
                 ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -175,39 +173,55 @@ class CartFragment : Fragment() {
         exFabMakeOrder.setOnClickListener {
             //            TODO make order list and go to order list menu
 
-            val orderKey = dbReference.child("Order").push().key
+            if (listCart.isNotEmpty()) {
+                val orderKey = dbReference.child("Order").push().key
 
-            val calendar = Calendar.getInstance()
-            val simpleDateFormat = SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a", Locale.getDefault())
+                val calendar = Calendar.getInstance()
+                val simpleDateFormat =
+                    SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a", Locale.getDefault())
 
-            val timestamp: String = simpleDateFormat.format(calendar.time)
+                val timestamp: String = simpleDateFormat.format(calendar.time)
 
-            val order = Order(
-                orderKey!!,
-                "belum dibayar",
-                timestamp,
-                totalBill.toString(),
-                spinnerTableNumber.selectedItem.toString(),
-                "",
-                ""
-            )
-
-            dbReference.child("Order").child(orderKey).setValue(order)
-
-            for (i in 0 until listCart.size) {
-                val cart = listCart[i]
-
-                val orderDetail = OrderDetail(
-                    orderKey,
-                    cart.dishName,
-                    cart.quantity,
-                    cart.price
+                val order = Order(
+                    orderKey!!,
+                    "belum dibayar",
+                    timestamp,
+                    totalBill.toString(),
+                    spinnerTableNumber.selectedItem.toString(),
+                    "",
+                    ""
                 )
 
-                dbReference.child("OrderDetail").child(orderKey).setValue(orderDetail)
-            }
+                dbReference.child("Order").child(orderKey).setValue(order)
 
-            findNavController().navigate(R.id.action_cartFragment_to_navigation_order)
+                for (i in 0 until listCart.size) {
+                    val cart = listCart[i]
+
+                    val orderDetail = OrderDetail(
+                        orderKey,
+                        cart.dishName,
+                        cart.quantity,
+                        cart.price
+                    )
+
+                    dbReference.child("OrderDetail").child(orderKey).setValue(orderDetail)
+                        .addOnCompleteListener {
+                            dbReference.child("Cart").child(cart.id).removeValue()
+                        }.addOnFailureListener {
+                            Toast.makeText(
+                                requireContext(),
+                                "menambahkan ke order detail gagal",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Log.e("failed to write order detail", it.message, it.cause)
+                        }
+                }
+
+                findNavController().navigate(R.id.action_cartFragment_to_navigation_order)
+            } else {
+                Toast.makeText(requireContext(), "Pesananmu masih kosong!", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 }

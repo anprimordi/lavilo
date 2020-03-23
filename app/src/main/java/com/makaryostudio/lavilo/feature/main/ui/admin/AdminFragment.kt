@@ -69,7 +69,7 @@ class AdminFragment : Fragment() {
                     ProgressDialog.show(
                         requireContext(),
                         "Mohon tunggu sebentar",
-                        "memroses",
+                        "processing",
                         true
                     )
 

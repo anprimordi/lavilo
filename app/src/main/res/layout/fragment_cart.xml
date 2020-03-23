@@ -12,7 +12,7 @@
         android:text="@string/hello_blank_fragment"
         android:visibility="gone" />
 
-    <include layout="@layout/item_cart" />
+    <include layout="@layout/content_cart" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

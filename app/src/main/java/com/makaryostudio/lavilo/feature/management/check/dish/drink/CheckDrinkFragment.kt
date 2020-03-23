@@ -31,6 +31,13 @@ class CheckDrinkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_check_drink, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         listDrink = ArrayList()
 
         storage = FirebaseStorage.getInstance()
@@ -81,8 +88,6 @@ class CheckDrinkFragment : Fragment() {
                 }
             })
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_drink, container, false)
     }
 
     override fun onDestroyOptionsMenu() {

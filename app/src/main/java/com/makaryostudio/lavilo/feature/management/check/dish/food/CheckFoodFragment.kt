@@ -31,6 +31,13 @@ class CheckFoodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_check_food, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         listFood = ArrayList()
         storage = FirebaseStorage.getInstance()
         dbReference = FirebaseDatabase.getInstance().reference
@@ -59,7 +66,7 @@ class CheckFoodFragment : Fragment() {
 
         rv_check_food.adapter = adapter
 
-        dbListener = dbReference.child("Dish").child("Drink")
+        dbListener = dbReference.child("Dish").child("Food")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -78,8 +85,6 @@ class CheckFoodFragment : Fragment() {
                 }
             })
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_food, container, false)
     }
 
     override fun onDestroyOptionsMenu() {

@@ -38,25 +38,15 @@ class OrderFragment : Fragment() {
             textView.text = it
         })
 
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         listOrder = ArrayList()
 
-        rv_order.layoutManager = LinearLayoutManager(requireContext())
-
         dbReference = FirebaseDatabase.getInstance().reference
-
-        listener = object : OrderFragmentListener {
-            override fun onClickListener(order: Order) {
-
-                val action =
-                    OrderFragmentDirections.actionNavigationOrderToOrderDetailFragment(order)
-
-                findNavController().navigate(action)
-            }
-        }
-
-        adapter = OrderFragmentAdapter(requireContext(), listOrder, listener)
-
-        rv_order.adapter = adapter
 
         dbReference.child("Order").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
@@ -79,6 +69,19 @@ class OrderFragment : Fragment() {
             }
         })
 
-        return root
+        listener = object : OrderFragmentListener {
+            override fun onClickListener(order: Order) {
+
+                val action =
+                    OrderFragmentDirections.actionNavigationOrderToOrderDetailFragment(order)
+
+                findNavController().navigate(action)
+            }
+        }
+
+        adapter = OrderFragmentAdapter(requireContext(), listOrder, listener)
+
+        rv_order.adapter = adapter
+        rv_order.layoutManager = LinearLayoutManager(requireContext())
     }
 }

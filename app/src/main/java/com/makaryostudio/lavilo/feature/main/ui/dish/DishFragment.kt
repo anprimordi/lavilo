@@ -50,6 +50,7 @@ class DishFragment : Fragment() {
 
         exFabCart.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_dish_to_cartFragment)
+
         }
     }
 }

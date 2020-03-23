@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,7 +18,11 @@ import kotlinx.android.synthetic.main.fragment_add_table.*
 
 class AddTableFragment : Fragment() {
 
+    var capacity = 0
     private lateinit var dbReference: DatabaseReference
+    private lateinit var editCapacity: EditText
+    private lateinit var btnDecrease: ImageView
+    private lateinit var btnIncrease: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +34,22 @@ class AddTableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        editCapacity = view.findViewById(R.id.edit_add_table_capacity)
+        btnDecrease = view.findViewById(R.id.image_add_table_decrease_capacity)
+        btnIncrease = view.findViewById(R.id.image_add_table_increase_capacity)
+
+        btnDecrease.setOnClickListener {
+            if (capacity != 0) {
+                capacity--
+            }
+            editCapacity.setText(capacity.toString())
+        }
+
+        btnIncrease.setOnClickListener {
+            capacity++
+            editCapacity.setText(capacity.toString())
+        }
 
         dbReference = FirebaseDatabase.getInstance().reference
 
@@ -59,7 +81,7 @@ class AddTableFragment : Fragment() {
         dbReference.child("Table").child(edit_add_table_number.text.toString()).setValue(table)
             .addOnCompleteListener {
                 Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_addEmployeeFragment_to_managementFragment)
+                findNavController().navigate(R.id.action_addTableFragment_to_managementFragment)
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 Log.e("AddTableFragment", it.message!!)

@@ -1,7 +1,10 @@
 package com.makaryostudio.lavilo.feature.main.ui.order.detail
 
 import android.Manifest
+import android.content.Context
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
+import com.itextpdf.text.*
+import com.itextpdf.text.pdf.BaseFont
+import com.itextpdf.text.pdf.PdfWriter
+import com.itextpdf.text.pdf.draw.LineSeparator
+import com.itextpdf.text.pdf.draw.VerticalPositionMark
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -21,13 +29,18 @@ import com.karumi.dexter.listener.single.PermissionListener
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Order
 import com.makaryostudio.lavilo.data.model.OrderDetail
+import com.makaryostudio.lavilo.utils.Common
 import kotlinx.android.synthetic.main.fragment_order_detail.*
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class OrderDetailFragment : Fragment() {
+
+    val fileName: String = "test_pdf.pdf"
 
     private lateinit var listOrderDetail: ArrayList<OrderDetail>
     private lateinit var adapter: OrderDetailFragmentAdapter
@@ -36,6 +49,13 @@ class OrderDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+        return inflater.inflate(R.layout.fragment_order_detail, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val args: OrderDetailFragmentArgs by navArgs()
 
@@ -77,6 +97,10 @@ class OrderDetailFragment : Fragment() {
             .withListener(object : PermissionListener {
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {
 //                    TODO implement print to pdf feature
+                    button_order_list_payment.setOnClickListener {
+                        updateOrderStatus(receivedOrderId)
+                        createPdfFile(Common.getAppPath(requireContext()) + fileName, args.order!!)
+                    }
                 }
 
                 override fun onPermissionRationaleShouldBeShown(
@@ -92,11 +116,139 @@ class OrderDetailFragment : Fragment() {
             })
             .check()
 
-        button_order_list_payment.setOnClickListener {
-            updateOrderStatus(receivedOrderId)
-        }
+//        button_order_list_payment.setOnClickListener {
+//            updateOrderStatus(receivedOrderId)
+//        }
 
-        return inflater.inflate(R.layout.fragment_order_detail, container, false)
+    }
+
+    private fun createPdfFile(path: String, order: Order) {
+        if (File(path).exists()) File(path).delete()
+        try {
+            val document = Document()
+            PdfWriter.getInstance(document, FileOutputStream(path))
+
+//            open to write
+            document.open()
+
+//            setting
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("Lava View Lodge")
+            document.addCreator("Makaryo Studio")
+
+//            font setting
+            val headingFontSize = 20.0f
+            val fontSize = 26.0f
+
+//            custom font
+            val bebasNeueFont =
+                BaseFont.createFont("assets/BebasNeueRegular.otf", "UTF-8", BaseFont.EMBEDDED)
+
+            val colorAccent = BaseColor(0, 153, 204, 255)
+
+//            add title to document
+            val titleStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, BaseColor.BLACK)
+
+            addNewItem(document, "Order Details", Element.ALIGN_CENTER, titleStyle)
+
+            val headingStyle = Font(bebasNeueFont, headingFontSize, Font.NORMAL, colorAccent)
+            addNewItem(document, "Order No: ", Element.ALIGN_LEFT, headingStyle)
+
+            val valueStyle = Font(bebasNeueFont, fontSize, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "#123456", Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeparator(document)
+
+            addNewItem(document, "Order Date", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, order.timestamp!!, Element.ALIGN_LEFT, valueStyle)
+
+            addNewItem(document, "Account Name", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, "Eddy Lee", Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeparator(document)
+
+            addLineSpace(document)
+
+            addNewItem(document, "Product Details", Element.ALIGN_LEFT, headingStyle)
+
+//            item 1
+            addNewItemWithLeftAndRight(document, "Pizza 25", "(0.0%)", titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
+
+            addLineSeparator(document)
+
+//            item 2
+            addNewItemWithLeftAndRight(document, "Pizza 26", "(0.0%)", titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
+
+            addLineSeparator(document)
+
+//            total
+            addLineSpace(document)
+            addLineSpace(document)
+
+            addNewItemWithLeftAndRight(document, "Total", "24000.0", titleStyle, valueStyle)
+
+            document.close()
+
+            Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+
+            printPdf()
+        } catch (e: Exception) {
+            Log.e("document exception", e.message!!)
+        }
+    }
+
+    private fun printPdf() {
+        val printManager = requireActivity().getSystemService(Context.PRINT_SERVICE) as PrintManager
+        try {
+            val printAdapter =
+                PdfDocumentAdapter(requireContext(), Common.getAppPath(requireContext()) + fileName)
+            printManager.print("Document", printAdapter, PrintAttributes.Builder().build())
+        } catch (e: Exception) {
+            Log.e("print pdf error", e.message, e.cause)
+        }
+    }
+
+    @Throws(DocumentException::class)
+    private fun addNewItemWithLeftAndRight(
+        document: Document,
+        textLeft: String,
+        textRight: String,
+        leftStyle: Font,
+        rightStyle: Font
+    ) {
+        val chunkTextLeft = Chunk(textLeft, leftStyle)
+        val chunkTextRight = Chunk(textRight, rightStyle)
+        val p = Paragraph(chunkTextLeft)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextRight)
+        document.add(p)
+
+    }
+
+    @Throws(DocumentException::class)
+    private fun addLineSeparator(document: Document) {
+        val lineSeparator = LineSeparator()
+        lineSeparator.lineColor = BaseColor(0, 0, 0, 68)
+
+        addLineSpace(document)
+        document.add(Chunk(lineSeparator))
+        addLineSpace(document)
+    }
+
+    @Throws(DocumentException::class)
+    private fun addLineSpace(document: Document) {
+        document.add(Paragraph(""))
+    }
+
+    @Throws(DocumentException::class)
+    private fun addNewItem(document: Document, text: String, alignment: Int, textStyle: Font) {
+        val chunk = Chunk(text, textStyle)
+        val p = Paragraph(chunk)
+        p.alignment = alignment
+        document.add(p)
     }
 
     private fun updateOrderStatus(receivedOrderId: String?) {
@@ -127,7 +279,7 @@ class OrderDetailFragment : Fragment() {
                         )
 
                         dbReference.child("Order").child(receivedOrderId!!).setValue(order)
-                        
+
                         findNavController().navigate(R.id.action_orderDetailFragment_to_navigation_order)
                     }
                 }

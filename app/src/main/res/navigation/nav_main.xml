@@ -34,7 +34,6 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart.CartFragment"
-        android:label="Keranjang"
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_navigation_order"
@@ -75,7 +74,6 @@
     <fragment
         android:id="@+id/addTableFragment"
         android:name="com.makaryostudio.lavilo.feature.management.add.AddTableFragment"
-        android:label="fragment_add_table"
         tools:layout="@layout/fragment_add_table">
         <action
             android:id="@+id/action_addTableFragment_to_managementFragment"
@@ -84,7 +82,6 @@
     <fragment
         android:id="@+id/addEmployeeFragment"
         android:name="com.makaryostudio.lavilo.feature.management.add.AddEmployeeFragment"
-        android:label="fragment_add_employee"
         tools:layout="@layout/fragment_add_employee">
         <action
             android:id="@+id/action_addEmployeeFragment_to_managementFragment"
@@ -93,12 +90,10 @@
     <fragment
         android:id="@+id/checkDishFragment"
         android:name="com.makaryostudio.lavilo.feature.management.check.dish.CheckDishFragment"
-        android:label="fragment_check_dish"
         tools:layout="@layout/fragment_check_dish" />
     <fragment
         android:id="@+id/checkReportFragment"
         android:name="com.makaryostudio.lavilo.feature.management.check.report.CheckReportFragment"
-        android:label="fragment_check_report"
         tools:layout="@layout/fragment_check_report">
         <action
             android:id="@+id/action_checkReportFragment_to_checkReportDetailFragment"
@@ -107,7 +102,6 @@
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="com.makaryostudio.lavilo.feature.main.ui.order.detail.OrderDetailFragment"
-        android:label="fragment_order_detail"
         tools:layout="@layout/fragment_order_detail">
         <argument
             android:name="order"
@@ -120,7 +114,6 @@
     <fragment
         android:id="@+id/checkReportDetailFragment"
         android:name="com.makaryostudio.lavilo.feature.management.check.report.detail.CheckReportDetailFragment"
-        android:label="fragment_check_report_detail"
         tools:layout="@layout/fragment_check_report_detail">
         <argument
             android:name="order"

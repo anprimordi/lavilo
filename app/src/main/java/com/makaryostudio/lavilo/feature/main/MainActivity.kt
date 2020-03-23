@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_dish, R.id.navigation_order, R.id.navigation_admin
             )
         )
+
+//        TODO solve actionbar visibility
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

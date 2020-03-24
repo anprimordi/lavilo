@@ -1,5 +1,8 @@
 package com.makaryostudio.lavilo.feature.management.check.dish.food
 
+import com.makaryostudio.lavilo.data.model.Food
+
 interface CheckFoodItemClickListener {
-    fun onDelete(position: Int)
+    fun onUpdate(food: Food, position: Int)
+    fun onDelete(food: Food, position: Int)
 }

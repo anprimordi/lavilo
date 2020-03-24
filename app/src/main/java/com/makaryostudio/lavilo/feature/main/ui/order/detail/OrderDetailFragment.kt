@@ -50,7 +50,6 @@ class OrderDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         return inflater.inflate(R.layout.fragment_order_detail, container, false)
     }
 
@@ -61,13 +60,7 @@ class OrderDetailFragment : Fragment() {
 
         val receivedOrderId = args.order!!.id
 
-        adapter = OrderDetailFragmentAdapter(requireContext(), listOrderDetail)
-
-        rv_order_detail.adapter = adapter
-
         listOrderDetail = ArrayList()
-
-        rv_order_detail.layoutManager = LinearLayoutManager(requireContext())
 
         dbReference = FirebaseDatabase.getInstance().reference
 
@@ -80,15 +73,23 @@ class OrderDetailFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listOrderDetail.clear()
                 for (postSnapshot in dataSnapshot.children) {
-                    val orderDetail = postSnapshot.value as OrderDetail
+                    val orderDetail = postSnapshot.getValue(OrderDetail::class.java)!!
 
-                    if (orderDetail.id == receivedOrderId) {
+                    if (receivedOrderId == orderDetail.id) {
                         listOrderDetail.add(orderDetail)
                     }
+
+//                    listOrderDetail.add(orderDetail)
+
                     adapter.notifyDataSetChanged()
                 }
             }
         })
+
+        adapter = OrderDetailFragmentAdapter(requireContext(), listOrderDetail)
+        rv_order_detail.adapter = adapter
+
+        rv_order_detail.layoutManager = LinearLayoutManager(requireContext())
 
         text_order_detail_bill.text = args.order!!.bill
 
@@ -116,13 +117,13 @@ class OrderDetailFragment : Fragment() {
             })
             .check()
 
-//        button_order_list_payment.setOnClickListener {
-//            updateOrderStatus(receivedOrderId)
-//        }
-
     }
 
     private fun createPdfFile(path: String, order: Order) {
+        val args: OrderDetailFragmentArgs by navArgs()
+
+        val receivedOrderId = args.order!!.id
+
         if (File(path).exists()) File(path).delete()
         try {
             val document = Document()
@@ -140,6 +141,7 @@ class OrderDetailFragment : Fragment() {
 //            font setting
             val headingFontSize = 20.0f
             val fontSize = 26.0f
+            val smallSize = 18.0f
 
 //            custom font
             val bebasNeueFont =
@@ -156,7 +158,9 @@ class OrderDetailFragment : Fragment() {
             addNewItem(document, "Order No: ", Element.ALIGN_LEFT, headingStyle)
 
             val valueStyle = Font(bebasNeueFont, fontSize, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "#123456", Element.ALIGN_LEFT, valueStyle)
+            addNewItem(document, order.id!!, Element.ALIGN_LEFT, valueStyle)
+
+            val itemStyle = Font(bebasNeueFont, smallSize, Font.NORMAL, BaseColor.BLACK)
 
             addLineSeparator(document)
 
@@ -172,23 +176,38 @@ class OrderDetailFragment : Fragment() {
 
             addNewItem(document, "Product Details", Element.ALIGN_LEFT, headingStyle)
 
-//            item 1
-            addNewItemWithLeftAndRight(document, "Pizza 25", "(0.0%)", titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
 
-            addLineSeparator(document)
+            for (i in 0 until listOrderDetail.size) {
+                val orderDetail = listOrderDetail[i]
+                addNewItemWithLeftAndRight(
+                    document,
+                    orderDetail.name,
+                    orderDetail.quantity,
+                    itemStyle,
+                    itemStyle
+                )
+                addNewItem(document, orderDetail.totalPrice, Element.ALIGN_LEFT, itemStyle)
+                addLineSpace(document)
+            }
 
-//            item 2
-            addNewItemWithLeftAndRight(document, "Pizza 26", "(0.0%)", titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
-
-            addLineSeparator(document)
+////            item 1
+//            addNewItemWithLeftAndRight(document, "Pizza 25", "(0.0%)", titleStyle, valueStyle)
+//            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
+//
+//            addLineSeparator(document)
+//
+////            item 2
+//            addNewItemWithLeftAndRight(document, "Pizza 26", "(0.0%)", titleStyle, valueStyle)
+//            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
+//
+//            addLineSeparator(document)
 
 //            total
             addLineSpace(document)
             addLineSpace(document)
 
-            addNewItemWithLeftAndRight(document, "Total", "24000.0", titleStyle, valueStyle)
+            addLineSeparator(document)
+            addNewItemWithLeftAndRight(document, "Total", order.bill!!, titleStyle, valueStyle)
 
             document.close()
 
@@ -265,12 +284,12 @@ class OrderDetailFragment : Fragment() {
 
             override fun onDataChange(p0: DataSnapshot) {
                 for (postSnapshot in p0.children) {
-                    var order = postSnapshot.value as Order
+                    var order = postSnapshot.getValue(Order::class.java)!!
 
                     if (order.id == receivedOrderId) {
                         order = Order(
                             receivedOrderId,
-                            "paid",
+                            "Lunas",
                             timestamp,
                             order.bill,
                             order.tableNumber,

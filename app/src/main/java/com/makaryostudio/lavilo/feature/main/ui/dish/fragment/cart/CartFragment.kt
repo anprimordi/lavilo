@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.*
+import com.makaryostudio.lavilo.data.model.Cart
+import com.makaryostudio.lavilo.data.model.Order
+import com.makaryostudio.lavilo.data.model.OrderDetail
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -23,18 +25,18 @@ import kotlin.collections.ArrayList
 class CartFragment : Fragment() {
 
     var totalBill = 0
+    var totalItem = 0
 
     private lateinit var listCart: ArrayList<Cart>
 
     private lateinit var adapter: CartFragmentAdapter
     private lateinit var clickListener: CartFragmentItemClickListener
     private lateinit var dbReference: DatabaseReference
-
+    private lateinit var dbListener: ValueEventListener
     private lateinit var buttonMakeOrder: Button
     private lateinit var rvCart: RecyclerView
     private lateinit var spinnerTableNumber: Spinner
     private lateinit var textBill: TextView
-    private lateinit var textTableNumber: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +53,6 @@ class CartFragment : Fragment() {
 
         rvCart = view.findViewById(R.id.rv_cart)
         textBill = view.findViewById(R.id.text_cart_bill)
-        textTableNumber = view.findViewById(R.id.text_cart_table_number)
 
         buttonMakeOrder = view.findViewById(R.id.button_cart_make_order)
 
@@ -65,64 +66,65 @@ class CartFragment : Fragment() {
         val refTable = FirebaseDatabase.getInstance().reference.child("Table")
 
         clickListener = object : CartFragmentItemClickListener {
-            override fun deleteCartItem(position: Int) {
-                val selectedItem = listCart[position]
+            override fun deleteCartItem(cart: Cart, position: Int) {
 
+                totalBill = 0
+                totalItem = 0
 
-                val key = selectedItem.id
+                val key = cart.id
 
                 dbReference.child("Cart").child(key).removeValue()
                 adapter.notifyItemRemoved(position)
 
-                val selectedName = selectedItem.dishName
-                val selectedQuantity = selectedItem.quantity.toInt()
+                val selectedName = cart.dishName
+                val selectedQuantity = cart.quantity.toInt()
 
                 val ref = FirebaseDatabase.getInstance().reference
 
 //                TODO add dish quantity when item in cart deleted
-                ref.child("Dish").child("Food")
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onCancelled(p0: DatabaseError) {
-                            Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onDataChange(p0: DataSnapshot) {
-                            val food = p0.getValue(Food::class.java)!!
-
-                            for (postSnapshot in p0.children) {
-                                if (selectedName == food.name) {
-                                    var stockItemFood = food.stock.toInt()
-
-                                    stockItemFood += selectedQuantity
-
-                                    ref.child("stock").setValue(stockItemFood.toString())
-                                }
-                            }
-
-
-                        }
-                    })
-
-                ref.child("Dish").child("Drink")
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onCancelled(p0: DatabaseError) {
-
-                        }
-
-                        override fun onDataChange(p0: DataSnapshot) {
-                            val drink = p0.getValue(Drink::class.java)!!
-
-                            for (postSnapshot in p0.children) {
-                                if (selectedName == drink.name) {
-                                    var stockItemDrink = drink.stock!!.toInt()
-
-                                    stockItemDrink += selectedQuantity
-
-                                    ref.child("stock").setValue(stockItemDrink.toString())
-                                }
-                            }
-                        }
-                    })
+//                ref.child("Dish").child("Food")
+//                    .addListenerForSingleValueEvent(object : ValueEventListener {
+//                        override fun onCancelled(p0: DatabaseError) {
+//                            Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                        override fun onDataChange(p0: DataSnapshot) {
+//                            val food = p0.getValue(Food::class.java)!!
+//
+//                            for (postSnapshot in p0.children) {
+//                                if (selectedName == food.name) {
+//                                    var stockItemFood = food.stock.toInt()
+//
+//                                    stockItemFood += selectedQuantity
+//
+//                                    ref.child("stock").setValue(stockItemFood.toString())
+//                                }
+//                            }
+//
+//
+//                        }
+//                    })
+//
+//                ref.child("Dish").child("Drink")
+//                    .addListenerForSingleValueEvent(object : ValueEventListener {
+//                        override fun onCancelled(p0: DatabaseError) {
+//
+//                        }
+//
+//                        override fun onDataChange(p0: DataSnapshot) {
+//                            val drink = p0.getValue(Drink::class.java)!!
+//
+//                            for (postSnapshot in p0.children) {
+//                                if (selectedName == drink.name) {
+//                                    var stockItemDrink = drink.stock!!.toInt()
+//
+//                                    stockItemDrink += selectedQuantity
+//
+//                                    ref.child("stock").setValue(stockItemDrink.toString())
+//                                }
+//                            }
+//                        }
+//                    })
             }
         }
 
@@ -130,7 +132,7 @@ class CartFragment : Fragment() {
 
         rvCart.adapter = adapter
 
-        dbReference.child("Cart").addValueEventListener(object : ValueEventListener {
+        dbListener = dbReference.child("Cart").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), databaseError.toString(), Toast.LENGTH_SHORT)
                     .show()
@@ -146,10 +148,14 @@ class CartFragment : Fragment() {
                         )!!
 
                     totalBill += cart.price.toInt()
+                    totalItem += cart.quantity.toInt()
                     listCart.add(cart)
                 }
                 adapter.notifyDataSetChanged()
                 textBill.text = totalBill.toString()
+
+//                (activity as AppCompatActivity).supportActionBar?.title =
+//                    "Total item: $totalItem"
             }
         })
 
@@ -170,12 +176,11 @@ class CartFragment : Fragment() {
                 val tableAdapter =
                     ArrayAdapter<String>(
                         requireContext(),
-                        R.layout.fragment_cart,
-                        R.id.text_cart_table_number,
+                        R.layout.support_simple_spinner_dropdown_item,
                         listTable
                     )
 
-                tableAdapter.setDropDownViewResource(R.layout.fragment_cart)
+                tableAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
 
                 spinnerTableNumber.adapter = tableAdapter
             }
@@ -187,7 +192,6 @@ class CartFragment : Fragment() {
 //        textBill.text = totalBill.toString()
 
         buttonMakeOrder.setOnClickListener {
-            //            TODO make order list and go to order list menu
 
             if (listCart.isNotEmpty()) {
                 val orderKey = dbReference.child("Order").push().key
@@ -220,7 +224,8 @@ class CartFragment : Fragment() {
                         cart.price
                     )
 
-                    dbReference.child("OrderDetail").child(orderKey).setValue(orderDetail)
+                    val key = dbReference.child("OrderDetail").push().key
+                    dbReference.child("OrderDetail").child(key!!).setValue(orderDetail)
                         .addOnCompleteListener {
                             dbReference.child("Cart").child(cart.id).removeValue()
                         }.addOnFailureListener {
@@ -239,5 +244,10 @@ class CartFragment : Fragment() {
                     .show()
             }
         }
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
+        dbReference.removeEventListener(dbListener)
     }
 }

@@ -14,8 +14,8 @@ import com.makaryostudio.lavilo.data.model.Food
 
 class CheckFoodFragmentAdapter(
     val context: Context,
-    val listFood: ArrayList<Food>,
-    val listener: CheckFoodItemClickListener
+    private val listFood: ArrayList<Food>,
+    private val listener: CheckFoodItemClickListener
 ) : RecyclerView.Adapter<CheckFoodFragmentAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -23,7 +23,8 @@ class CheckFoodFragmentAdapter(
         var textName: TextView = itemView.findViewById(R.id.text_item_stock_name)
         var textPrice: TextView = itemView.findViewById(R.id.text_item_stock_price)
         var textStock: TextView = itemView.findViewById(R.id.text_item_stock_quantity)
-        var buttonDelete: Button = itemView.findViewById(R.id.button_stock_delete)
+        var buttonUpdate: Button = itemView.findViewById(R.id.button_item_stock_update)
+        var buttonDelete: Button = itemView.findViewById(R.id.button_item_stock_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,7 +46,11 @@ class CheckFoodFragmentAdapter(
         holder.textStock.text = food.stock
 
         holder.buttonDelete.setOnClickListener {
-            listener.onDelete(position)
+            listener.onDelete(food, position)
+        }
+
+        holder.buttonUpdate.setOnClickListener {
+            listener.onUpdate(food, position)
         }
     }
 }

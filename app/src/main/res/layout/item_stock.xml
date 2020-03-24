@@ -72,7 +72,17 @@
     <!--        app:layout_constraintEnd_toEndOf="@id/text_item_stock_name" />-->
 
     <Button
-        android:id="@+id/button_stock_delete"
+        android:id="@+id/button_item_stock_update"
+        style="?borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="perbarui"
+        app:icon="@drawable/ic_item_stock_update_orange_24dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/button_item_stock_delete"
+        app:layout_constraintEnd_toStartOf="@id/button_item_stock_delete" />
+
+    <Button
+        android:id="@+id/button_item_stock_delete"
         style="?attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

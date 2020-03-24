@@ -94,13 +94,17 @@ class FoodFragment : Fragment() {
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_dish, null)
 
         var quantityInt = 1
-        var priceInt = food.price!!.toInt()
+        val priceInt = food.price!!.toInt()
+
+        var totalPrice = priceInt
 
         val textDishName: TextView = view.findViewById(R.id.text_dish_dialog_name)
         val textQuantity: TextView = view.findViewById(R.id.text_dish_dialog_quantity)
         val textPrice: TextView = view.findViewById(R.id.text_dish_dialog_price)
         val buttonDecrease: ImageButton = view.findViewById(R.id.image_dish_dialog_decrease)
         val buttonIncrease: ImageButton = view.findViewById(R.id.image_dish_dialog_increase)
+
+        textPrice.text = priceInt.toString()
 
         textDishName.text = food.name
 
@@ -127,17 +131,17 @@ class FoodFragment : Fragment() {
         buttonDecrease.setOnClickListener {
             if (quantityInt != 0) {
                 quantityInt--
+                totalPrice -= priceInt
+                textQuantity.text = quantityInt.toString()
+                textPrice.text = totalPrice.toString()
             }
-            priceInt /= quantityInt
-            textQuantity.text = quantityInt.toString()
-            textPrice.text = priceInt.toString()
         }
 
         buttonIncrease.setOnClickListener {
             quantityInt++
-            priceInt *= quantityInt
+            totalPrice += priceInt
             textQuantity.text = quantityInt.toString()
-            textPrice.text = priceInt.toString()
+            textPrice.text = totalPrice.toString()
         }
 
         builder.setView(view)
@@ -148,7 +152,8 @@ class FoodFragment : Fragment() {
 
             val quantity = textQuantity.text.toString().trim()
 
-            val price = textPrice.text.toString().trim()
+//            val price = textPrice.text.toString().trim()
+            val price = totalPrice.toString()
 
             if (quantity.isEmpty()) {
                 Toast.makeText(
@@ -160,8 +165,8 @@ class FoodFragment : Fragment() {
                 return@setPositiveButton
             }
 
-            val key: String = food.key
-            val cart = Cart(key, dishName, quantity, price)
+            val key = food.key
+            val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
 //            TODO decrease food quantity when cart item added
             dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {

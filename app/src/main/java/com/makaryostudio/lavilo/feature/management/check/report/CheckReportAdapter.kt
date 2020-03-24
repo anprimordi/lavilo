@@ -30,7 +30,7 @@ class CheckReportAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CheckReportAdapter.ViewHolder {
+    ): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_report, parent, false)
 
         return ViewHolder(view)
@@ -40,7 +40,7 @@ class CheckReportAdapter(
         return listOrder.size
     }
 
-    override fun onBindViewHolder(holder: CheckReportAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = listOrder[position]
 
         holder.textId.text = order.id

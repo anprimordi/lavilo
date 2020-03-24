@@ -40,6 +40,8 @@ class DishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         viewPager = view.findViewById(R.id.vp_dish)
         tabLayout = view.findViewById(R.id.tab_dish)
         exFabCart = view.findViewById(R.id.exfab_go_to_cart)

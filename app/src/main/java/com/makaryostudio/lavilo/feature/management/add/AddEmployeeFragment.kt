@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.DatabaseReference
@@ -29,6 +30,8 @@ class AddEmployeeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         dbReference = FirebaseDatabase.getInstance().reference
 
@@ -57,7 +60,7 @@ class AddEmployeeFragment : Fragment() {
                 go = false
             }
             if (edit_add_employee_salary.text.toString() == "" || edit_add_employee_salary.text.toString() == "0") {
-                edit_add_employee_salary.error = "Karyawannya masak nggak digaji?"
+                edit_add_employee_salary.error = "Karyawan masak nggak digaji?"
                 edit_add_employee_salary.requestFocus()
                 go = false
             }

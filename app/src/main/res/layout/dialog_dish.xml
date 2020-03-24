@@ -18,47 +18,61 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem/random" />
 
-    <LinearLayout
-        android:id="@+id/layout_dish_dialog_quantity"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_dish_dialog_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:elevation="2dp"
+        app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toTopOf="@id/text_dish_dialog_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_dish_dialog_name">
 
-        <ImageButton
-            android:id="@+id/image_dish_dialog_decrease"
-            android:layout_width="@dimen/imgbtn_item_food_amount"
-            android:layout_height="@dimen/imgbtn_item_food_amount"
-            android:layout_gravity="center"
-            android:background="@android:color/white"
-            android:contentDescription="@string/item_food_decrease_img"
-            android:src="@drawable/ic_item_food_decrease_orange_24dp" />
+        <LinearLayout
+            android:id="@+id/layout_dish_dialog_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/text_dish_dialog_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_dish_dialog_name">
 
-        <TextView
-            android:id="@+id/text_dish_dialog_quantity"
-            android:layout_width="@dimen/tv_item_food_amount"
-            android:layout_height="@dimen/tv_item_food_amount"
-            android:gravity="center"
-            android:maxLength="2"
-            android:maxLines="1"
-            android:text="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/black" />
+            <ImageButton
+                android:id="@+id/image_dish_dialog_decrease"
+                android:layout_width="@dimen/imgbtn_item_food_amount"
+                android:layout_height="@dimen/imgbtn_item_food_amount"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                android:contentDescription="@string/item_food_decrease_img"
+                android:src="@drawable/ic_item_food_decrease_orange_24dp" />
 
-        <ImageButton
-            android:id="@+id/image_dish_dialog_increase"
-            android:layout_width="@dimen/imgbtn_item_food_amount"
-            android:layout_height="@dimen/imgbtn_item_food_amount"
-            android:layout_gravity="center"
-            android:background="@android:color/white"
-            android:contentDescription="@string/item_food_increase_img"
-            android:src="@drawable/ic_item_food_increase_orange_24dp" />
+            <TextView
+                android:id="@+id/text_dish_dialog_quantity"
+                android:layout_width="@dimen/tv_item_food_amount"
+                android:layout_height="@dimen/tv_item_food_amount"
+                android:gravity="center"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:text="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/black" />
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/image_dish_dialog_increase"
+                android:layout_width="@dimen/imgbtn_item_food_amount"
+                android:layout_height="@dimen/imgbtn_item_food_amount"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                android:contentDescription="@string/item_food_increase_img"
+                android:src="@drawable/ic_item_food_increase_orange_24dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/text_dish_dialog_price"
@@ -68,13 +82,13 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:singleLine="true"
+        android:text="0"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_dish_dialog_quantity"
-        tools:text="100000" />
+        app:layout_constraintTop_toBottomOf="@id/card_dish_dialog_quantity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

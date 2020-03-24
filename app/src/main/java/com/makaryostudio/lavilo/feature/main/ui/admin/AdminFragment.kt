@@ -48,6 +48,7 @@ class AdminFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 //        val editEmail: TextInputEditText = view.findViewById(R.id.edit_email)
 //        val editPassword: TextInputEditText = view.findViewById(R.id.edit_password)
         firebaseAuth = FirebaseAuth.getInstance()

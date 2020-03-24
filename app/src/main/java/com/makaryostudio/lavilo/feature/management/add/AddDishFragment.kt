@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -53,6 +54,8 @@ class AddDishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         btnUpload = view.findViewById(R.id.button_add_dish_upload)
 
         editName = view.findViewById(R.id.edit_add_dish_name)
@@ -82,8 +85,8 @@ class AddDishFragment : Fragment() {
         imageDecreaseQty.setOnClickListener {
             if (quantity != 0) {
                 quantity--
+                editStock.setText(quantity.toString())
             }
-            editStock.setText(quantity.toString())
         }
 
         imageIncreaseQty.setOnClickListener {

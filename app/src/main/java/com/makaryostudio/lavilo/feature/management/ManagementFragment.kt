@@ -34,7 +34,11 @@ class ManagementFragment : Fragment() {
         val cardCheckReport: CardView = view.findViewById(R.id.card_management_check_report)
 
         (activity as AppCompatActivity).supportActionBar?.title =
-            "Example 1 two plus two that's four"
+            "Manajemen Admin"
+
+//        (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(false)
+
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         cardAddDish.setOnClickListener {
             findNavController().navigate(R.id.action_managementFragment_to_addDishFragment)

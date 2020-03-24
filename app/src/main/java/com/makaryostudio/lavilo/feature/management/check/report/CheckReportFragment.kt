@@ -1,18 +1,15 @@
 package com.makaryostudio.lavilo.feature.management.check.report
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Order
 import kotlinx.android.synthetic.main.fragment_check_report.*
@@ -42,6 +39,10 @@ class CheckReportFragment : Fragment() {
 
         listOrder = ArrayList()
 
+        dbReference = FirebaseDatabase.getInstance().reference
+
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         rv_check_report.layoutManager = LinearLayoutManager(requireContext())
 
         val clickListener = object : CheckReportItemClickListener {
@@ -61,17 +62,24 @@ class CheckReportFragment : Fragment() {
 
                 dbReference.child("Order").child(selectedId!!).removeValue()
                     .addOnCompleteListener {
-                        Toast.makeText(
-                            requireContext(),
-                            "item berhasil dihapus",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        adapter.notifyItemRemoved(position)
+                        for (i in 0..10) {
+                            val key = dbReference.child("OrderDetail").push().key
+                            dbReference.child("OrderDetail").child(key!!).child("id")
+                                .child(selectedId).removeValue()
+                            Toast.makeText(
+                                requireContext(),
+                                "item berhasil dihapus",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            adapter.notifyItemRemoved(position)
+                        }
+
                     }.addOnFailureListener {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         Log.e("gagal menghapus item", it.message, it.cause)
                     }
+
             }
         }
 
@@ -83,19 +91,55 @@ class CheckReportFragment : Fragment() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
-                    Log.d("call check report db", p0.message)
+                    Log.e("call check report db", p0.message)
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
                     listOrder.clear()
 
                     for (postSnapshot in p0.children) {
-                        val order = postSnapshot.value as Order
+                        val order = postSnapshot.getValue(Order::class.java)!!
 
                         listOrder.add(order)
                     }
                     adapter.notifyDataSetChanged()
                 }
             })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.management_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_delete -> {
+                showDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setTitle("Hapus riwayat pesanan?")
+
+        builder.setPositiveButton("HAPUS") { _, _ ->
+            dbReference.child("Order").removeValue().addOnSuccessListener {
+                Toast.makeText(requireContext(), "Riwayat berhasil dihapus", Toast.LENGTH_SHORT)
+                    .show()
+            }.addOnFailureListener {
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                Log.e("Gagal menghapus riwayat", it.message, it.cause)
+            }
+            adapter.notifyDataSetChanged()
+        }
+
+        builder.setNegativeButton("BATAL") { dialog, _ ->
+            dialog.dismiss()
+        }
     }
 }

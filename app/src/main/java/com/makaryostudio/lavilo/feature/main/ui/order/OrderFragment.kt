@@ -44,11 +44,14 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         listOrder = ArrayList()
 
         dbReference = FirebaseDatabase.getInstance().reference
 
-        dbReference.child("Order").addValueEventListener(object : ValueEventListener {
+        dbReference.child("Order").orderByChild("tableNumber")
+            .addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), databaseError.message, Toast.LENGTH_SHORT).show()
                 Log.e("Error Order Fragment", databaseError.message, databaseError.toException())

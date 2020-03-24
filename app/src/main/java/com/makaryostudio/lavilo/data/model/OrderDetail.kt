@@ -6,4 +6,7 @@ data class OrderDetail(
     val quantity: String,
     val totalPrice: String
 ) {
+    constructor() : this(
+        "", "", "", ""
+    )
 }

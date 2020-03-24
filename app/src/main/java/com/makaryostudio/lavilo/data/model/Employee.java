@@ -1,12 +1,12 @@
 package com.makaryostudio.lavilo.data.model;
 
 public class Employee {
-    String id;
-    String name;
-    String email;
-    String password;
-    String salary;
-    String type;
+    private String id;
+    private String name;
+    private String email;
+    private String password;
+    private String salary;
+    private String type;
 
     public Employee(String name, String email, String password, String salary, String type) {
         this.name = name;
@@ -18,6 +18,7 @@ public class Employee {
 
     public Employee() {
     }
+
     public String getId() {
         return id;
     }

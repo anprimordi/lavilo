@@ -23,7 +23,8 @@ class CheckDrinkFragmentAdapter(
         var textName: TextView = itemView.findViewById(R.id.text_item_stock_name)
         var textPrice: TextView = itemView.findViewById(R.id.text_item_stock_price)
         var textStock: TextView = itemView.findViewById(R.id.text_item_stock_quantity)
-        var buttonDelete: Button = itemView.findViewById(R.id.button_stock_delete)
+        var buttonUpdate: Button = itemView.findViewById(R.id.button_item_stock_update)
+        var buttonDelete: Button = itemView.findViewById(R.id.button_item_stock_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,6 +44,10 @@ class CheckDrinkFragmentAdapter(
         holder.textName.text = drink.name
         holder.textPrice.text = drink.price
         holder.textStock.text = drink.stock
+
+        holder.buttonUpdate.setOnClickListener {
+            listener.onUpdate(position)
+        }
 
         holder.buttonDelete.setOnClickListener {
             listener.onDelete(position)

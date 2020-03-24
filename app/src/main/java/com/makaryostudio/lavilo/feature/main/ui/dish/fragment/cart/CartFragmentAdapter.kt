@@ -38,7 +38,7 @@ class CartFragmentAdapter(
         holder.textPrice.text = cart.price
 
         holder.imageDelete.setOnClickListener {
-            clickListener.deleteCartItem(position)
+            clickListener.deleteCartItem(cart, position)
         }
     }
 

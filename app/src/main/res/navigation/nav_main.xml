@@ -7,6 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_dish"
+        android:label="Mau Pesan Apa?"
         android:name="com.makaryostudio.lavilo.feature.main.ui.dish.DishFragment"
         tools:layout="@layout/fragment_dish">
         <action
@@ -16,6 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_admin"
+        android:label="Admin"
         android:name="com.makaryostudio.lavilo.feature.main.ui.admin.AdminFragment"
         tools:layout="@layout/fragment_admin">
         <action
@@ -25,6 +27,7 @@
 
     <fragment
         android:id="@+id/navigation_order"
+        android:label="Pesanan"
         android:name="com.makaryostudio.lavilo.feature.main.ui.order.OrderFragment"
         tools:layout="@layout/fragment_order">
         <action
@@ -93,6 +96,7 @@
         tools:layout="@layout/fragment_check_dish" />
     <fragment
         android:id="@+id/checkReportFragment"
+        android:label="Riwayat Pemesanan"
         android:name="com.makaryostudio.lavilo.feature.management.check.report.CheckReportFragment"
         tools:layout="@layout/fragment_check_report">
         <action
@@ -101,6 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
+        android:label="Pembayaran"
         android:name="com.makaryostudio.lavilo.feature.main.ui.order.detail.OrderDetailFragment"
         tools:layout="@layout/fragment_order_detail">
         <argument
@@ -118,5 +123,51 @@
         <argument
             android:name="order"
             app:argType="com.makaryostudio.lavilo.data.model.Order" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkFoodFragment"
+        android:name="com.makaryostudio.lavilo.feature.management.check.dish.food.CheckFoodFragment"
+        android:label="fragment_check_food"
+        tools:layout="@layout/fragment_check_food">
+        <action
+            android:id="@+id/action_checkFoodFragment_to_updateFoodFragment"
+            app:destination="@id/updateFoodFragment"
+            app:popUpTo="@id/managementFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkDrinkFragment"
+        android:name="com.makaryostudio.lavilo.feature.management.check.dish.drink.CheckDrinkFragment"
+        android:label="fragment_check_drink"
+        tools:layout="@layout/fragment_check_drink">
+        <action
+            android:id="@+id/action_checkDrinkFragment_to_updateDrinkFragment"
+            app:destination="@id/updateDrinkFragment"
+            app:popUpTo="@id/managementFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFoodFragment"
+        android:name="com.makaryostudio.lavilo.feature.management.check.dish.food.UpdateFoodFragment"
+        android:label="fragment_update_food"
+        tools:layout="@layout/fragment_update_food">
+        <argument
+            android:name="food"
+            app:argType="com.makaryostudio.lavilo.data.model.Food" />
+        <action
+            android:id="@+id/action_updateFoodFragment_to_checkDishFragment"
+            app:destination="@id/checkDishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateDrinkFragment"
+        android:name="com.makaryostudio.lavilo.feature.management.check.dish.drink.UpdateDrinkFragment"
+        android:label="fragment_update_drink"
+        tools:layout="@layout/fragment_update_drink">
+        <argument
+            android:name="drink"
+            app:argType="com.makaryostudio.lavilo.data.model.Drink" />
+        <action
+            android:id="@+id/action_updateDrinkFragment_to_checkDishFragment"
+            app:destination="@id/checkDishFragment" />
     </fragment>
 </navigation>

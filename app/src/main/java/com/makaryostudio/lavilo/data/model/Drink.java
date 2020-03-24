@@ -91,13 +91,11 @@ public class Drink implements Parcelable {
     }
 
     @Exclude
-    @com.google.firebase.firestore.Exclude
     public String getKey() {
         return key;
     }
 
     @Exclude
-    @com.google.firebase.firestore.Exclude
     public void setKey(String key) {
         this.key = key;
     }

@@ -1,14 +1,170 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.management.check.dish.drink.UpdateDrinkFragment">
+    tools:context=".feature.management.check.dish.food.UpdateFoodFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ProgressBar
+        android:id="@+id/progressbar_update_dish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_25"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.40"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/guideline_25"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+
+    <ImageView
+        android:id="@+id/image_update_drink_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_update_drink_menu_white_32dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline_13"
+        app:layout_constraintStart_toStartOf="@id/card_container"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Perbarui Minuman"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideline_13"
+        app:layout_constraintStart_toEndOf="@id/image_update_drink_menu"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_13">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/image_update_dish_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_dish_placeholder_grey_256dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_update_dish_directory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_dish_directory_text"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@id/image_update_dish_thumbnail"
+                app:layout_constraintStart_toStartOf="@id/image_update_dish_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/image_update_dish_thumbnail" />
+
+            <EditText
+                android:id="@+id/edit_update_dish_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama hidangan"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:singleLine="true"
+                app:layout_constraintTop_toBottomOf="@id/text_update_dish_directory" />
+
+            <EditText
+                android:id="@+id/edit_update_dish_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Harga hidangan"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:singleLine="true"
+                app:layout_constraintTop_toBottomOf="@id/edit_update_dish_name" />
+
+            <ImageView
+                android:id="@+id/image_update_dish_decrease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_item_food_decrease_orange_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/edit_update_dish_stock"
+                app:layout_constraintEnd_toStartOf="@id/edit_update_dish_stock"
+                app:layout_constraintTop_toTopOf="@id/edit_update_dish_stock" />
+
+            <EditText
+                android:id="@+id/edit_update_dish_stock"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:singleLine="true"
+                android:text="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_update_dish_price" />
+
+            <ImageView
+                android:id="@+id/image_update_dish_increase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_item_food_increase_orange_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/edit_update_dish_stock"
+                app:layout_constraintStart_toEndOf="@id/edit_update_dish_stock"
+                app:layout_constraintTop_toTopOf="@id/edit_update_dish_stock" />
+
+            <TextView
+                android:id="@+id/title_add_dish_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kuantitas: "
+                app:layout_constraintBottom_toBottomOf="@id/edit_update_dish_stock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edit_update_dish_stock" />
+
+            <Button
+                android:id="@+id/button_update_dish_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="perbarui"
+                app:layout_constraintTop_toBottomOf="@id/edit_update_dish_stock" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

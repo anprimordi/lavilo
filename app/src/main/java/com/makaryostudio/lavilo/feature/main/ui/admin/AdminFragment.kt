@@ -121,7 +121,7 @@ class AdminFragment : Fragment() {
 
                                     Toast.makeText(
                                         requireContext(),
-                                        "You are " + edit_email.text.toString(),
+                                        "Login sukses",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)

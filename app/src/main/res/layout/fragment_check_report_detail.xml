@@ -76,6 +76,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_report_detail"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
         <View
             android:id="@+id/div_top"
             android:layout_width="match_parent"
@@ -88,33 +95,84 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Total:"
+            android:text="Total Harga :"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintBottom_toBottomOf="@id/text_report_detail_bill"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
             app:layout_constraintTop_toTopOf="@id/text_report_detail_bill" />
 
         <TextView
             android:id="@+id/text_report_detail_bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="10000"
             android:textColor="@android:color/black"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_report_detail_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Tunai :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintBottom_toBottomOf="@id/text_report_detail_payment"
+            app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
+            app:layout_constraintTop_toTopOf="@id/text_report_detail_payment" />
+
+        <TextView
+            android:id="@+id/text_report_detail_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="10000"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_report_detail_bill" />
+
+        <TextView
+            android:id="@+id/title_report_detail_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Kembali :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintBottom_toBottomOf="@id/text_report_detail_change"
+            app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
+            app:layout_constraintTop_toTopOf="@id/text_report_detail_change" />
+
+        <TextView
+            android:id="@+id/text_report_detail_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="10000"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_report_detail_payment" />
 
         <Button
             android:id="@+id/button_report_detail_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:text="cetak resi pembayaran"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_report_detail_bill" />
+            app:layout_constraintTop_toBottomOf="@id/text_report_detail_change" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

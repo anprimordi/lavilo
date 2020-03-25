@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_dish"
-        android:label="Mau Pesan Apa?"
+        android:label="Daftar Menu"
         android:name="com.makaryostudio.lavilo.feature.main.ui.dish.DishFragment"
         tools:layout="@layout/fragment_dish">
         <action
@@ -92,8 +92,22 @@
     </fragment>
     <fragment
         android:id="@+id/checkDishFragment"
+        android:label="Manajemen Admin"
         android:name="com.makaryostudio.lavilo.feature.management.check.dish.CheckDishFragment"
-        tools:layout="@layout/fragment_check_dish" />
+        tools:layout="@layout/fragment_check_dish">
+        <action
+            android:id="@+id/action_checkDishFragment_to_checkFoodFragment"
+            app:destination="@id/checkFoodFragment" />
+        <action
+            android:id="@+id/action_checkDishFragment_to_checkDrinkFragment"
+            app:destination="@id/checkDrinkFragment" />
+        <action
+            android:id="@+id/action_checkDishFragment_to_updateDrinkFragment"
+            app:destination="@id/updateDrinkFragment" />
+        <action
+            android:id="@+id/action_checkDishFragment_to_updateFoodFragment"
+            app:destination="@id/updateFoodFragment" />
+    </fragment>
     <fragment
         android:id="@+id/checkReportFragment"
         android:label="Riwayat Pemesanan"
@@ -149,7 +163,7 @@
     <fragment
         android:id="@+id/updateFoodFragment"
         android:name="com.makaryostudio.lavilo.feature.management.check.dish.food.UpdateFoodFragment"
-        android:label="fragment_update_food"
+        android:label="Perbarui Makanan"
         tools:layout="@layout/fragment_update_food">
         <argument
             android:name="food"
@@ -161,7 +175,7 @@
     <fragment
         android:id="@+id/updateDrinkFragment"
         android:name="com.makaryostudio.lavilo.feature.management.check.dish.drink.UpdateDrinkFragment"
-        android:label="fragment_update_drink"
+        android:label="Perbarui Minuman"
         tools:layout="@layout/fragment_update_drink">
         <argument
             android:name="drink"

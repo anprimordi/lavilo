@@ -10,6 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Order
+import java.text.NumberFormat
+import java.util.*
 
 class CheckReportAdapter(
     val context: Context,
@@ -43,9 +45,15 @@ class CheckReportAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = listOrder[position]
 
+        val locale = Locale("in", "ID")
+
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        val rupiah = formatRupiah.format(order.bill!!.toDouble())
+
         holder.textId.text = order.id
         holder.textTimeStamp.text = order.timestamp
-        holder.textBill.text = order.bill
+        holder.textBill.text = rupiah
         holder.textTableNumber.text = order.tableNumber
         holder.textStatus.text = order.status
 

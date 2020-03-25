@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Food
+import java.text.NumberFormat
+import java.util.*
 
 class FoodFragmentAdapter(
     private val context: Context,
@@ -33,9 +35,15 @@ class FoodFragmentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val food = listData[position]
 
+        val locale = Locale("in", "ID")
+
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        val rupiah = formatRupiah.format(food.price.toDouble())
+
         Glide.with(context).load(food.imageUrl).into(holder.image)
         holder.name.text = food.name
-        holder.price.text = food.price
+        holder.price.text = rupiah
         holder.stock.text = food.stock
 
         holder.button.setOnClickListener {

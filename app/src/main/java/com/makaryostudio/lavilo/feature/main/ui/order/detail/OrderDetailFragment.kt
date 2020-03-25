@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -33,6 +34,7 @@ import com.makaryostudio.lavilo.utils.Common
 import kotlinx.android.synthetic.main.fragment_order_detail.*
 import java.io.File
 import java.io.FileOutputStream
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -41,6 +43,7 @@ import kotlin.collections.ArrayList
 class OrderDetailFragment : Fragment() {
 
     val fileName: String = "test_pdf.pdf"
+    private lateinit var editPayment: EditText
 
     private lateinit var listOrderDetail: ArrayList<OrderDetail>
     private lateinit var adapter: OrderDetailFragmentAdapter
@@ -59,6 +62,8 @@ class OrderDetailFragment : Fragment() {
         val args: OrderDetailFragmentArgs by navArgs()
 
         val receivedOrderId = args.order!!.id
+
+        editPayment = view.findViewById(R.id.edit_order_detail_payment)
 
         listOrderDetail = ArrayList()
 
@@ -91,7 +96,12 @@ class OrderDetailFragment : Fragment() {
 
         rv_order_detail.layoutManager = LinearLayoutManager(requireContext())
 
-        text_order_detail_bill.text = args.order!!.bill
+        val bill = args.order!!.bill!!.toInt()
+        val locale = Locale("in", "ID")
+
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        text_order_detail_bill.text = formatRupiah.format(bill.toDouble())
 
         Dexter.withActivity(requireActivity())
             .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -99,8 +109,29 @@ class OrderDetailFragment : Fragment() {
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {
 //                    TODO implement print to pdf feature
                     button_order_list_payment.setOnClickListener {
-                        updateOrderStatus(receivedOrderId)
-                        createPdfFile(Common.getAppPath(requireContext()) + fileName, args.order!!)
+                        var go = true
+
+                        if (editPayment.text.toString() == "") {
+                            editPayment.error = "nominal pembayaran belum dimasukkan"
+                            editPayment.requestFocus()
+                            go = false
+                        }
+                        if (editPayment.text.isNotEmpty() && editPayment.text.toString().toInt() < bill) {
+                            editPayment.error = "nominal pembayaran masih kurang"
+                            editPayment.requestFocus()
+                            go = false
+                        }
+                        if (go) {
+                            val payment = editPayment.text.toString().toInt()
+                            updateOrderStatus(receivedOrderId, payment, bill)
+                            createPdfFile(
+                                Common.getAppPath(requireContext()) + fileName,
+                                args.order!!,
+                                payment,
+                                bill
+                            )
+                        }
+
                     }
                 }
 
@@ -116,13 +147,19 @@ class OrderDetailFragment : Fragment() {
                 }
             })
             .check()
-
     }
 
-    private fun createPdfFile(path: String, order: Order) {
-        val args: OrderDetailFragmentArgs by navArgs()
+    private fun createPdfFile(path: String, order: Order, payment: Int, bill: Int) {
 
-        val receivedOrderId = args.order!!.id
+        val locale = Locale("in", "ID")
+
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        val change = payment - bill
+
+        val billRupiah = formatRupiah.format(bill.toDouble())
+        val paymentRupiah = formatRupiah.format(payment.toDouble())
+        val changeRupiah = formatRupiah.format(change.toDouble())
 
         if (File(path).exists()) File(path).delete()
         try {
@@ -152,10 +189,10 @@ class OrderDetailFragment : Fragment() {
 //            add title to document
             val titleStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, BaseColor.BLACK)
 
-            addNewItem(document, "Order Details", Element.ALIGN_CENTER, titleStyle)
+            addNewItem(document, "Lava View Lodge", Element.ALIGN_CENTER, titleStyle)
 
             val headingStyle = Font(bebasNeueFont, headingFontSize, Font.NORMAL, colorAccent)
-            addNewItem(document, "Order No: ", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, "ID Pesanan", Element.ALIGN_LEFT, headingStyle)
 
             val valueStyle = Font(bebasNeueFont, fontSize, Font.NORMAL, BaseColor.BLACK)
             addNewItem(document, order.id!!, Element.ALIGN_LEFT, valueStyle)
@@ -164,29 +201,40 @@ class OrderDetailFragment : Fragment() {
 
             addLineSeparator(document)
 
-            addNewItem(document, "Order Date", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, "Waktu Pemesanan", Element.ALIGN_LEFT, headingStyle)
             addNewItem(document, order.timestamp!!, Element.ALIGN_LEFT, valueStyle)
-
-            addNewItem(document, "Account Name", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, "Eddy Lee", Element.ALIGN_LEFT, valueStyle)
 
             addLineSeparator(document)
 
             addLineSpace(document)
 
-            addNewItem(document, "Product Details", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, "Rincian Pesanan", Element.ALIGN_LEFT, headingStyle)
 
+            addNewItemWithThreeColumns(
+                document,
+                "Menu",
+                "Porsi",
+                "Jumlah",
+                valueStyle,
+                valueStyle,
+                valueStyle
+            )
 
             for (i in 0 until listOrderDetail.size) {
                 val orderDetail = listOrderDetail[i]
-                addNewItemWithLeftAndRight(
+
+                val priceRupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
+
+                addNewItemWithThreeColumns(
                     document,
                     orderDetail.name,
                     orderDetail.quantity,
+                    priceRupiah,
+                    itemStyle,
                     itemStyle,
                     itemStyle
                 )
-                addNewItem(document, orderDetail.totalPrice, Element.ALIGN_LEFT, itemStyle)
+
                 addLineSpace(document)
             }
 
@@ -207,7 +255,15 @@ class OrderDetailFragment : Fragment() {
             addLineSpace(document)
 
             addLineSeparator(document)
-            addNewItemWithLeftAndRight(document, "Total", order.bill!!, titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(
+                document,
+                "Total Harga:",
+                billRupiah,
+                headingStyle,
+                itemStyle
+            )
+            addNewItemWithLeftAndRight(document, "Dibayar:", paymentRupiah, headingStyle, itemStyle)
+            addNewItemWithLeftAndRight(document, "Kembali:", changeRupiah, headingStyle, itemStyle)
 
             document.close()
 
@@ -240,11 +296,35 @@ class OrderDetailFragment : Fragment() {
     ) {
         val chunkTextLeft = Chunk(textLeft, leftStyle)
         val chunkTextRight = Chunk(textRight, rightStyle)
-        val p = Paragraph(chunkTextLeft)
+        val p = Paragraph(Chunk.TABBING)
+        p.tabSettings = TabSettings(350f)
+        p.add(chunkTextLeft)
         p.add(Chunk(VerticalPositionMark()))
         p.add(chunkTextRight)
         document.add(p)
+    }
 
+    @Throws(DocumentException::class)
+    private fun addNewItemWithThreeColumns(
+        document: Document,
+        textLeft: String,
+        textCenter: String,
+        textRight: String,
+        leftStyle: Font,
+        centerStyle: Font,
+        rightStyle: Font
+    ) {
+        val chunkTextLeft = Chunk(textLeft, leftStyle)
+        val chunkTextCenter = Chunk(textCenter, centerStyle)
+        val chunkTextRight = Chunk(textRight, rightStyle)
+        val p: Paragraph
+        p = Paragraph(chunkTextLeft)
+        p.tabSettings = TabSettings(225f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextCenter)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextRight)
+        document.add(p)
     }
 
     @Throws(DocumentException::class)
@@ -270,7 +350,7 @@ class OrderDetailFragment : Fragment() {
         document.add(p)
     }
 
-    private fun updateOrderStatus(receivedOrderId: String?) {
+    private fun updateOrderStatus(receivedOrderId: String?, payment: Int, bill: Int) {
         dbReference.child("Order").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -287,14 +367,17 @@ class OrderDetailFragment : Fragment() {
                     var order = postSnapshot.getValue(Order::class.java)!!
 
                     if (order.id == receivedOrderId) {
+
+                        val change = payment - bill
+
                         order = Order(
                             receivedOrderId,
                             "Lunas",
                             timestamp,
                             order.bill,
                             order.tableNumber,
-                            order.bill,
-                            "0"
+                            payment.toString(),
+                            change.toString()
                         )
 
                         dbReference.child("Order").child(receivedOrderId!!).setValue(order)

@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
+import java.text.NumberFormat
+import java.util.*
 
 class CartFragmentAdapter(
     val context: Context,
@@ -33,9 +35,15 @@ class CartFragmentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cart = listCart[position]
 
+        val locale = Locale("in", "ID")
+
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        val rupiah = formatRupiah.format(cart.price.toDouble())
+
         holder.textQuantity.text = cart.quantity + "x"
         holder.textName.text = cart.dishName
-        holder.textPrice.text = cart.price
+        holder.textPrice.text = rupiah
 
         holder.imageDelete.setOnClickListener {
             clickListener.deleteCartItem(cart, position)

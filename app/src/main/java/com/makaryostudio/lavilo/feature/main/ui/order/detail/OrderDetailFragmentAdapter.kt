@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.OrderDetail
+import java.text.NumberFormat
+import java.util.*
 
 class OrderDetailFragmentAdapter(
     val context: Context,
@@ -33,8 +35,14 @@ class OrderDetailFragmentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderDetail = listOrderDetail[position]
 
+        val locale = Locale("in", "ID")
+
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        val rupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
+
         holder.quantity.text = orderDetail.quantity
         holder.name.text = orderDetail.name
-        holder.price.text = orderDetail.totalPrice
+        holder.price.text = rupiah
     }
 }

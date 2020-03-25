@@ -18,6 +18,7 @@ import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
 import com.makaryostudio.lavilo.data.model.Food
 import kotlinx.android.synthetic.main.fragment_food.*
+import java.text.NumberFormat
 import java.util.*
 
 /**
@@ -98,13 +99,18 @@ class FoodFragment : Fragment() {
 
         var totalPrice = priceInt
 
+        val locale = Locale("in", "ID")
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
         val textDishName: TextView = view.findViewById(R.id.text_dish_dialog_name)
         val textQuantity: TextView = view.findViewById(R.id.text_dish_dialog_quantity)
         val textPrice: TextView = view.findViewById(R.id.text_dish_dialog_price)
         val buttonDecrease: ImageButton = view.findViewById(R.id.image_dish_dialog_decrease)
         val buttonIncrease: ImageButton = view.findViewById(R.id.image_dish_dialog_increase)
 
-        textPrice.text = priceInt.toString()
+        val rupiah = formatRupiah.format(priceInt.toDouble())
+
+        textPrice.text = rupiah
 
         textDishName.text = food.name
 
@@ -132,16 +138,18 @@ class FoodFragment : Fragment() {
             if (quantityInt != 0) {
                 quantityInt--
                 totalPrice -= priceInt
+                val rupiahPrice = formatRupiah.format(totalPrice.toDouble())
                 textQuantity.text = quantityInt.toString()
-                textPrice.text = totalPrice.toString()
+                textPrice.text = rupiahPrice
             }
         }
 
         buttonIncrease.setOnClickListener {
             quantityInt++
             totalPrice += priceInt
+            val rupiahPrice = formatRupiah.format(totalPrice.toDouble())
             textQuantity.text = quantityInt.toString()
-            textPrice.text = totalPrice.toString()
+            textPrice.text = rupiahPrice
         }
 
         builder.setView(view)
@@ -168,29 +176,30 @@ class FoodFragment : Fragment() {
             val key = food.key
             val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
-//            TODO decrease food quantity when cart item added
+//        TODO implement decrease stock when item added into cart
             dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
                 dbReference.child("Dish").child("Food")
                     .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError) {
-                        Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
-                    }
+                        override fun onCancelled(p0: DatabaseError) {
+                            Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
+                        }
 
-                    override fun onDataChange(p0: DataSnapshot) {
-                        for (postSnapshot in p0.children) {
-                            val foodie = postSnapshot.getValue(Food::class.java)!!
-                            if (dishName == foodie.name) {
-                                var stockInt = foodie.stock!!.toInt()
-                                stockInt -= quantity.toInt()
+                        override fun onDataChange(p0: DataSnapshot) {
+                            for (postSnapshot in p0.children) {
+                                val foodie = postSnapshot.getValue(Food::class.java)!!
+                                if (dishName == foodie.name) {
+                                    var stockInt = foodie.stock!!.toInt()
+                                    stockInt -= quantity.toInt()
 
-                                dbReference.child("Dish").child("Food").child(key).child("quantity")
-                                    .setValue(stockInt.toString())
+                                    dbReference.child("Dish").child("Food").child(key)
+                                        .child("quantity")
+                                        .setValue(stockInt.toString())
+                                }
                             }
                         }
-                    }
-                })
+                    })
             }
         }
 

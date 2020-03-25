@@ -16,6 +16,9 @@ import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
 import com.makaryostudio.lavilo.data.model.Drink
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -94,6 +97,9 @@ class DrinkFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.dialog_dish, null)
 
+        val locale = Locale("in", "ID")
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
         var quantityInt = 1
         val priceInt = drink.price!!.toInt()
         var totalPrice = priceInt
@@ -104,9 +110,13 @@ class DrinkFragment : Fragment() {
         val buttonDecrease: ImageButton = view.findViewById(R.id.image_dish_dialog_decrease)
         val buttonIncrease: ImageButton = view.findViewById(R.id.image_dish_dialog_increase)
 
-        textPrice.text = priceInt.toString()
+        val rupiah = formatRupiah.format(priceInt.toDouble())
+
+        textPrice.text = rupiah
 
         textDishName.text = drink.name
+
+//        TODO implement decrease stock when item added into cart
 
         dbReference.child("Cart").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
@@ -132,17 +142,18 @@ class DrinkFragment : Fragment() {
             if (quantityInt != 0) {
                 quantityInt--
                 totalPrice -= priceInt
+                val rupiahPrice = formatRupiah.format(totalPrice.toDouble())
+                textQuantity.text = quantityInt.toString()
+                textPrice.text = rupiahPrice
             }
-
-            textQuantity.text = quantityInt.toString()
-            textPrice.text = totalPrice.toString()
         }
 
         buttonIncrease.setOnClickListener {
             quantityInt++
             totalPrice += priceInt
+            val rupiahPrice = formatRupiah.format(totalPrice.toDouble())
             textQuantity.text = quantityInt.toString()
-            textPrice.text = totalPrice.toString()
+            textPrice.text = rupiahPrice
         }
 
         builder.setView(view)

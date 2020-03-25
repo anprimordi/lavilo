@@ -163,7 +163,7 @@
                 android:id="@+id/button_update_dish_upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="upload"
+                android:text="perbarui"
                 app:layout_constraintTop_toBottomOf="@id/edit_update_dish_stock" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

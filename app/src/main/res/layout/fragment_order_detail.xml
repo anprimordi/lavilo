@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Total:"
+            android:text="Total harga:"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintBottom_toBottomOf="@id/text_order_detail_bill"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +51,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/title_order_detail_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pembayaran: Rp."
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintBottom_toBottomOf="@id/edit_order_detail_payment"
+            app:layout_constraintStart_toStartOf="@id/title_order_detail_bill"
+            app:layout_constraintTop_toTopOf="@id/edit_order_detail_payment" />
+
+        <EditText
+            android:id="@+id/edit_order_detail_payment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="@id/text_order_detail_bill"
+            app:layout_constraintStart_toEndOf="@id/title_order_detail_payment"
+            app:layout_constraintTop_toBottomOf="@id/text_order_detail_bill"
+            tools:text="1000000" />
+
         <Button
             android:id="@+id/button_order_list_payment"
             android:layout_width="match_parent"
@@ -58,6 +81,6 @@
             android:layout_margin="16dp"
             android:text="bayar sekarang"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_order_detail_bill" />
+            app:layout_constraintTop_toBottomOf="@id/edit_order_detail_payment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

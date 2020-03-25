@@ -115,14 +115,6 @@ class UpdateFoodFragment : Fragment() {
                 ).show()
                 go = false
             }
-//                        if (textFileDirectory.text == "Upload gambar") {
-//                            Toast.makeText(
-//                                requireContext(),
-//                                "Gambarnya belum diupload",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                            go = false
-//                        }
             if (editName.text.toString() == "") {
                 editName.error = "Nama hidangan nggak boleh kosong ya"
                 editName.requestFocus()
@@ -138,7 +130,7 @@ class UpdateFoodFragment : Fragment() {
                 editStock.requestFocus()
                 go = false
             }
-            if (go) uploadFileFood()
+            if (go) uploadFileFood(food)
         }
     }
 
@@ -166,16 +158,11 @@ class UpdateFoodFragment : Fragment() {
     }
 
     private fun getFileExtension(uri: Uri): String? {
-//        val contentResolver = context?.contentResolver
         val mimeTypeMap = MimeTypeMap.getSingleton()
         return mimeTypeMap.getExtensionFromMimeType(requireContext().contentResolver!!.getType(uri))
     }
 
-    private fun uploadFileFood() {
-
-        val args: UpdateFoodFragmentArgs by navArgs()
-
-        val foodie = args.food
+    private fun uploadFileFood(foodie: Food) {
 
         when {
             imageUri != null -> {
@@ -206,14 +193,12 @@ class UpdateFoodFragment : Fragment() {
                                             editPrice.text.toString(),
                                             editStock.text.toString()
                                         )
-                                    //                                val uid = databaseReference.child("Dish").child("Food").push().key
                                     food.key = foodie.key
                                     databaseReference.child("Dish").child("Food").child(food.key!!)
                                         .setValue(food)
                                 }
                             }
                         }
-                        //                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
                             .show()
                         findNavController().navigate(R.id.action_updateFoodFragment_to_checkDishFragment)
@@ -245,7 +230,15 @@ class UpdateFoodFragment : Fragment() {
                 //                                val uid = databaseReference.child("Dish").child("Food").push().key
                 food.key = foodie.key
                 databaseReference.child("Dish").child("Food").child(food.key!!)
-                    .setValue(food)
+                    .setValue(food).addOnCompleteListener {
+                        Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
+                            .show()
+                        findNavController().navigate(R.id.action_updateFoodFragment_to_checkDishFragment)
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        Log.e("gagal mengupload update food", it.message, it.cause)
+                    }
+
             }
             else -> {
                 Toast.makeText(requireContext(), "Tidak ada foto yang dipilih", Toast.LENGTH_SHORT)

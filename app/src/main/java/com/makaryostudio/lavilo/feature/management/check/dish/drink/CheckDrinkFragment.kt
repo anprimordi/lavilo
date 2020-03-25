@@ -14,6 +14,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.feature.management.check.dish.CheckDishFragmentDirections
 import kotlinx.android.synthetic.main.fragment_check_drink.*
 
 class CheckDrinkFragment : Fragment() {
@@ -50,7 +51,8 @@ class CheckDrinkFragment : Fragment() {
             override fun onUpdate(position: Int) {
                 val drink = listDrink[position]
                 val action =
-                    CheckDrinkFragmentDirections.actionCheckDrinkFragmentToUpdateDrinkFragment(drink)
+                    CheckDishFragmentDirections
+                        .actionCheckDishFragmentToUpdateDrinkFragment(drink)
                 findNavController().navigate(action)
             }
 

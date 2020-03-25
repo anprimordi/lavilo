@@ -186,7 +186,6 @@ class UpdateDrinkFragment : Fragment() {
                                     taskSnapshot.storage.downloadUrl
                                 result.addOnSuccessListener { uri: Uri ->
                                     val imageUrl = uri.toString()
-                                    //createNewPost(imageUrl);
 
                                     val drink =
                                         Drink(
@@ -195,8 +194,6 @@ class UpdateDrinkFragment : Fragment() {
                                             editPrice.text.toString(),
                                             editStock.text.toString()
                                         )
-
-                                    //                                val uid = databaseReference.child("Dish").child("Drink").push().key
                                     drink.key = drinkie.key
                                     databaseReference.child("Dish").child("Drink")
                                         .child(drink.key!!)
@@ -204,7 +201,6 @@ class UpdateDrinkFragment : Fragment() {
                                 }
                             }
                         }
-                        //                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
                             .show()
                         findNavController().navigate(R.id.action_updateDrinkFragment_to_checkDishFragment)
@@ -236,6 +232,9 @@ class UpdateDrinkFragment : Fragment() {
                 drink.key = drinkie.key
                 databaseReference.child("Dish").child("Drink").child(drink.key!!)
                     .setValue(drink)
+                Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
+                    .show()
+                findNavController().navigate(R.id.action_updateDrinkFragment_to_checkDishFragment)
             }
             else -> {
                 Toast.makeText(

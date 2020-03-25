@@ -14,6 +14,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Food
+import com.makaryostudio.lavilo.feature.management.check.dish.CheckDishFragmentDirections
 import kotlinx.android.synthetic.main.fragment_check_food.*
 
 /**
@@ -51,33 +52,14 @@ class CheckFoodFragment : Fragment() {
             override fun onUpdate(food: Food, position: Int) {
 
                 val action =
-                    CheckFoodFragmentDirections.actionCheckFoodFragmentToUpdateFoodFragment(food)
+                    CheckDishFragmentDirections
+                        .actionCheckDishFragmentToUpdateFoodFragment(food)
 
                 findNavController().navigate(action)
-
-//                showUpdateDialog(food, position)
-//                val action = CheckFoodFragmentDirections.actionCheckFoodFragmentToUpdateFoodFragment(food)
-//                findNavController().navigate(action)
             }
 
             override fun onDelete(food: Food, position: Int) {
-
                 showDeleteDialog(food, position)
-
-//                val selectedKey = food.key!!
-//
-//                dbReference.child("Dish").child("Food").child(selectedKey).removeValue()
-//
-//                val imgRef = storage.getReferenceFromUrl(food.imageUrl!!)
-//                imgRef.delete().addOnSuccessListener {
-////                    dbReference.child("Dish").child("Food").child(food.key!!).removeValue()
-//                    Toast.makeText(requireContext(), "item berhasil dihapus", Toast.LENGTH_SHORT)
-//                        .show()
-//                    adapter.notifyItemRemoved(position)
-//                }.addOnFailureListener {
-//                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-//                    Log.d("Failed to delete item", it.message, it.cause)
-//                }
             }
         }
 
@@ -144,68 +126,6 @@ class CheckFoodFragment : Fragment() {
         val alert = builder.create()
         alert.show()
     }
-
-//    private fun showUpdateDialog(food: Food, position: Int) {
-//        val builder = AlertDialog.Builder(requireContext())
-//
-//        builder.setTitle("Perbarui hidangan")
-//
-//        val view = LayoutInflater.from(requireContext()).inflate(R.layout.item_quantity, null)
-//
-//        builder.setView(view)
-//        val textDishName: TextView = view.findViewById(R.id.text_update_stock_food_name)
-//        val editStock: EditText = view.findViewById(R.id.edit_update_stock_quantity)
-//        val buttonDecrease: ImageButton = view.findViewById(R.id.image_update_stock_decrease)
-//        val buttonIncrease: ImageButton = view.findViewById(R.id.image_update_stock_increase)
-//
-//        textDishName.text = food.name
-//        editStock.setText(food.stock)
-//
-//        qty = food.stock.toInt()
-//
-//        buttonDecrease.setOnClickListener {
-//            if (qty != 0) {
-//                qty--
-//                editStock.setText(qty.toString())
-//            }
-//        }
-//
-//        buttonIncrease.setOnClickListener {
-//            qty++
-//            editStock.setText(qty++)
-//        }
-//
-//        builder.setPositiveButton("PERBARUI") { dialog, which ->
-//            val selectedKey = food.key!!
-//            val stok = editStock.text.toString().trim()
-//            println(selectedKey)
-//            println(stok)
-//
-//            if (stok == "0" || stok == "") {
-//                Toast.makeText(requireContext(), "stok tidak boleh kosong", Toast.LENGTH_SHORT)
-//                    .show()
-//                return@setPositiveButton
-//            }
-//
-//            dbReference.child("Dish").child("Food").child(selectedKey).child("stock")
-//                .setValue(qty.toString()).addOnSuccessListener {
-//                    Toast.makeText(requireContext(), "Stok diperbarui", Toast.LENGTH_SHORT)
-//                        .show()
-//                }.addOnFailureListener {
-//                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-//                    Log.e("Gagal memperbarui stok", it.message, it.cause)
-//                }
-//            adapter.notifyItemChanged(position)
-//            adapter.notifyDataSetChanged()
-//        }
-//
-//        builder.setNegativeButton("BATAL") { dialog, which ->
-//            dialog.dismiss()
-//        }
-//
-//        val alert = builder.create()
-//        alert.show()
-//    }
 
     override fun onDestroyOptionsMenu() {
         super.onDestroyOptionsMenu()

@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:gravity="center"
-            android:text="buat pesanan"
+            android:text="pesan sekarang"
             android:textColor="@android:color/white"
             app:backgroundTint="@color/colorPrimary"
             app:icon="@drawable/ic_detail_dish_make_order_white_24dp"

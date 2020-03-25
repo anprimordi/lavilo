@@ -15,6 +15,7 @@ import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
 import com.makaryostudio.lavilo.data.model.Order
 import com.makaryostudio.lavilo.data.model.OrderDetail
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -61,6 +62,10 @@ class CartFragment : Fragment() {
         rvCart.layoutManager = LinearLayoutManager(requireContext())
 
 //        spinnerTableNumber
+
+        val locale = Locale("in", "ID")
+
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
 
         dbReference = FirebaseDatabase.getInstance().reference
         val refTable = FirebaseDatabase.getInstance().reference.child("Table")
@@ -151,8 +156,11 @@ class CartFragment : Fragment() {
                     totalItem += cart.quantity.toInt()
                     listCart.add(cart)
                 }
+
+                val rupiah = formatRupiah.format(totalBill.toDouble())
                 adapter.notifyDataSetChanged()
-                textBill.text = totalBill.toString()
+//                textBill.text = totalBill.toString()
+                textBill.text = rupiah
 
 //                (activity as AppCompatActivity).supportActionBar?.title =
 //                    "Total item: $totalItem"
@@ -185,11 +193,6 @@ class CartFragment : Fragment() {
                 spinnerTableNumber.adapter = tableAdapter
             }
         })
-//        for (i in 0 until listCart.size) {
-//            totalBill += listCart[i].price.toInt()
-//        }
-//
-//        textBill.text = totalBill.toString()
 
         buttonMakeOrder.setOnClickListener {
 
@@ -201,6 +204,10 @@ class CartFragment : Fragment() {
                     SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a", Locale.getDefault())
 
                 val timestamp: String = simpleDateFormat.format(calendar.time)
+
+                val rupiah = formatRupiah.format(totalBill.toDouble())
+
+                textBill.text = rupiah
 
                 val order = Order(
                     orderKey!!,

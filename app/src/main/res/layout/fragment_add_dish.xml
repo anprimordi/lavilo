@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Tambah Hidangan"
+        android:text="Tambah Daftar Menu"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white"
         android:textStyle="bold"
@@ -74,127 +74,133 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_13">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/image_add_dish_thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_add_dish_placeholder_grey_256dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_add_dish_directory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_dish_directory_text"
-                app:layout_constraintEnd_toEndOf="@id/image_add_dish_thumbnail"
-                app:layout_constraintStart_toStartOf="@id/image_add_dish_thumbnail"
-                app:layout_constraintTop_toBottomOf="@id/image_add_dish_thumbnail" />
-
-            <EditText
-                android:id="@+id/edit_add_dish_name"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nama hidangan"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:singleLine="true"
-                app:layout_constraintTop_toBottomOf="@id/text_add_dish_directory" />
+                android:padding="16dp">
 
-            <EditText
-                android:id="@+id/edit_add_dish_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Harga hidangan"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:singleLine="true"
-                app:layout_constraintTop_toBottomOf="@id/edit_add_dish_name" />
+                <ImageView
+                    android:id="@+id/image_add_dish_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="224dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_add_dish_placeholder_grey_256dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/image_add_dish_decrease"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_item_food_decrease_orange_24dp"
-                app:layout_constraintBottom_toBottomOf="@id/edit_add_dish_stock"
-                app:layout_constraintEnd_toStartOf="@id/edit_add_dish_stock"
-                app:layout_constraintTop_toTopOf="@id/edit_add_dish_stock" />
-
-            <EditText
-                android:id="@+id/edit_add_dish_stock"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:singleLine="true"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_add_dish_price" />
-
-            <ImageView
-                android:id="@+id/image_add_dish_increase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_item_food_increase_orange_24dp"
-                app:layout_constraintBottom_toBottomOf="@id/edit_add_dish_stock"
-                app:layout_constraintStart_toEndOf="@id/edit_add_dish_stock"
-                app:layout_constraintTop_toTopOf="@id/edit_add_dish_stock" />
-
-            <TextView
-                android:id="@+id/title_add_dish_stock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kuantitas: "
-                app:layout_constraintBottom_toBottomOf="@id/edit_add_dish_stock"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/edit_add_dish_stock" />
-
-            <TextView
-                android:id="@+id/title_add_dish_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jenis Hidangan: "
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_add_dish_stock" />
-
-            <RadioGroup
-                android:id="@+id/rg_add_dish_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@id/title_add_dish_type"
-                app:layout_constraintTop_toBottomOf="@id/title_add_dish_type">
-
-                <RadioButton
-                    android:id="@+id/radio_add_dish_food"
+                <TextView
+                    android:id="@+id/text_add_dish_directory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Makanan" />
+                    android:text="@string/add_dish_directory_text"
+                    app:layout_constraintEnd_toEndOf="@id/image_add_dish_thumbnail"
+                    app:layout_constraintStart_toStartOf="@id/image_add_dish_thumbnail"
+                    app:layout_constraintTop_toBottomOf="@id/image_add_dish_thumbnail" />
 
-                <RadioButton
-                    android:id="@+id/radio_add_dish_drink"
+                <EditText
+                    android:id="@+id/edit_add_dish_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama hidangan"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    app:layout_constraintTop_toBottomOf="@id/text_add_dish_directory" />
+
+                <EditText
+                    android:id="@+id/edit_add_dish_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Harga hidangan"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    app:layout_constraintTop_toBottomOf="@id/edit_add_dish_name" />
+
+                <ImageView
+                    android:id="@+id/image_add_dish_decrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Minuman" />
-            </RadioGroup>
+                    android:src="@drawable/ic_item_food_decrease_orange_24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_add_dish_stock"
+                    app:layout_constraintEnd_toStartOf="@id/edit_add_dish_stock"
+                    app:layout_constraintTop_toTopOf="@id/edit_add_dish_stock" />
 
-            <Button
-                android:id="@+id/button_add_dish_upload"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="upload"
-                app:layout_constraintTop_toBottomOf="@id/rg_add_dish_type" />
+                <EditText
+                    android:id="@+id/edit_add_dish_stock"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_add_dish_price" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/image_add_dish_increase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_item_food_increase_orange_24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_add_dish_stock"
+                    app:layout_constraintStart_toEndOf="@id/edit_add_dish_stock"
+                    app:layout_constraintTop_toTopOf="@id/edit_add_dish_stock" />
+
+                <TextView
+                    android:id="@+id/title_add_dish_stock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kuantitas: "
+                    app:layout_constraintBottom_toBottomOf="@id/edit_add_dish_stock"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/edit_add_dish_stock" />
+
+                <TextView
+                    android:id="@+id/title_add_dish_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jenis Hidangan: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_add_dish_stock" />
+
+                <RadioGroup
+                    android:id="@+id/rg_add_dish_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@id/title_add_dish_type"
+                    app:layout_constraintTop_toBottomOf="@id/title_add_dish_type">
+
+                    <RadioButton
+                        android:id="@+id/radio_add_dish_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Makanan" />
+
+                    <RadioButton
+                        android:id="@+id/radio_add_dish_drink"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Minuman" />
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/button_add_dish_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="upload"
+                    app:layout_constraintTop_toBottomOf="@id/rg_add_dish_type" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,11 +53,11 @@ class UpdateDrinkFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val args: UpdateDrinkFragmentArgs by navArgs()
 
         val drink = args.drink
-        super.onViewCreated(view, savedInstanceState)
 
         btnUpload = view.findViewById(R.id.button_update_dish_upload)
 
@@ -151,7 +151,6 @@ class UpdateDrinkFragment : Fragment() {
         ) {
             imageUri = data.data
             val path = data.data!!.path
-            textFileDirectory.visibility = View.VISIBLE
             textFileDirectory.text = path
             Glide.with(this).load(imageUri).into(imageThumbnail)
         }

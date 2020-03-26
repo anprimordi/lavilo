@@ -88,7 +88,7 @@
                 <ImageView
                     android:id="@+id/image_update_dish_thumbnail"
                     android:layout_width="match_parent"
-                    android:layout_height="224dp"
+                    android:layout_height="180dp"
                     android:contentDescription="@string/update_dish_thumbnail_image"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_add_dish_placeholder_grey_256dp"
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_dish_directory_text"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/image_update_dish_thumbnail"
                     app:layout_constraintStart_toStartOf="@id/image_update_dish_thumbnail"
                     app:layout_constraintTop_toBottomOf="@id/image_update_dish_thumbnail" />

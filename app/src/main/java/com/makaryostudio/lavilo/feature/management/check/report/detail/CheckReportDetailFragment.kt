@@ -62,7 +62,6 @@ class CheckReportDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args: CheckReportDetailFragmentArgs by navArgs()
-
         val order = args.order
 
         val locale = Locale("in", "ID")

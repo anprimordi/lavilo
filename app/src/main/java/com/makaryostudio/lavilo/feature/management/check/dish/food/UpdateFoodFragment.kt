@@ -53,11 +53,10 @@ class UpdateFoodFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val args: UpdateFoodFragmentArgs by navArgs()
-
         val food = args.food
-        super.onViewCreated(view, savedInstanceState)
 
         btnUpload = view.findViewById(R.id.button_update_dish_upload)
 
@@ -151,7 +150,6 @@ class UpdateFoodFragment : Fragment() {
         ) {
             imageUri = data.data
             val path = data.data!!.path
-            textFileDirectory.visibility = View.VISIBLE
             textFileDirectory.text = path
             Glide.with(this).load(imageUri).into(imageThumbnail)
         }

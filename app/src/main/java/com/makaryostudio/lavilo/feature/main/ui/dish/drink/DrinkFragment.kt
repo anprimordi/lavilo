@@ -118,8 +118,6 @@ class DrinkFragment : Fragment() {
 
         textDishName.text = drink.name
 
-//        TODO implement decrease stock when item added into cart
-
         dbReference.child("Cart").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), databaseError.toString(), Toast.LENGTH_SHORT)
@@ -134,6 +132,11 @@ class DrinkFragment : Fragment() {
                     if (drink.name == dummy.dishName) {
                         if (dummy.quantity.toInt() != 0) {
                             quantityInt = dummy.quantity.toInt()
+                            totalPrice = dummy.price.toInt()
+
+                            val rupiahPrice = formatRupiah.format(totalPrice.toDouble())
+                            textQuantity.text = quantityInt.toString()
+                            textPrice.text = rupiahPrice
                         }
                     }
                 }
@@ -162,10 +165,11 @@ class DrinkFragment : Fragment() {
 
         builder.setPositiveButton("TAMBAH") { _, _ ->
 
-
             val dishName = textDishName.text.toString().trim()
 
             val quantity = textQuantity.text.toString().trim()
+
+            val key = drink.key
 
             if (quantity.isEmpty()) {
                 Toast.makeText(
@@ -177,36 +181,47 @@ class DrinkFragment : Fragment() {
                 return@setPositiveButton
             }
 
-//            val key: String = refCart.push().key.toString()
-            val key = drink.key
             val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
-//            TODO decrease drink quantity when cart item added
-            dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
-                Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
+            if (drink.stock.toInt() > quantityInt) {
+                dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
+                    Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child("Dish").child("Drink")
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onCancelled(p0: DatabaseError) {
-                            Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
-                        }
+                    dbReference.child("Dish").child("Drink")
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onCancelled(p0: DatabaseError) {
+                                Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
 
-                        override fun onDataChange(p0: DataSnapshot) {
-                            for (postSnapshot in p0.children) {
-                                val drinkie = postSnapshot.getValue(Drink::class.java)!!
-                                if (dishName == drinkie.name) {
-                                    var stockInt = drinkie.stock!!.toInt()
-                                    stockInt -= quantity.toInt()
+                            override fun onDataChange(p0: DataSnapshot) {
+                                for (postSnapshot in p0.children) {
+                                    val drinkie = postSnapshot.getValue(Drink::class.java)!!
+                                    drinkie.key = postSnapshot.key
+                                    if (dishName == drinkie.name) {
+                                        var stockInt = drinkie.stock!!.toInt()
 
-                                    dbReference.child("Dish").child("Drink").child(key)
-                                        .child("quantity")
-                                        .setValue(stockInt.toString())
+                                        if (quantityInt < stockInt) {
+                                            stockInt -= quantity.toInt()
+
+                                            dbReference.child("Dish").child("Drink")
+                                                .child(drinkie.key)
+                                                .child("stock")
+                                                .setValue(stockInt.toString())
+                                        } else {
+                                            textQuantity.error = "Maaf stok minuman masih kurang"
+                                        }
+
+                                    }
                                 }
                             }
-                        }
-                    })
+                        })
+                }
+            } else {
+                Toast.makeText(requireContext(), "Maaf stok minuman kurang", Toast.LENGTH_SHORT)
+                    .show()
+                return@setPositiveButton
             }
-
         }
 
         builder.setNegativeButton("BATAL") { dialog, _ ->

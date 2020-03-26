@@ -124,6 +124,11 @@ class FoodFragment : Fragment() {
                     if (food.name == dummy.dishName) {
                         if (dummy.quantity.toInt() != 0) {
                             quantityInt = dummy.quantity.toInt()
+                            totalPrice = dummy.price.toInt()
+
+                            val rupiahPrice = formatRupiah.format(totalPrice.toDouble())
+                            textQuantity.text = quantityInt.toString()
+                            textPrice.text = rupiahPrice
                         }
                     }
                 }
@@ -156,6 +161,8 @@ class FoodFragment : Fragment() {
 
             val quantity = textQuantity.text.toString().trim()
 
+            val key = food.key
+
             if (quantity.isEmpty()) {
                 Toast.makeText(
                     requireContext(),
@@ -166,34 +173,47 @@ class FoodFragment : Fragment() {
                 return@setPositiveButton
             }
 
-            val key = food.key
             val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
-//        TODO implement decrease stock when item added into cart
-            dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
-                Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
+            if (food.stock.toInt() > quantityInt) {
+                dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
+                    Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child("Dish").child("Food")
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onCancelled(p0: DatabaseError) {
-                            Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
-                        }
+                    dbReference.child("Dish").child("Food")
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onCancelled(p0: DatabaseError) {
+                                Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
 
-                        override fun onDataChange(p0: DataSnapshot) {
-                            for (postSnapshot in p0.children) {
-                                val foodie = postSnapshot.getValue(Food::class.java)!!
-                                if (dishName == foodie.name) {
-                                    var stockInt = foodie.stock!!.toInt()
-                                    stockInt -= quantity.toInt()
+                            override fun onDataChange(p0: DataSnapshot) {
+                                for (postSnapshot in p0.children) {
+                                    val foodie = postSnapshot.getValue(Food::class.java)!!
+                                    foodie.key = postSnapshot.key
+                                    if (dishName == foodie.name) {
+                                        var stockInt = foodie.stock!!.toInt()
 
-                                    dbReference.child("Dish").child("Food").child(key)
-                                        .child("quantity")
-                                        .setValue(stockInt.toString())
+                                        if (quantityInt < stockInt) {
+                                            stockInt -= quantity.toInt()
+
+                                            dbReference.child("Dish").child("Food")
+                                                .child(foodie.key)
+                                                .child("stock")
+                                                .setValue(stockInt.toString())
+                                        } else {
+                                            textQuantity.error = "Maaf stok makanan masih kurang"
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    })
+                        })
+                }
+            } else {
+                Toast.makeText(requireContext(), "Maaf stok makanan kurang", Toast.LENGTH_SHORT)
+                    .show()
+                return@setPositiveButton
             }
+
         }
 
         builder.setNegativeButton("BATAL") { dialog, _ ->

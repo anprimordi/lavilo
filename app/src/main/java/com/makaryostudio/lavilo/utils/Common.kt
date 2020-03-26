@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.makaryostudio.lavilo.utils
 
 import android.content.Context

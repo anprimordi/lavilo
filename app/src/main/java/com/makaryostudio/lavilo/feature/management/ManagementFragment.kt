@@ -23,6 +23,8 @@ class ManagementFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_management, container, false)
     }
 
+//    TODO implement per day report
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

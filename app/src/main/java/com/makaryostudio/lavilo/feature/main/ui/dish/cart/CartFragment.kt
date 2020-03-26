@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Cart
-import com.makaryostudio.lavilo.data.model.Order
-import com.makaryostudio.lavilo.data.model.OrderDetail
+import com.makaryostudio.lavilo.data.model.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,53 +73,55 @@ class CartFragment : Fragment() {
 
                 val key = cart.id
 
+                val selectedName = cart.dishName
+                val selectedQuantity = cart.quantity.toInt()
+
                 dbReference.child("Cart").child(key).removeValue()
                 adapter.notifyItemRemoved(position)
 
-//                TODO add dish quantity when item in cart deleted
-//                ref.child("Dish").child("Food")
-//                    .addListenerForSingleValueEvent(object : ValueEventListener {
-//                        override fun onCancelled(p0: DatabaseError) {
-//                            Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
-//                        }
-//
-//                        override fun onDataChange(p0: DataSnapshot) {
-//                            val food = p0.getValue(Food::class.java)!!
-//
-//                            for (postSnapshot in p0.children) {
-//                                if (selectedName == food.name) {
-//                                    var stockItemFood = food.stock.toInt()
-//
-//                                    stockItemFood += selectedQuantity
-//
-//                                    ref.child("stock").setValue(stockItemFood.toString())
-//                                }
-//                            }
-//
-//
-//                        }
-//                    })
-//
-//                ref.child("Dish").child("Drink")
-//                    .addListenerForSingleValueEvent(object : ValueEventListener {
-//                        override fun onCancelled(p0: DatabaseError) {
-//
-//                        }
-//
-//                        override fun onDataChange(p0: DataSnapshot) {
-//                            val drink = p0.getValue(Drink::class.java)!!
-//
-//                            for (postSnapshot in p0.children) {
-//                                if (selectedName == drink.name) {
-//                                    var stockItemDrink = drink.stock!!.toInt()
-//
-//                                    stockItemDrink += selectedQuantity
-//
-//                                    ref.child("stock").setValue(stockItemDrink.toString())
-//                                }
-//                            }
-//                        }
-//                    })
+                dbReference.child("Dish").child("Food")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {
+                            Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onDataChange(p0: DataSnapshot) {
+                            for (postSnapshot in p0.children) {
+                                val food = postSnapshot.getValue(Food::class.java)!!
+                                food.key = postSnapshot.key
+                                if (selectedName == food.name) {
+                                    var stockItemFood = food.stock.toInt()
+
+                                    stockItemFood += selectedQuantity
+
+                                    dbReference.child("Dish").child("Food").child(food.key)
+                                        .child("stock").setValue(stockItemFood.toString())
+                                }
+                            }
+                        }
+                    })
+
+                dbReference.child("Dish").child("Drink")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {
+
+                        }
+
+                        override fun onDataChange(p0: DataSnapshot) {
+                            for (postSnapshot in p0.children) {
+                                val drink = postSnapshot.getValue(Drink::class.java)!!
+                                if (selectedName == drink.name) {
+                                    drink.key = postSnapshot.key
+                                    var stockItemDrink = drink.stock!!.toInt()
+
+                                    stockItemDrink += selectedQuantity
+
+                                    dbReference.child("Dish").child("Drink").child(drink.key)
+                                        .child("stock").setValue(stockItemDrink.toString())
+                                }
+                            }
+                        }
+                    })
             }
         }
 

@@ -169,14 +169,18 @@ class CheckReportDetailFragment : Fragment() {
             val fontSize = 26.0f
             val smallSize = 18.0f
 
+
 //            custom font
             val bebasNeueFont =
                 BaseFont.createFont("assets/BebasNeueRegular.otf", "UTF-8", BaseFont.EMBEDDED)
 
-            val colorAccent = BaseColor(0, 153, 204, 255)
+            val colorAccent = BaseColor(247, 149, 29, 255)
 
 //            add title to document
             val titleStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, BaseColor.BLACK)
+
+            val restoStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, colorAccent)
+
 
             addNewItem(document, "Lava View Lodge", Element.ALIGN_CENTER, titleStyle)
 
@@ -202,11 +206,13 @@ class CheckReportDetailFragment : Fragment() {
 
             addNewItem(document, "Rincian Pesanan", Element.ALIGN_LEFT, headingStyle)
 
-            addNewItemWithThreeColumns(
+            addNewItemWithFourColumn(
                 document,
                 "Menu",
+                "Harga",
                 "Porsi",
                 "Jumlah",
+                valueStyle,
                 valueStyle,
                 valueStyle,
                 valueStyle
@@ -215,13 +221,23 @@ class CheckReportDetailFragment : Fragment() {
             for (i in 0 until listOrderDetail.size) {
                 val orderDetail = listOrderDetail[i]
 
+                val totalPrice = orderDetail.totalPrice.toInt()
+
+                val quantity = orderDetail.quantity.toInt()
+
+                val itemPrice = totalPrice / quantity
+
                 val priceRupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
 
-                addNewItemWithThreeColumns(
+                val itemRupiah = formatRupiah.format(itemPrice.toDouble())
+
+                addNewItemWithFourColumn(
                     document,
                     orderDetail.name,
+                    itemRupiah,
                     orderDetail.quantity,
                     priceRupiah,
+                    itemStyle,
                     itemStyle,
                     itemStyle,
                     itemStyle
@@ -230,23 +246,12 @@ class CheckReportDetailFragment : Fragment() {
                 addLineSpace(document)
             }
 
-////            item 1
-//            addNewItemWithLeftAndRight(document, "Pizza 25", "(0.0%)", titleStyle, valueStyle)
-//            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
-//
-//            addLineSeparator(document)
-//
-////            item 2
-//            addNewItemWithLeftAndRight(document, "Pizza 26", "(0.0%)", titleStyle, valueStyle)
-//            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
-//
-//            addLineSeparator(document)
-
 //            total
             addLineSpace(document)
             addLineSpace(document)
 
             addLineSeparator(document)
+            addSpace(document)
             addNewItemWithLeftAndRight(
                 document,
                 "Total Harga:",
@@ -254,8 +259,46 @@ class CheckReportDetailFragment : Fragment() {
                 headingStyle,
                 itemStyle
             )
-            addNewItemWithLeftAndRight(document, "Dibayar:", paymentRupiah, headingStyle, itemStyle)
-            addNewItemWithLeftAndRight(document, "Kembali:", changeRupiah, headingStyle, itemStyle)
+
+            addNewItemWithLeftAndRight(
+                document,
+                "Dibayar:",
+                paymentRupiah,
+                headingStyle,
+                itemStyle
+            )
+
+            addNewItemWithLeftAndRight(
+                document,
+                "Kembali:",
+                changeRupiah,
+                headingStyle,
+                itemStyle
+            )
+
+            addSpace(document)
+            addSpace(document)
+
+            addNewItem(
+                document,
+                "Terima kasih",
+                Element.ALIGN_CENTER,
+                valueStyle
+            )
+
+            addNewItem(
+                document,
+                "atas kunjungan anda",
+                Element.ALIGN_CENTER,
+                valueStyle
+            )
+
+            addNewItem(
+                document,
+                "resto lava",
+                Element.ALIGN_CENTER,
+                restoStyle
+            )
 
             document.close()
 
@@ -320,6 +363,34 @@ class CheckReportDetailFragment : Fragment() {
     }
 
     @Throws(DocumentException::class)
+    private fun addNewItemWithFourColumn(
+        document: Document,
+        textFirst: String,
+        textSecond: String,
+        textThird: String,
+        textFourth: String,
+        styleFirst: Font,
+        styleSecond: Font,
+        styleThird: Font,
+        styleFourth: Font
+    ) {
+        val chunkTextFirst = Chunk(textFirst, styleFirst)
+        val chunkTextSecond = Chunk(textSecond, styleSecond)
+        val chunkTextThird = Chunk(textThird, styleThird)
+        val chunkTextFourth = Chunk(textFourth, styleFourth)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFourth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
     private fun addLineSeparator(document: Document) {
         val lineSeparator = LineSeparator()
         lineSeparator.lineColor = BaseColor(0, 0, 0, 68)
@@ -332,6 +403,12 @@ class CheckReportDetailFragment : Fragment() {
     @Throws(DocumentException::class)
     private fun addLineSpace(document: Document) {
         document.add(Paragraph(""))
+    }
+
+    private fun addSpace(document: Document) {
+        val chunk = Chunk(" ")
+        val p = Paragraph(chunk)
+        document.add(p)
     }
 
     @Throws(DocumentException::class)

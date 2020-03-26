@@ -247,8 +247,11 @@ class AddDishFragment : Fragment() {
                         }
                     }
                     //                        progressBar.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT).show()
-                    //                    startActivity(Intent(this, MainActivity::class.java))
+                    Toast.makeText(
+                        requireContext(),
+                        "Berhasil menambahkan makanan",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     findNavController().navigate(R.id.action_addDishFragment_to_managementFragment)
 
                 }
@@ -311,7 +314,11 @@ class AddDishFragment : Fragment() {
                         }
                     }
                     //                        progressBar.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Berhasil menambahkan minuman",
+                        Toast.LENGTH_SHORT
+                    ).show()
 //                    startActivity(Intent(this, MainActivity::class.java))
                     findNavController().navigate(R.id.action_addDishFragment_to_managementFragment)
                 }

@@ -183,10 +183,12 @@ class OrderDetailFragment : Fragment() {
             val bebasNeueFont =
                 BaseFont.createFont("assets/BebasNeueRegular.otf", "UTF-8", BaseFont.EMBEDDED)
 
-            val colorAccent = BaseColor(0, 153, 204, 255)
+            val colorAccent = BaseColor(247, 149, 29, 255)
 
 //            add title to document
             val titleStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, BaseColor.BLACK)
+
+            val restoStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, colorAccent)
 
             addNewItem(document, "Lava View Lodge", Element.ALIGN_CENTER, titleStyle)
 
@@ -209,11 +211,13 @@ class OrderDetailFragment : Fragment() {
 
             addNewItem(document, "Rincian Pesanan", Element.ALIGN_LEFT, headingStyle)
 
-            addNewItemWithThreeColumns(
+            addNewItemWithFourColumn(
                 document,
                 "Menu",
+                "Harga",
                 "Porsi",
                 "Jumlah",
+                valueStyle,
                 valueStyle,
                 valueStyle,
                 valueStyle
@@ -224,11 +228,19 @@ class OrderDetailFragment : Fragment() {
 
                 val priceRupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
 
-                addNewItemWithThreeColumns(
+                val totalPrice = orderDetail.totalPrice.toInt()
+
+                val quantity = orderDetail.quantity.toInt()
+
+                val itemPrice = totalPrice / quantity
+
+                addNewItemWithFourColumn(
                     document,
                     orderDetail.name,
+                    itemPrice.toString(),
                     orderDetail.quantity,
                     priceRupiah,
+                    itemStyle,
                     itemStyle,
                     itemStyle,
                     itemStyle
@@ -254,6 +266,8 @@ class OrderDetailFragment : Fragment() {
             addLineSpace(document)
 
             addLineSeparator(document)
+
+            addSpace(document)
             addNewItemWithLeftAndRight(
                 document,
                 "Total Harga:",
@@ -263,6 +277,22 @@ class OrderDetailFragment : Fragment() {
             )
             addNewItemWithLeftAndRight(document, "Dibayar:", paymentRupiah, headingStyle, itemStyle)
             addNewItemWithLeftAndRight(document, "Kembali:", changeRupiah, headingStyle, itemStyle)
+
+            addSpace(document)
+            addSpace(document)
+
+            addNewItem(
+                document,
+                "Terima kasih atas kunjungan anda",
+                Element.ALIGN_CENTER,
+                titleStyle
+            )
+            addNewItem(
+                document,
+                "resto lava",
+                Element.ALIGN_CENTER,
+                restoStyle
+            )
 
             document.close()
 
@@ -327,6 +357,34 @@ class OrderDetailFragment : Fragment() {
     }
 
     @Throws(DocumentException::class)
+    private fun addNewItemWithFourColumn(
+        document: Document,
+        textFirst: String,
+        textSecond: String,
+        textThird: String,
+        textFourth: String,
+        styleFirst: Font,
+        styleSecond: Font,
+        styleThird: Font,
+        styleFourth: Font
+    ) {
+        val chunkTextFirst = Chunk(textFirst, styleFirst)
+        val chunkTextSecond = Chunk(textSecond, styleSecond)
+        val chunkTextThird = Chunk(textThird, styleThird)
+        val chunkTextFourth = Chunk(textFourth, styleFourth)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFourth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
     private fun addLineSeparator(document: Document) {
         val lineSeparator = LineSeparator()
         lineSeparator.lineColor = BaseColor(0, 0, 0, 68)
@@ -339,6 +397,13 @@ class OrderDetailFragment : Fragment() {
     @Throws(DocumentException::class)
     private fun addLineSpace(document: Document) {
         document.add(Paragraph(""))
+    }
+
+    @Throws(DocumentException::class)
+    private fun addSpace(document: Document) {
+        val chunk = Chunk(" ")
+        val p = Paragraph(chunk)
+        document.add(p)
     }
 
     @Throws(DocumentException::class)

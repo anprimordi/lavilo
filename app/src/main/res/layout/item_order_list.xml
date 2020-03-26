@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_order_item_dot_orange_12dp"
         android:drawablePadding="16dp"
-        android:text="Meja"
+        android:text="@string/order_item_table_number_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black" />
 

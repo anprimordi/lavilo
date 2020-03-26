@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment
 import com.makaryostudio.lavilo.R
 import kotlinx.android.synthetic.main.fragment_check_dish.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class CheckDishFragment : Fragment() {
 
     override fun onCreateView(
@@ -23,7 +20,6 @@ class CheckDishFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_check_dish, container, false)
     }
 
-    //    TODO check dish wont edit on nav controller
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

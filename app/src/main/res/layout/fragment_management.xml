@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Mau nambahin sesuatu?"
+                android:text="@string/management_add_item_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +67,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:src="@drawable/ic_rice"
+                        android:contentDescription="@string/management_add_dish_image"
+                        android:src="@drawable/ic_management_add_dish_colored_40dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Hidangan"
+                android:text="@string/management_add_dish_text"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
                 android:textStyle="italic"
@@ -113,7 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
-                        android:src="@drawable/ic_dining_table"
+                        android:contentDescription="@string/management_add_table_image"
+                        android:src="@drawable/ic_management_add_table_colored_40dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Meja"
+                android:text="@string/management_add_table_text"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
                 android:textStyle="italic"
@@ -158,14 +160,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
-                        android:src="@drawable/ic_waiter" />
+                        android:contentDescription="@string/management_add_employee_image"
+                        android:src="@drawable/ic_management_add_employee_colored_40dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Karyawan"
+                android:text="@string/management_add_employee_text"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
                 android:textStyle="italic"
@@ -184,7 +187,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:text="Perbarui atau hapus stok?"
+        android:text="@string/management_check_dish_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/card_container" />
@@ -211,7 +214,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/ic_catering"
+                android:contentDescription="@string/management_check_dish_image"
+                android:src="@drawable/ic_management_check_dish_colored_80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -220,7 +224,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Lihat hidangan"
+                android:text="@string/management_check_dish_text"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
                 android:textStyle="italic"
@@ -238,7 +242,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:text="Atau..."
+        android:text="@string/management_check_report_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textStyle="bold"
         android:visibility="invisible"
@@ -257,181 +261,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_management_check_report">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:drawableTop="@drawable/ic_management_check_report_colored_40dp"
+            android:drawablePadding="8dp"
+            android:text="@string/management_check_report_title"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textStyle="italic" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_data_analytics" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="laporan"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
-                android:textStyle="italic" />
-        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="?android:attr/actionBarSize"
-        android:background="@drawable/container_test"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/title_management_add_item"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="24dp"-->
-        <!--            android:layout_marginTop="40dp"-->
-        <!--            android:layout_marginEnd="24dp"-->
-        <!--            android:text="Mau nambahin sesuatu?"-->
-        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"
-            android:visibility="gone" />
-
-        <!--        <androidx.cardview.widget.CardView-->
-        <!--            android:id="@+id/card_management_add_dish"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="16dp"-->
-        <!--            app:cardCornerRadius="24dp"-->
-        <!--            app:cardElevation="2dp"-->
-        <!--            app:layout_constraintStart_toStartOf="@id/title_management_add_item"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/title_management_add_item">-->
-
-        <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:orientation="vertical">-->
-
-        <!--                <ImageView-->
-        <!--                    android:id="@+id/image_management_add_dish"-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_marginStart="16dp"-->
-        <!--                    android:layout_marginTop="16dp"-->
-        <!--                    android:layout_marginEnd="16dp"-->
-        <!--                    android:src="@drawable/ic_management_add_food_orange_80dp"-->
-        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                    app:layout_constraintStart_toStartOf="parent"-->
-        <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_marginTop="8dp"-->
-        <!--                    android:layout_marginBottom="8dp"-->
-        <!--                    android:text="Hidangan"-->
-        <!--                    android:textColor="@android:color/black"-->
-        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                    app:layout_constraintStart_toStartOf="@id/image_management_add_dish"-->
-        <!--                    app:layout_constraintTop_toBottomOf="@id/image_management_add_dish" />-->
-        <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-        <!--        </androidx.cardview.widget.CardView>-->
-
-        <!--        <androidx.cardview.widget.CardView-->
-        <!--            android:id="@+id/card_management_add_table"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="16dp"-->
-        <!--            app:cardCornerRadius="24dp"-->
-        <!--            app:cardElevation="2dp"-->
-        <!--            app:layout_constraintEnd_toStartOf="@id/card_management_add_employee"-->
-        <!--            app:layout_constraintStart_toEndOf="@id/card_management_add_dish"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/title_management_add_item">-->
-
-        <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:orientation="vertical">-->
-
-        <!--                <ImageView-->
-        <!--                    android:id="@+id/image_management_add_table"-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_gravity="center"-->
-        <!--                    android:layout_marginStart="16dp"-->
-        <!--                    android:layout_marginTop="16dp"-->
-        <!--                    android:layout_marginEnd="16dp"-->
-        <!--                    android:src="@drawable/ic_management_add_table_orange_80dp"-->
-        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                    app:layout_constraintStart_toStartOf="parent"-->
-        <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_marginTop="8dp"-->
-        <!--                    android:layout_marginBottom="8dp"-->
-        <!--                    android:text="Meja"-->
-        <!--                    android:textColor="@android:color/black"-->
-        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                    app:layout_constraintStart_toStartOf="@id/image_management_add_table"-->
-        <!--                    app:layout_constraintTop_toBottomOf="@id/image_management_add_table" />-->
-        <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-        <!--        </androidx.cardview.widget.CardView>-->
-
-        <!--        <androidx.cardview.widget.CardView-->
-        <!--            android:id="@+id/card_management_add_employee"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="16dp"-->
-        <!--            app:cardCornerRadius="24dp"-->
-        <!--            app:cardElevation="2dp"-->
-        <!--            app:layout_constraintEnd_toEndOf="@id/title_management_add_item"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/title_management_add_item">-->
-
-        <!--            <LinearLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:orientation="vertical">-->
-
-        <!--                <ImageView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_gravity="center"-->
-        <!--                    android:layout_marginStart="16dp"-->
-        <!--                    android:layout_marginTop="16dp"-->
-        <!--                    android:layout_marginEnd="16dp"-->
-        <!--                    android:src="@drawable/ic_management_add_employee_orange_80dp" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_marginStart="16dp"-->
-        <!--                    android:layout_marginTop="8dp"-->
-        <!--                    android:layout_marginBottom="8dp"-->
-        <!--                    android:text="Karyawan"-->
-        <!--                    android:textColor="@android:color/black" />-->
-        <!--            </LinearLayout>-->
-
-        <!--        </androidx.cardview.widget.CardView>-->
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import java.util.*
 
 class CheckReportDetailAdapter(
     val context: Context,
-    val listOrderDetail: ArrayList<OrderDetail>
+    private val listOrderDetail: ArrayList<OrderDetail>
 ) : RecyclerView.Adapter<CheckReportDetailAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textQuantity: TextView = itemView.findViewById(R.id.text_item_order_detail_quantity)

@@ -117,7 +117,7 @@ class CheckDrinkFragment : Fragment() {
             }
         }
 
-        builder.setNegativeButton("BATAL") { dialog, which ->
+        builder.setNegativeButton("BATAL") { dialog, _ ->
             dialog.dismiss()
         }
 

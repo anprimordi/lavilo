@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="256dp"
         android:layout_margin="16dp"
-        android:contentDescription="@string/item_food_thumbnail_img"
+        android:contentDescription="@string/image_dish_item_thumbnail"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
         android:id="@+id/title_item_dish_stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/item_food_stock_title"
+        android:text="@string/dish_item_stock_title"
         app:layout_constraintBottom_toTopOf="@id/div_bottom"
         app:layout_constraintStart_toStartOf="@id/image_item_dish_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/text_item_dish_price" />
@@ -67,7 +67,7 @@
         android:id="@+id/button_item_dish_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/item_dish_add_action"
+        android:text="@string/dish_item_add_action"
         app:layout_constraintBottom_toTopOf="@id/div_bottom"
         app:layout_constraintEnd_toEndOf="@id/image_item_dish_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/image_item_dish_thumbnail" />

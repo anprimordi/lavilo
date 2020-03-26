@@ -1,4 +1,4 @@
-package com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart
+package com.makaryostudio.lavilo.feature.main.ui.dish.cart
 
 import com.makaryostudio.lavilo.data.model.Cart
 

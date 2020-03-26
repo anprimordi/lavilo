@@ -17,12 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="2x"
         android:textColor="@android:color/holo_blue_light"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/text_item_cart_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/text_item_cart_name" />
+        app:layout_constraintTop_toTopOf="@id/text_item_cart_name"
+        tools:text="2x" />
 
     <TextView
         android:id="@+id/text_item_cart_name"
@@ -44,14 +44,14 @@
         android:id="@+id/text_item_cart_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100000"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/text_item_cart_name"
         app:layout_constraintEnd_toStartOf="@id/button_item_cart_delete"
         app:layout_constraintStart_toEndOf="@id/guideline_item_cart"
-        app:layout_constraintTop_toTopOf="@id/text_item_cart_name" />
+        app:layout_constraintTop_toTopOf="@id/text_item_cart_name"
+        tools:text="100000" />
 
     <ImageButton
         android:id="@+id/button_item_cart_delete"
@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="?android:attr/windowBackground"
+        android:contentDescription="@string/image_delete"
         android:src="@drawable/ic_item_cart_delete_red_24dp"
         app:layout_constraintBottom_toBottomOf="@id/text_item_cart_price"
         app:layout_constraintEnd_toEndOf="parent"

@@ -16,8 +16,8 @@ import java.util.*
 
 class CheckDrinkFragmentAdapter(
     val context: Context,
-    val listDrink: ArrayList<Drink>,
-    val listener: CheckDrinkItemClickListener
+    private val listDrink: ArrayList<Drink>,
+    private val listener: CheckDrinkItemClickListener
 ) : RecyclerView.Adapter<CheckDrinkFragmentAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

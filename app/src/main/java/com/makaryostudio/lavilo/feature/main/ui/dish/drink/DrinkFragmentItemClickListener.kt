@@ -1,4 +1,4 @@
-package com.makaryostudio.lavilo.feature.main.ui.dish.fragment.drink
+package com.makaryostudio.lavilo.feature.main.ui.dish.drink
 
 import com.makaryostudio.lavilo.data.model.Drink
 

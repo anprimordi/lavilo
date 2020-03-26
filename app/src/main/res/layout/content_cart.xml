@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:drawableStart="@drawable/ic_order_table_orange_24dp"
         android:drawablePadding="16dp"
-        android:text="Pilih nomor meja:"
+        android:text="@string/cart_table_number_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,8 +23,8 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
-        app:layout_constraintStart_toEndOf="@id/title_cart_table_number"
         app:layout_constraintBottom_toBottomOf="@id/title_cart_table_number"
+        app:layout_constraintStart_toEndOf="@id/title_cart_table_number"
         app:layout_constraintTop_toTopOf="@id/title_cart_table_number" />
 
     <View

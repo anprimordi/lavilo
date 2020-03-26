@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.makaryostudio.lavilo.feature.main.ui.dish
 
 import android.os.Bundle

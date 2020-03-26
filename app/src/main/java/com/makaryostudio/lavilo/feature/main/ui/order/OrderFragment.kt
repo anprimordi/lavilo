@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.makaryostudio.lavilo.feature.main.ui.order
 
 import android.os.Bundle
@@ -52,25 +54,30 @@ class OrderFragment : Fragment() {
 
         dbReference.child("Order").orderByChild("tableNumber")
             .addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(requireContext(), databaseError.message, Toast.LENGTH_SHORT).show()
-                Log.e("Error Order Fragment", databaseError.message, databaseError.toException())
-            }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                listOrder.clear()
-
-                for (postSnapshot in dataSnapshot.children) {
-                    val order = postSnapshot.getValue(Order::class.java)!!
-
-                    if (order.status == "belum dibayar") {
-
-                        listOrder.add(order)
-                    }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Toast.makeText(requireContext(), databaseError.message, Toast.LENGTH_SHORT)
+                        .show()
+                    Log.e(
+                        "Error Order Fragment",
+                        databaseError.message,
+                        databaseError.toException()
+                    )
                 }
-                adapter.notifyDataSetChanged()
-            }
-        })
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    listOrder.clear()
+
+                    for (postSnapshot in dataSnapshot.children) {
+                        val order = postSnapshot.getValue(Order::class.java)!!
+
+                        if (order.status == "belum dibayar") {
+
+                            listOrder.add(order)
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            })
 
         listener = object : OrderFragmentListener {
             override fun onClickListener(order: Order) {

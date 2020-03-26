@@ -1,67 +1,136 @@
 <resources>
+    <!--  General Usage  -->
     <string name="app_name">Lavilo</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="home_menu_title">Menu</string>
-    <string name="home_order_list_title">Pesanan</string>
-    <string name="home_admin_title">Admin</string>
+    <string name="action_add">Tambahkan</string>
+    <string name="action_check_order">Lihat Pesanan</string>
+    <string name="dialog_dish_quantity_text">1</string>
+    <string name="action_delete">hapus</string>
+    <string name="action_make_order">pesan sekarang</string>
+    <string name="action_print_bill_receipt">cetak resi pembayaran</string>
+    <string name="action_pay_now">bayar sekarang</string>
+    <string name="action_update">perbarui</string>
+    <string name="action_upload">upload</string>
+    <string name="image_delete">gambar hapus</string>
+    <string name="image_decrease_amount">gambar minus pada kuantitas</string>
+    <string name="image_increase_amount">gambar plus pada kuantitas</string>
+    <string name="text_zero_amount">0</string>
+
+    <!--  ****************************************  -->
+
+    <!--  Activity Usage  -->
+
+    <!--  Main Activity  -->
+    <string name="title_activity_main">MainActivity</string>
+
+    <!--  Splashscreen  -->
     <string name="splashscreen_app_logo_insignia">application logo insignia</string>
     <string name="splashscreen_app_logo_text">application logo text</string>
-    <string name="home_menu_admin_title">Admin</string>
-    <string name="title_activity_basic">BasicActivity</string>
 
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <!--  ****************************************  -->
 
-    <!--  Home Admin  -->
-    <string name="home_admin_login_action">login</string>
-    <string name="home_admin_password_hint">Password</string>
-    <string name="home_admin_email_hint">Email</string>
-    <string name="home_admin_email_image">Image for admin email</string>
-    <string name="home_admin_password_image">Image for admin password</string>
-    <string name="home_admin_login_admin_text">Login Admin</string>
+    <!--  Fragment Usage  -->
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
-    <!--  Item food  -->
-    <string name="item_food_stock_title">Stok:</string>
-    <string name="item_food_decrease_img">image button for decrease food amount</string>
-    <string name="item_food_increase_img">image button to increase food amount</string>
-    <string name="item_food_thumbnail_img">food\'s thumbnail</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="home_menu_order_action">Lihat Keranjang</string>
-    <string name="home_menu_detail_nomor_meja_title">Nomor Meja :</string>
-    <string name="home_menu_detail_buat_pesanan_action">Buat Pesanan</string>
-    <string name="home_menu_detail_total_title">Total:</string>
-    <string name="main_welcome_text">Selamat Datang!</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="home_menu_go_to_cart_text">Lihat Pesanan</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="item_dish_add_action">tambah</string>
-
-    <!--  cart fragment  -->
-    <string name="cart_quantity_text">%1$sx</string>
+    <!-- Add Dish  -->
+    <string name="add_dish_name_hint">Nama hidangan</string>
+    <string name="add_dish_price_hint">Harga hidangan</string>
+    <string name="add_dish_menu_image">gambar tambah daftar menu</string>
+    <string name="add_dish_thumbnail_image">thumbnail untuk tambah daftar menu</string>
     <string name="add_dish_directory_text"><u> Upload gambar </u></string>
+    <string name="add_dish_food_radio_button_text">Makanan</string>
+    <string name="add_dish_drink_radio_button_text">Minuman</string>
+    <string name="add_dish_menu_title">Tambah Daftar Menu</string>
+    <string name="add_dish_stock_title">Kuantitas:</string>
+    <string name="add_dish_type_title">Jenis Hidangan:</string>
 
-    <string-array name="employee_types">
+    <!--  Add Employee  -->
+    <string name="add_employee_background_image">gambar background pada tambah karyawan</string>
+    <string name="add_employee_menu_image">gambar menu tambah karyawan</string>
+    <string name="add_employee_email_title">Email</string>
+    <string name="add_employee_menu_title">Tambah Karyawan</string>
+    <string name="add_employee_name_title">Nama</string>
+    <string name="add_employee_password_title">Password</string>
+    <string name="add_employee_salary_title">Gaji</string>
+    <string name="add_employee_type_title">Jenis Karyawan</string>
+
+    <string-array name="array_employee_types">
         <item>Waiter</item>
         <item>Chef</item>
         <item>Head Chef</item>
         <item>Hall Manager</item>
     </string-array>
+
+    <!--  Add Table  -->
+    <string name="add_table_background_image">gambar background pada tambah meja</string>
+    <string name="add_table_menu_image">gambar menu tambah meja</string>
+    <string name="add_table_decrease_capacity_image">gambar minus pada kapasitas meja</string>
+    <string name="add_table_increase_capacity_image">gambar_plus_pada_kapasitas_meja</string>
+    <string name="add_table_menu_title">Tambah Meja</string>
+    <string name="add_table_number_title">Nomor Meja</string>
+    <string name="add_table_capacity_title">Kapasitas</string>
+
+    <!--  Admin  -->
+    <string name="action_login">login</string>
+    <string name="admin_password_hint">Password</string>
+    <string name="admin_email_hint">Email</string>
+    <string name="admin_email_image">Image for admin email</string>
+    <string name="admin_password_image">Image for admin password</string>
+    <string name="admin_email_text">admin@gmail.com</string>
+    <string name="admin_login_admin_text">Login Admin</string>
+    <string name="admin_password_text">123456</string>
+
+    <!--  Cart  -->
+    <string name="cart_quantity_text">%1$sx</string>
+    <string name="cart_bill_title">Total Harga:</string>
+    <string name="cart_table_number_title">Pilih nomor meja:</string>
+
+    <!--  Dish  -->
+    <string name="dish_item_add_action">tambah</string>
+    <string name="dish_item_stock_title">Stok: </string>
+    <string name="image_dish_item_thumbnail">food\'s thumbnail</string>
+
+    <!--  Management  -->
+    <string name="management_add_dish_image">gambar tambah hindangan pada manajemen</string>
+    <string name="management_add_table_image">gambar tambah meja pada manajemen admin</string>
+    <string name="management_add_employee_image">gambar tambah karyawan pada manajemen admin</string>
+    <string name="management_check_dish_image">gambar lihat hidangan pada manajemen</string>
+    <string name="management_add_dish_text">Hidangan</string>
+    <string name="management_add_employee_text">Karyawan</string>
+    <string name="management_add_table_text">Meja</string>
+    <string name="management_check_dish_text">Lihat hidangan</string>
+    <string name="management_check_report_text">Atau…</string>
+    <string name="management_add_item_title">Mau nambahin sesuatu?</string>
+    <string name="management_check_report_title">laporan</string>
+    <string name="management_check_dish_title">Perbarui atau hapus stok?</string>
+
+    <!--  Order  -->
+    <string name="order_table_number_title">Pilih nomor meja:</string>
+    <string name="order_item_table_number_title">Meja</string>
+
+    <!--  Order Detail  -->
+    <string name="order_detail_bill_title">Total harga:</string>
+    <string name="order_detail_payment_title">Pembayaran: Rp.</string>
+
+    <!--  Report Detail  -->
+    <string name="report_detail_bill_title">Total Harga :</string>
+    <string name="report_detail_change_title">Kembali :</string>
+    <string name="report_detail_payment_title">Dibayar :</string>
+    <string name="report_detail_status_title">status:</string>
+    <string name="report_detail_table_number_title">nomor meja:</string>
+    <string name="report_item_thumbnail_image">thumbnail pada item laporan</string>
+    <string name="report_item_table_number_title">nomor meja:</string>
+    <string name="report_item_status_title">status:</string>
+
+    <!--  Update Dish  -->
+    <string name="update_dish_thumbnail_image">thumbnail pada update hidangan</string>
+    <string name="update_drink_menu_image">gambar menu perbarui minuman</string>
+    <string name="update_dish_drink_menu_title">Perbarui Minuman</string>
+    <string name="update_dish_name_hint">Nama hidangan</string>
+    <string name="update_dish_price_hint">Harga hidangan</string>
+    <string name="update_dish_stock_quantity_title">Kuantitas:</string>
+    <string name="update_dish_menu_image">gambar menu update hidangan</string>
+    <string name="update_dish_food_menu_title">Perbarui Makanan</string>
+    <string name="order_detail_item_quantity_title">x</string>
+
+    <!--  ****************************************  -->
 </resources>
+

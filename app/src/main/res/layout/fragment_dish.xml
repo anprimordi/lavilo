@@ -32,7 +32,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:gravity="center"
-        android:text="@string/home_menu_go_to_cart_text"
+        android:text="@string/action_check_order"
         android:textColor="@android:color/white"
         android:theme="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         app:backgroundTint="@color/colorPrimary"

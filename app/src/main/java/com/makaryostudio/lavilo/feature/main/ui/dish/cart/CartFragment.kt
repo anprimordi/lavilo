@@ -1,4 +1,4 @@
-package com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart
+package com.makaryostudio.lavilo.feature.main.ui.dish.cart
 
 import android.os.Bundle
 import android.util.Log
@@ -20,9 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-/**
- * A simple [Fragment] subclass.
- */
 class CartFragment : Fragment() {
 
     var totalBill = 0
@@ -80,11 +77,6 @@ class CartFragment : Fragment() {
 
                 dbReference.child("Cart").child(key).removeValue()
                 adapter.notifyItemRemoved(position)
-
-                val selectedName = cart.dishName
-                val selectedQuantity = cart.quantity.toInt()
-
-                val ref = FirebaseDatabase.getInstance().reference
 
 //                TODO add dish quantity when item in cart deleted
 //                ref.child("Dish").child("Food")

@@ -1,5 +1,6 @@
-package com.makaryostudio.lavilo.feature.main.ui.dish.fragment.food
+package com.makaryostudio.lavilo.feature.main.ui.dish.drink
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,26 +14,23 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
-import com.makaryostudio.lavilo.data.model.Food
-import kotlinx.android.synthetic.main.fragment_food.*
+import com.makaryostudio.lavilo.data.model.Drink
 import java.text.NumberFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
  */
-class FoodFragment : Fragment() {
+class DrinkFragment : Fragment() {
 
-    private lateinit var foodAdapter: FoodFragmentAdapter
-    private lateinit var rvFood: RecyclerView
-    private lateinit var listFood: ArrayList<Food>
-    private lateinit var foodFragmentItemClickListener: FoodFragmentItemClickListener
+    private lateinit var adapter: DrinkFragmentAdapter
+    private lateinit var rvDrink: RecyclerView
+    private lateinit var listDrink: ArrayList<Drink>
+    private lateinit var clickListener: DrinkFragmentItemClickListener
     private lateinit var dbReference: DatabaseReference
-    private lateinit var dbListener: ValueEventListener
-    private lateinit var mStorage: FirebaseStorage
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -40,67 +38,73 @@ class FoodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food, container, false)
+        return inflater.inflate(R.layout.fragment_drink, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listFood = ArrayList()
+        rvDrink = view.findViewById(R.id.rv_drink)
+        progressBar = view.findViewById(R.id.progress_drink)
 
-        rvFood = view.findViewById(R.id.rv_food)
-        progressBar = view.findViewById(R.id.progress_food)
+        listDrink = ArrayList()
 
-        foodFragmentItemClickListener = object : FoodFragmentItemClickListener {
-            override fun amountClickListener(food: Food) {
-                showDialog(food)
+        rvDrink.layoutManager = LinearLayoutManager(requireContext())
+
+        clickListener = object : DrinkFragmentItemClickListener {
+            override fun amountClickListener(drink: Drink) {
+                showDialog(drink)
+
             }
         }
 
-        foodAdapter = FoodFragmentAdapter(requireContext(), listFood, foodFragmentItemClickListener)
+        adapter = DrinkFragmentAdapter(requireContext(), listDrink, clickListener)
 
-        rvFood.layoutManager = LinearLayoutManager(requireContext())
-        rv_food.adapter = foodAdapter
+        rvDrink.adapter = adapter
 
         dbReference = FirebaseDatabase.getInstance().reference
 
-        dbReference.child("Dish").child("Food").addValueEventListener(object : ValueEventListener {
+        dbReference.child("Dish").child("Drink").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                listFood.clear()
+                listDrink.clear()
+
                 for (postSnapshot in dataSnapshot.children) {
-                    val food =
+                    val drink =
                         postSnapshot.getValue(
-                            Food::class.java
+                            Drink::class.java
                         )!!
-                    food.key = postSnapshot.key
-                    listFood.add(food)
+                    drink.key = postSnapshot.key
+                    listDrink.add(drink)
                 }
-                foodAdapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
                 progressBar.visibility = View.GONE
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                progressBar.visibility = View.GONE
                 Toast.makeText(requireContext(), databaseError.toString(), Toast.LENGTH_SHORT)
                     .show()
             }
         })
     }
 
-    private fun showDialog(food: Food) {
+    @SuppressLint("InflateParams")
+    fun showDialog(drink: Drink) {
         val builder = AlertDialog.Builder(requireContext())
 
-        builder.setTitle("Tambahin makanan")
+        builder.setTitle("Tambahin minuman")
 
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_dish, null)
+        val inflater = LayoutInflater.from(requireContext())
 
-        var quantityInt = 1
-        val priceInt = food.price!!.toInt()
-
-        var totalPrice = priceInt
+        val view = inflater.inflate(R.layout.dialog_dish, null)
 
         val locale = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        var quantityInt = 1
+        val priceInt = drink.price!!.toInt()
+        var totalPrice = priceInt
 
         val textDishName: TextView = view.findViewById(R.id.text_dish_dialog_name)
         val textQuantity: TextView = view.findViewById(R.id.text_dish_dialog_quantity)
@@ -112,7 +116,9 @@ class FoodFragment : Fragment() {
 
         textPrice.text = rupiah
 
-        textDishName.text = food.name
+        textDishName.text = drink.name
+
+//        TODO implement decrease stock when item added into cart
 
         dbReference.child("Cart").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
@@ -125,7 +131,7 @@ class FoodFragment : Fragment() {
 
                     val dummy: Cart = childSnapshot.getValue(Cart::class.java)!!
 
-                    if (food.name == dummy.dishName) {
+                    if (drink.name == dummy.dishName) {
                         if (dummy.quantity.toInt() != 0) {
                             quantityInt = dummy.quantity.toInt()
                         }
@@ -154,14 +160,12 @@ class FoodFragment : Fragment() {
 
         builder.setView(view)
 
-        builder.setPositiveButton("TAMBAH") { dialog, which ->
+        builder.setPositiveButton("TAMBAH") { _, _ ->
+
 
             val dishName = textDishName.text.toString().trim()
 
             val quantity = textQuantity.text.toString().trim()
-
-//            val price = textPrice.text.toString().trim()
-            val price = totalPrice.toString()
 
             if (quantity.isEmpty()) {
                 Toast.makeText(
@@ -173,14 +177,15 @@ class FoodFragment : Fragment() {
                 return@setPositiveButton
             }
 
-            val key = food.key
+//            val key: String = refCart.push().key.toString()
+            val key = drink.key
             val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
-//        TODO implement decrease stock when item added into cart
+//            TODO decrease drink quantity when cart item added
             dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child("Dish").child("Food")
+                dbReference.child("Dish").child("Drink")
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {
                             Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -188,12 +193,12 @@ class FoodFragment : Fragment() {
 
                         override fun onDataChange(p0: DataSnapshot) {
                             for (postSnapshot in p0.children) {
-                                val foodie = postSnapshot.getValue(Food::class.java)!!
-                                if (dishName == foodie.name) {
-                                    var stockInt = foodie.stock!!.toInt()
+                                val drinkie = postSnapshot.getValue(Drink::class.java)!!
+                                if (dishName == drinkie.name) {
+                                    var stockInt = drinkie.stock!!.toInt()
                                     stockInt -= quantity.toInt()
 
-                                    dbReference.child("Dish").child("Food").child(key)
+                                    dbReference.child("Dish").child("Drink").child(key)
                                         .child("quantity")
                                         .setValue(stockInt.toString())
                                 }
@@ -201,9 +206,10 @@ class FoodFragment : Fragment() {
                         }
                     })
             }
+
         }
 
-        builder.setNegativeButton("BATAL") { dialog, which ->
+        builder.setNegativeButton("BATAL") { dialog, _ ->
             dialog.dismiss()
         }
 

@@ -1,5 +1,6 @@
-package com.makaryostudio.lavilo.feature.main.ui.dish.fragment.drink
+package com.makaryostudio.lavilo.feature.main.ui.dish.food
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,20 +16,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Cart
-import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.data.model.Food
+import kotlinx.android.synthetic.main.fragment_food.*
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
-/**
- * A simple [Fragment] subclass.
- */
-class DrinkFragment : Fragment() {
+class FoodFragment : Fragment() {
 
-    private lateinit var adapter: DrinkFragmentAdapter
-    private lateinit var rvDrink: RecyclerView
-    private lateinit var listDrink: ArrayList<Drink>
-    private lateinit var clickListener: DrinkFragmentItemClickListener
+    private lateinit var foodAdapter: FoodFragmentAdapter
+    private lateinit var rvFood: RecyclerView
+    private lateinit var listFood: ArrayList<Food>
+    private lateinit var foodFragmentItemClickListener: FoodFragmentItemClickListener
     private lateinit var dbReference: DatabaseReference
     private lateinit var progressBar: ProgressBar
 
@@ -37,72 +35,68 @@ class DrinkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drink, container, false)
-
+        return inflater.inflate(R.layout.fragment_food, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvDrink = view.findViewById(R.id.rv_drink)
-        progressBar = view.findViewById(R.id.progress_drink)
+        listFood = ArrayList()
 
-        listDrink = ArrayList()
+        rvFood = view.findViewById(R.id.rv_food)
+        progressBar = view.findViewById(R.id.progress_food)
 
-        rvDrink.layoutManager = LinearLayoutManager(requireContext())
-
-        clickListener = object : DrinkFragmentItemClickListener {
-            override fun amountClickListener(drink: Drink) {
-                showDialog(drink)
-
+        foodFragmentItemClickListener = object : FoodFragmentItemClickListener {
+            override fun amountClickListener(food: Food) {
+                showDialog(food)
             }
         }
 
-        adapter = DrinkFragmentAdapter(requireContext(), listDrink, clickListener)
+        foodAdapter = FoodFragmentAdapter(requireContext(), listFood, foodFragmentItemClickListener)
 
-        rvDrink.adapter = adapter
+        rvFood.layoutManager = LinearLayoutManager(requireContext())
+        rv_food.adapter = foodAdapter
 
         dbReference = FirebaseDatabase.getInstance().reference
 
-        dbReference.child("Dish").child("Drink").addValueEventListener(object : ValueEventListener {
+        dbReference.child("Dish").child("Food").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                listDrink.clear()
-
+                listFood.clear()
                 for (postSnapshot in dataSnapshot.children) {
-                    val drink =
+                    val food =
                         postSnapshot.getValue(
-                            Drink::class.java
+                            Food::class.java
                         )!!
-                    drink.key = postSnapshot.key
-                    listDrink.add(drink)
+                    food.key = postSnapshot.key
+                    listFood.add(food)
                 }
-                adapter.notifyDataSetChanged()
+                foodAdapter.notifyDataSetChanged()
                 progressBar.visibility = View.GONE
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
+                progressBar.visibility = View.GONE
                 Toast.makeText(requireContext(), databaseError.toString(), Toast.LENGTH_SHORT)
                     .show()
             }
         })
     }
 
-    fun showDialog(drink: Drink) {
+    @SuppressLint("InflateParams")
+    private fun showDialog(food: Food) {
         val builder = AlertDialog.Builder(requireContext())
 
-        builder.setTitle("Tambahin minuman")
+        builder.setTitle("Tambahin makanan")
 
-        val inflater = LayoutInflater.from(requireContext())
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_dish, null)
 
-        val view = inflater.inflate(R.layout.dialog_dish, null)
+        var quantityInt = 1
+        val priceInt = food.price!!.toInt()
+
+        var totalPrice = priceInt
 
         val locale = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(locale)
-
-        var quantityInt = 1
-        val priceInt = drink.price!!.toInt()
-        var totalPrice = priceInt
 
         val textDishName: TextView = view.findViewById(R.id.text_dish_dialog_name)
         val textQuantity: TextView = view.findViewById(R.id.text_dish_dialog_quantity)
@@ -114,9 +108,7 @@ class DrinkFragment : Fragment() {
 
         textPrice.text = rupiah
 
-        textDishName.text = drink.name
-
-//        TODO implement decrease stock when item added into cart
+        textDishName.text = food.name
 
         dbReference.child("Cart").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
@@ -129,7 +121,7 @@ class DrinkFragment : Fragment() {
 
                     val dummy: Cart = childSnapshot.getValue(Cart::class.java)!!
 
-                    if (drink.name == dummy.dishName) {
+                    if (food.name == dummy.dishName) {
                         if (dummy.quantity.toInt() != 0) {
                             quantityInt = dummy.quantity.toInt()
                         }
@@ -160,12 +152,9 @@ class DrinkFragment : Fragment() {
 
         builder.setPositiveButton("TAMBAH") { _, _ ->
 
-
             val dishName = textDishName.text.toString().trim()
 
             val quantity = textQuantity.text.toString().trim()
-
-            val price = textPrice.text.toString().trim()
 
             if (quantity.isEmpty()) {
                 Toast.makeText(
@@ -177,15 +166,14 @@ class DrinkFragment : Fragment() {
                 return@setPositiveButton
             }
 
-//            val key: String = refCart.push().key.toString()
-            val key = drink.key
+            val key = food.key
             val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
-//            TODO decrease drink quantity when cart item added
+//        TODO implement decrease stock when item added into cart
             dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                 Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
-                dbReference.child("Dish").child("Drink")
+                dbReference.child("Dish").child("Food")
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {
                             Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -193,12 +181,12 @@ class DrinkFragment : Fragment() {
 
                         override fun onDataChange(p0: DataSnapshot) {
                             for (postSnapshot in p0.children) {
-                                val drinkie = postSnapshot.getValue(Drink::class.java)!!
-                                if (dishName == drinkie.name) {
-                                    var stockInt = drinkie.stock!!.toInt()
+                                val foodie = postSnapshot.getValue(Food::class.java)!!
+                                if (dishName == foodie.name) {
+                                    var stockInt = foodie.stock!!.toInt()
                                     stockInt -= quantity.toInt()
 
-                                    dbReference.child("Dish").child("Drink").child(key)
+                                    dbReference.child("Dish").child("Food").child(key)
                                         .child("quantity")
                                         .setValue(stockInt.toString())
                                 }
@@ -206,10 +194,9 @@ class DrinkFragment : Fragment() {
                         }
                     })
             }
-
         }
 
-        builder.setNegativeButton("BATAL") { dialog, which ->
+        builder.setNegativeButton("BATAL") { dialog, _ ->
             dialog.dismiss()
         }
 

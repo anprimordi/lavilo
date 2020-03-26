@@ -14,8 +14,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:text="2"
-        android:textColor="@android:color/holo_blue_light" />
+        android:textColor="@android:color/holo_blue_light"
+        tools:text="2" />
 
     <TextView
         android:id="@+id/title_item_order_detail_quantity"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:text="x"
+        android:text="@string/order_detail_item_quantity_title"
         android:textColor="@android:color/holo_blue_light" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:layout_marginBottom="4dp"
         android:layout_weight="0.3"
         android:gravity="end|center"
-        android:text="10000"
         android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="10000" />
 </LinearLayout>

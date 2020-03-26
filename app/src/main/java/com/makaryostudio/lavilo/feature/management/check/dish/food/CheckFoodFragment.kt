@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_check_food.*
  * A simple [Fragment] subclass.
  */
 class CheckFoodFragment : Fragment() {
-    private var qty = 0
+
     private lateinit var listFood: ArrayList<Food>
 
     private lateinit var adapter: CheckFoodFragmentAdapter
@@ -119,7 +119,7 @@ class CheckFoodFragment : Fragment() {
                 }
         }
 
-        builder.setNegativeButton("BATAL") { dialog, which ->
+        builder.setNegativeButton("BATAL") { dialog, _ ->
             dialog.dismiss()
         }
 

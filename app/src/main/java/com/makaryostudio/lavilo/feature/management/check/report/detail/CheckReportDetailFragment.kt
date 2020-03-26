@@ -116,7 +116,6 @@ class CheckReportDetailFragment : Fragment() {
             .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .withListener(object : PermissionListener {
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-//                    TODO implement print to pdf feature
                     button_report_detail_payment.setOnClickListener {
                         //                        updateOrderStatus(receivedOrderId)
                         createPdfFile(Common.getAppPath(requireContext()) + fileName, args.order)

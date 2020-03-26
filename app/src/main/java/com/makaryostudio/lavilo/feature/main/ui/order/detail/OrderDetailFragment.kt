@@ -107,7 +107,6 @@ class OrderDetailFragment : Fragment() {
             .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .withListener(object : PermissionListener {
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-//                    TODO implement print to pdf feature
                     button_order_list_payment.setOnClickListener {
                         var go = true
 

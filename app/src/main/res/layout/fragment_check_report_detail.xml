@@ -12,26 +12,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="aoignuivnaicvn"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="aoignuivnaicvn" />
 
     <TextView
         android:id="@+id/text_report_detail_timestamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="20/03/2020 20:20"
-        app:layout_constraintTop_toBottomOf="@id/text_report_detail_id" />
+        app:layout_constraintTop_toBottomOf="@id/text_report_detail_id"
+        tools:text="20/03/2020 20:20" />
 
     <TextView
         android:id="@+id/title_report_detail_table_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="nomor meja: "
+        android:text="@string/report_detail_table_number_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_report_detail_timestamp" />
 
@@ -39,17 +39,17 @@
         android:id="@+id/text_report_detail_table_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2"
         app:layout_constraintBottom_toBottomOf="@id/title_report_detail_table_number"
         app:layout_constraintStart_toEndOf="@id/title_report_detail_table_number"
-        app:layout_constraintTop_toTopOf="@id/title_report_detail_table_number" />
+        app:layout_constraintTop_toTopOf="@id/title_report_detail_table_number"
+        tools:text="2" />
 
     <TextView
         android:id="@+id/title_report_detail_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="status: "
+        android:text="@string/report_detail_status_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_report_detail_table_number" />
 
@@ -57,10 +57,10 @@
         android:id="@+id/text_report_detail_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="lunas"
         app:layout_constraintBottom_toBottomOf="@id/title_report_detail_status"
         app:layout_constraintStart_toEndOf="@id/title_report_detail_status"
-        app:layout_constraintTop_toTopOf="@id/title_report_detail_status" />
+        app:layout_constraintTop_toTopOf="@id/title_report_detail_status"
+        tools:text="lunas" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_report_detail"
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Total Harga :"
+            android:text="@string/report_detail_bill_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintBottom_toBottomOf="@id/text_report_detail_bill"
             app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
@@ -107,19 +107,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:text="10000"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10000" />
 
         <TextView
             android:id="@+id/title_report_detail_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Tunai :"
+            android:text="@string/report_detail_payment_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintBottom_toBottomOf="@id/text_report_detail_payment"
             app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
@@ -131,19 +131,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:text="10000"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_report_detail_bill" />
+            app:layout_constraintTop_toBottomOf="@id/text_report_detail_bill"
+            tools:text="10000" />
 
         <TextView
             android:id="@+id/title_report_detail_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Kembali :"
+            android:text="@string/report_detail_change_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintBottom_toBottomOf="@id/text_report_detail_change"
             app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
@@ -155,12 +155,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:text="10000"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_report_detail_payment" />
+            app:layout_constraintTop_toBottomOf="@id/text_report_detail_payment"
+            tools:text="10000" />
 
         <Button
             android:id="@+id/button_report_detail_payment"
@@ -170,9 +170,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="cetak resi pembayaran"
+            android:text="@string/action_print_bill_receipt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_report_detail_change" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

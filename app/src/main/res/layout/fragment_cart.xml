@@ -4,13 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.main.ui.dish.fragment.cart.CartFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:visibility="gone" />
+    tools:context=".feature.main.ui.dish.cart.CartFragment">
 
     <include layout="@layout/content_cart" />
 
@@ -34,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Total:"
+            android:text="@string/cart_bill_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,13 +39,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:singleLine="true"
-            android:text="100000"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/title_cart_bill"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/title_cart_bill" />
+            app:layout_constraintTop_toTopOf="@id/title_cart_bill"
+            tools:text="100000" />
 
         <Button
             android:id="@+id/button_cart_make_order"
@@ -59,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:gravity="center"
-            android:text="pesan sekarang"
+            android:text="@string/action_make_order"
             android:textColor="@android:color/white"
             app:backgroundTint="@color/colorPrimary"
             app:icon="@drawable/ic_detail_dish_make_order_white_24dp"

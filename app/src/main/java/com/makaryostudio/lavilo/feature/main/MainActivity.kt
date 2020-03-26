@@ -26,9 +26,6 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-//        TODO solve actionbar visibility
-
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         navView.setupWithNavController(navController)

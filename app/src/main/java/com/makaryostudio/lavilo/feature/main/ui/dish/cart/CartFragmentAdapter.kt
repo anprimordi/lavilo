@@ -1,5 +1,6 @@
-package com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart
+package com.makaryostudio.lavilo.feature.main.ui.dish.cart
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class CartFragmentAdapter(
         return listCart.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cart = listCart[position]
 

@@ -48,7 +48,7 @@
                 android:layout_height="@dimen/imgbtn_item_food_amount"
                 android:layout_gravity="center"
                 android:background="@android:color/white"
-                android:contentDescription="@string/item_food_decrease_img"
+                android:contentDescription="@string/image_decrease_amount"
                 android:src="@drawable/ic_item_food_decrease_orange_24dp" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:gravity="center"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:text="1"
+                android:text="@string/dialog_dish_quantity_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/black" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="@dimen/imgbtn_item_food_amount"
                 android:layout_gravity="center"
                 android:background="@android:color/white"
-                android:contentDescription="@string/item_food_increase_img"
+                android:contentDescription="@string/image_increase_amount"
                 android:src="@drawable/ic_item_food_increase_orange_24dp" />
 
         </LinearLayout>
@@ -82,7 +82,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:singleLine="true"
-        android:text="0"
+        android:text="@string/text_zero_amount"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         android:textStyle="bold"

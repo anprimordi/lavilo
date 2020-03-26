@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.makaryostudio.lavilo.feature.main.ui.dish.fragment.cart.CartFragment"
+        android:name="com.makaryostudio.lavilo.feature.main.ui.dish.cart.CartFragment"
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_navigation_order"

@@ -15,8 +15,8 @@ import java.util.*
 
 class CheckReportAdapter(
     val context: Context,
-    val listOrder: ArrayList<Order>,
-    val clickListener: CheckReportItemClickListener
+    private val listOrder: ArrayList<Order>,
+    private val clickListener: CheckReportItemClickListener
 ) : RecyclerView.Adapter<CheckReportAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -3,8 +3,8 @@ package com.makaryostudio.lavilo.feature.main.ui.dish
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.makaryostudio.lavilo.feature.main.ui.dish.fragment.drink.DrinkFragment
-import com.makaryostudio.lavilo.feature.main.ui.dish.fragment.food.FoodFragment
+import com.makaryostudio.lavilo.feature.main.ui.dish.drink.DrinkFragment
+import com.makaryostudio.lavilo.feature.main.ui.dish.food.FoodFragment
 
 class DishViewPagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

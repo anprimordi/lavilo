@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_add_table.*
 
 class AddTableFragment : Fragment() {
 
-    var capacity = 0
+    private var capacity = 0
     private lateinit var dbReference: DatabaseReference
     private lateinit var editCapacity: EditText
     private lateinit var btnDecrease: ImageView

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.25"
+        app:layout_constraintGuide_percent="0.20"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.40"
+        app:layout_constraintGuide_percent="0.30"
         app:layout_constraintStart_toStartOf="parent" />
 
     <RelativeLayout
@@ -35,6 +35,7 @@
         android:id="@+id/image_add_table_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/add_table_menu_image"
         android:src="@drawable/ic_add_table_white_36dp"
         app:layout_constraintBottom_toTopOf="@id/guideline_13"
         app:layout_constraintStart_toStartOf="@id/card_container"
@@ -44,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Tambah Meja"
+        android:text="@string/add_table_menu_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white"
         android:textStyle="bold"
@@ -81,18 +82,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nomor Meja" />
+                    android:text="@string/add_table_number_title" />
 
                 <EditText
                     android:id="@+id/edit_add_table_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    tools:ignore="LabelFor" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kapasitas" />
+                    android:text="@string/add_table_capacity_title" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -102,6 +105,7 @@
                         android:id="@+id/image_add_table_decrease_capacity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/add_table_decrease_capacity_image"
                         android:src="@drawable/ic_item_food_decrease_orange_24dp"
                         app:layout_constraintBottom_toBottomOf="@id/edit_add_table_capacity"
                         app:layout_constraintEnd_toStartOf="@id/edit_add_table_capacity"
@@ -115,15 +119,17 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:singleLine="true"
-                        android:text="0"
+                        android:text="@string/text_zero_amount"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="LabelFor" />
 
                     <ImageView
                         android:id="@+id/image_add_table_increase_capacity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/add_table_increase_capacity_image"
                         android:src="@drawable/ic_item_food_increase_orange_24dp"
                         app:layout_constraintBottom_toBottomOf="@id/edit_add_table_capacity"
                         app:layout_constraintStart_toEndOf="@id/edit_add_table_capacity"
@@ -134,7 +140,7 @@
                     android:id="@+id/button_add_table"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tambahkan" />
+                    android:text="@string/action_add" />
             </LinearLayout>
         </ScrollView>
     </androidx.cardview.widget.CardView>
@@ -142,7 +148,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_restaurant"
+        android:contentDescription="@string/add_table_background_image"
+        android:src="@drawable/ic_add_table_background_grey_128dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

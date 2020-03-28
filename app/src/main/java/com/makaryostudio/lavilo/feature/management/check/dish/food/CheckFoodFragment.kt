@@ -67,7 +67,7 @@ class CheckFoodFragment : Fragment() {
 
         rv_check_food.adapter = adapter
 
-        dbListener = dbReference.child("Dish").child("Food")
+        dbReference.child("Dish").child("Food")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -127,8 +127,4 @@ class CheckFoodFragment : Fragment() {
         alert.show()
     }
 
-    override fun onDestroyOptionsMenu() {
-        super.onDestroyOptionsMenu()
-        dbReference.removeEventListener(dbListener)
-    }
 }

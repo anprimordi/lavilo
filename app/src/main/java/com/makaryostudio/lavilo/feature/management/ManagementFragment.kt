@@ -1,13 +1,13 @@
 package com.makaryostudio.lavilo.feature.management
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.google.firebase.auth.FirebaseAuth
 import com.makaryostudio.lavilo.R
 
 /**
@@ -15,15 +15,23 @@ import com.makaryostudio.lavilo.R
  */
 class ManagementFragment : Fragment() {
 
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
+
+    //    private lateinit var buttonLogin: Button
+    private val firebaseAuth = FirebaseAuth.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        authStateListener = FirebaseAuth.AuthStateListener {
+            val firebaseUser = firebaseAuth.currentUser
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_management, container, false)
     }
-
-//    TODO implement per day report
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,10 +43,14 @@ class ManagementFragment : Fragment() {
         val cardCheckDish: CardView = view.findViewById(R.id.card_management_check_dish)
         val cardCheckReport: CardView = view.findViewById(R.id.card_management_check_report)
 
+        val cardLogout: CardView = view.findViewById(R.id.card_management_logout)
+
+//        val toolbar: MaterialToolbar = view.findViewById(R.id.toolbar_management)
+
+//        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
         (activity as AppCompatActivity).supportActionBar?.title =
             "Manajemen Admin"
-
-//        (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(false)
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
@@ -61,5 +73,39 @@ class ManagementFragment : Fragment() {
         cardCheckReport.setOnClickListener {
             findNavController().navigate(R.id.action_managementFragment_to_checkReportFragment)
         }
+
+        cardLogout.setOnClickListener {
+            firebaseAuth.signOut()
+            findNavController().navigate(R.id.action_managementFragment_to_navigation_admin)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth.addAuthStateListener(authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseAuth.removeAuthStateListener(authStateListener)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.management_menu, menu)
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.itemId
+
+        if (id == R.id.action_logout) {
+            firebaseAuth.signOut()
+            return true
+        }
+
+        return NavigationUI.onNavDestinationSelected(item, findNavController())
+                || super.onOptionsItemSelected(item)
     }
 }

@@ -62,18 +62,71 @@
         app:layout_constraintTop_toTopOf="@id/title_report_detail_status"
         tools:text="lunas" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_report_detail"
+    <TextView
+        android:id="@+id/title_report_detail_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/order_detail_qty_title"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_report_detail_status" />
+
+    <TextView
+        android:id="@+id/title_report_detail_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/order_detail_name_title"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/title_report_detail_quantity"
+        app:layout_constraintEnd_toStartOf="@id/title_report_detail_price"
+        app:layout_constraintStart_toEndOf="@id/title_report_detail_quantity"
+        app:layout_constraintTop_toTopOf="@id/title_report_detail_quantity" />
+
+    <TextView
+        android:id="@+id/title_report_detail_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="end"
+        android:text="@string/order_detail_price_title"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/title_report_detail_quantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title_report_detail_name"
+        app:layout_constraintTop_toTopOf="@id/title_report_detail_quantity" />
+
+    <View
+        android:id="@+id/div_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/title_report_detail_quantity" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/layout_payment"
-        app:layout_constraintTop_toBottomOf="@id/title_report_detail_status"
-        tools:listitem="@layout/item_order_detail" />
+        app:layout_constraintTop_toBottomOf="@id/title_report_detail_quantity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_report_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_order_detail" />
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/container_test"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
@@ -83,20 +136,14 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.65" />
 
-        <View
-            android:id="@+id/div_top"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/title_report_detail_bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:text="@string/report_detail_bill_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/text_report_detail_bill"
             app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
             app:layout_constraintTop_toTopOf="@id/text_report_detail_bill" />
@@ -105,9 +152,9 @@
             android:id="@+id/text_report_detail_bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,6 +168,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/report_detail_payment_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/text_report_detail_payment"
             app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
             app:layout_constraintTop_toTopOf="@id/text_report_detail_payment" />
@@ -131,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -145,6 +193,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/report_detail_change_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/text_report_detail_change"
             app:layout_constraintEnd_toStartOf="@id/guideline_report_detail"
             app:layout_constraintTop_toTopOf="@id/text_report_detail_change" />
@@ -155,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

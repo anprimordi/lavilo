@@ -29,10 +29,12 @@ class CartFragment : Fragment() {
     private lateinit var clickListener: CartFragmentItemClickListener
     private lateinit var dbReference: DatabaseReference
     private lateinit var dbListener: ValueEventListener
+
     private lateinit var buttonMakeOrder: Button
     private lateinit var rvCart: RecyclerView
     private lateinit var spinnerTableNumber: Spinner
     private lateinit var textBill: TextView
+    private lateinit var textEmpty: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +51,7 @@ class CartFragment : Fragment() {
 
         rvCart = view.findViewById(R.id.rv_cart)
         textBill = view.findViewById(R.id.text_cart_bill)
+        textEmpty = view.findViewById(R.id.text_cart_empty_order)
 
         buttonMakeOrder = view.findViewById(R.id.button_cart_make_order)
 
@@ -67,6 +70,12 @@ class CartFragment : Fragment() {
 
         clickListener = object : CartFragmentItemClickListener {
             override fun deleteCartItem(cart: Cart, position: Int) {
+
+                if (listCart.isEmpty()) {
+                    textEmpty.visibility = View.VISIBLE
+                } else {
+                    textEmpty.visibility = View.GONE
+                }
 
                 totalBill = 0
                 totalItem = 0
@@ -147,8 +156,15 @@ class CartFragment : Fragment() {
                     totalBill += cart.price.toInt()
                     totalItem += cart.quantity.toInt()
                     listCart.add(cart)
-                }
 
+                }
+                if (listCart.isEmpty()) {
+//                    Toast.makeText(requireContext(), "EMPTY", Toast.LENGTH_SHORT).show()
+                    textEmpty.visibility = View.VISIBLE
+                } else if (listCart.isNotEmpty()) {
+//                    Toast.makeText(requireContext(), "FILLED", Toast.LENGTH_SHORT).show()
+                    textEmpty.visibility = View.GONE
+                }
                 val rupiah = formatRupiah.format(totalBill.toDouble())
                 adapter.notifyDataSetChanged()
 //                textBill.text = totalBill.toString()
@@ -185,6 +201,8 @@ class CartFragment : Fragment() {
                 spinnerTableNumber.adapter = tableAdapter
             }
         })
+
+
 
         buttonMakeOrder.setOnClickListener {
 

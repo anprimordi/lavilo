@@ -8,7 +8,7 @@
         android:id="@+id/tab_dish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Widget.MaterialComponents.TabLayout.Colored"
+        style="@style/Widget.MaterialComponents.TabLayout.Colored"
         app:layout_constraintTop_toTopOf="parent"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@android:color/white"

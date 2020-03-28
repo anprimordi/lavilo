@@ -27,6 +27,8 @@ class OrderFragment : Fragment() {
     private lateinit var listener: OrderFragmentListener
     private lateinit var dbReference: DatabaseReference
 
+    private lateinit var textEmpty: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +54,8 @@ class OrderFragment : Fragment() {
 
         dbReference = FirebaseDatabase.getInstance().reference
 
+        textEmpty = view.findViewById(R.id.text_order_empty_order)
+
         dbReference.child("Order").orderByChild("tableNumber")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -73,9 +77,15 @@ class OrderFragment : Fragment() {
                         if (order.status == "belum dibayar") {
 
                             listOrder.add(order)
+
                         }
                     }
                     adapter.notifyDataSetChanged()
+                    if (listOrder.isEmpty()) {
+                        textEmpty.visibility = View.VISIBLE
+                    } else if (listOrder.isNotEmpty()) {
+                        textEmpty.visibility = View.GONE
+                    }
                 }
             })
 
@@ -93,5 +103,6 @@ class OrderFragment : Fragment() {
 
         rv_order.adapter = adapter
         rv_order.layoutManager = LinearLayoutManager(requireContext())
+
     }
 }

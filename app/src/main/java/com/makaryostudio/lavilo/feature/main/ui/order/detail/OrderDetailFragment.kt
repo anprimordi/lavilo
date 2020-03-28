@@ -1,6 +1,7 @@
 package com.makaryostudio.lavilo.feature.main.ui.order.detail
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.print.PrintAttributes
@@ -9,12 +10,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.*
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.BaseFont
@@ -43,7 +44,7 @@ import kotlin.collections.ArrayList
 class OrderDetailFragment : Fragment() {
 
     val fileName: String = "test_pdf.pdf"
-    private lateinit var editPayment: EditText
+    private lateinit var editPayment: TextInputLayout
 
     private lateinit var listOrderDetail: ArrayList<OrderDetail>
     private lateinit var adapter: OrderDetailFragmentAdapter
@@ -56,12 +57,17 @@ class OrderDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_order_detail, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val args: OrderDetailFragmentArgs by navArgs()
 
         val receivedOrderId = args.order!!.id
+
+        val tableNumber = args.order!!.tableNumber
+
+        text_order_detail_table_number.text = "Meja $tableNumber"
 
         editPayment = view.findViewById(R.id.edit_order_detail_payment)
 
@@ -72,7 +78,7 @@ class OrderDetailFragment : Fragment() {
         dbReference.child("OrderDetail").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), databaseError.message, Toast.LENGTH_SHORT).show()
-                Log.d("Order detail fragment", databaseError.message)
+                Log.e("Order detail fragment", databaseError.message)
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -83,8 +89,6 @@ class OrderDetailFragment : Fragment() {
                     if (receivedOrderId == orderDetail.id) {
                         listOrderDetail.add(orderDetail)
                     }
-
-//                    listOrderDetail.add(orderDetail)
 
                     adapter.notifyDataSetChanged()
                 }
@@ -110,18 +114,18 @@ class OrderDetailFragment : Fragment() {
                     button_order_list_payment.setOnClickListener {
                         var go = true
 
-                        if (editPayment.text.toString() == "") {
+                        if (editPayment.editText?.text.toString() == "") {
                             editPayment.error = "nominal pembayaran belum dimasukkan"
                             editPayment.requestFocus()
                             go = false
                         }
-                        if (editPayment.text.isNotEmpty() && editPayment.text.toString().toInt() < bill) {
+                        if (editPayment.editText?.text!!.isNotEmpty() && editPayment.editText?.text.toString().toInt() < bill) {
                             editPayment.error = "nominal pembayaran masih kurang"
                             editPayment.requestFocus()
                             go = false
                         }
                         if (go) {
-                            val payment = editPayment.text.toString().toInt()
+                            val payment = editPayment.editText?.text.toString().toInt()
                             updateOrderStatus(receivedOrderId, payment, bill)
                             createPdfFile(
                                 Common.getAppPath(requireContext()) + fileName,

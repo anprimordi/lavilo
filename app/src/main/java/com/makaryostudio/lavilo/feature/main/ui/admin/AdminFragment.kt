@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,10 +26,10 @@ import kotlinx.android.synthetic.main.fragment_admin.*
 class AdminFragment : Fragment() {
 
     private lateinit var adminViewModel: AdminViewModel
-
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
     //    private lateinit var buttonLogin: Button
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     val databaseReference = firebaseDatabase.getReference("Admin")
 
@@ -44,6 +45,7 @@ class AdminFragment : Fragment() {
         adminViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
         return root
     }
 
@@ -51,20 +53,27 @@ class AdminFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        val editEmail: TextInputEditText = view.findViewById(R.id.edit_email)
-//        val editPassword: TextInputEditText = view.findViewById(R.id.edit_password)
-        firebaseAuth = FirebaseAuth.getInstance()
+        val editEmail: TextInputEditText = view.findViewById(R.id.edit_email)
+        val editPassword: TextInputEditText = view.findViewById(R.id.edit_password)
+
+
+        authStateListener = FirebaseAuth.AuthStateListener {
+            val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser != null) {
+                findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
+            }
+        }
 
         button_login.setOnClickListener {
             var go = true
-            if (edit_email.text.toString() == "") {
-                edit_email.error = "email gak boleh kosong ya"
-                edit_email.requestFocus()
+            if (editEmail.text.toString() == "") {
+                editEmail.error = "email gak boleh kosong ya"
+                editEmail.requestFocus()
                 go = false
             }
-            if (edit_password.text.toString() == "") {
-                edit_password.error = "password gak boleh kosong ya"
-                edit_email.requestFocus()
+            if (editPassword.text.toString() == "") {
+                editPassword.error = "password gak boleh kosong ya"
+                editPassword.requestFocus()
                 go = false
             }
             if (go) {
@@ -77,8 +86,8 @@ class AdminFragment : Fragment() {
                     )
 
                 firebaseAuth.signInWithEmailAndPassword(
-                    edit_email.text.toString(),
-                    edit_password.text.toString()
+                    editEmail.text.toString(),
+                    editPassword.text.toString()
                 ).addOnCompleteListener {
                     progressDialog.dismiss()
                     if (it.isSuccessful) {
@@ -118,7 +127,7 @@ class AdminFragment : Fragment() {
 //                                        }
 //
 //                                    }
-                                if (edit_email.text.toString() == "admin@gmail.com") {
+                                if (editEmail.text.toString() == "admin@gmail.com") {
                                     databaseReference.removeEventListener(this)
 
                                     Toast.makeText(
@@ -126,12 +135,12 @@ class AdminFragment : Fragment() {
                                         "Login sukses",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
+//                                    findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
                                 }
                             }
 
                             override fun onCancelled(databaseError: DatabaseError) {
-                                Log.w(
+                                Log.e(
                                     "ERROR",
                                     databaseError.message,
                                     databaseError.toException()
@@ -149,5 +158,15 @@ class AdminFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth.addAuthStateListener(authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseAuth.removeAuthStateListener(authStateListener)
     }
 }

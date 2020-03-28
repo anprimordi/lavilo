@@ -67,7 +67,7 @@ class CheckDrinkFragment : Fragment() {
 
         rv_check_drink.adapter = adapter
 
-        dbListener = dbReference.child("Dish").child("Drink")
+        dbReference.child("Dish").child("Drink")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT).show()
@@ -85,7 +85,6 @@ class CheckDrinkFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             })
-
     }
 
     private fun showDeleteDialog(drink: Drink, position: Int) {
@@ -125,8 +124,4 @@ class CheckDrinkFragment : Fragment() {
         alert.show()
     }
 
-    override fun onDestroyOptionsMenu() {
-        super.onDestroyOptionsMenu()
-        dbReference.removeEventListener(dbListener)
-    }
 }

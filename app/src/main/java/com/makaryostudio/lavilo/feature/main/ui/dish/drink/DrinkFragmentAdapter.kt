@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
@@ -52,6 +53,7 @@ class DrinkFragmentAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val layout: ConstraintLayout = itemView.findViewById(R.id.layout_dish_item)
         val image: ImageView = itemView.findViewById(R.id.image_item_dish_thumbnail)
         val name: TextView = itemView.findViewById(R.id.text_item_dish_name)
         val price: TextView = itemView.findViewById(R.id.text_item_dish_price)

@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_managementFragment_to_checkReportFragment"
             app:destination="@id/checkReportFragment" />
+        <action
+            android:id="@+id/action_managementFragment_to_navigation_admin"
+            app:destination="@id/navigation_admin" />
     </fragment>
     <fragment
         android:id="@+id/addDishFragment"

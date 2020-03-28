@@ -66,7 +66,7 @@
     <string name="add_table_increase_capacity_image">gambar_plus_pada_kapasitas_meja</string>
     <string name="add_table_menu_title">Tambah Meja</string>
     <string name="add_table_number_title">Nomor Meja</string>
-    <string name="add_table_capacity_title">Kapasitas</string>
+    <string name="add_table_capacity_title">Kapasitas (orang)</string>
 
     <!--  Admin  -->
     <string name="action_login">login</string>
@@ -85,6 +85,7 @@
 
     <!--  Dish  -->
     <string name="dish_item_add_action">tambah</string>
+    <string name="dish_dialog_title">Jumlah Porsi</string>
     <string name="dish_item_stock_title">Stok: </string>
     <string name="image_dish_item_thumbnail">food\'s thumbnail</string>
 
@@ -93,32 +94,43 @@
     <string name="management_add_table_image">gambar tambah meja pada manajemen admin</string>
     <string name="management_add_employee_image">gambar tambah karyawan pada manajemen admin</string>
     <string name="management_check_dish_image">gambar lihat hidangan pada manajemen</string>
+    <string name="management_check_report_image">gambar untuk check report</string>
     <string name="management_add_dish_text">Hidangan</string>
     <string name="management_add_employee_text">Karyawan</string>
     <string name="management_add_table_text">Meja</string>
-    <string name="management_check_dish_text">Lihat hidangan</string>
-    <string name="management_check_report_text">Atau…</string>
+    <string name="management_check_dish_text">Menu untuk memperbarui atau menghapus stok</string>
+    <string name="management_check_report_text">Riwayat semua pesanan yang telah dibuat…</string>
     <string name="management_add_item_title">Mau nambahin sesuatu?</string>
     <string name="management_check_report_title">laporan</string>
-    <string name="management_check_dish_title">Perbarui atau hapus stok?</string>
+    <string name="management_check_dish_title">Lihat hidangan</string>
+    <string name="management_logout_title">Logout</string>
 
     <!--  Order  -->
+    <string name="order_bill_text">Total Harga</string>
+    <string name="order_empty_text">Pesanannya masih kosong nih!\nYuk pesan dulu!</string>
+    <string name="order_item_rp_text">Rp.</string>
+    <string name="order_table_number_text">Nomor Meja</string>
     <string name="order_table_number_title">Pilih nomor meja:</string>
     <string name="order_item_table_number_title">Meja</string>
 
     <!--  Order Detail  -->
+    <string name="order_detail_payment_hint">Nominal pembayaran</string>
     <string name="order_detail_bill_title">Total harga:</string>
-    <string name="order_detail_payment_title">Pembayaran: Rp.</string>
+    <string name="order_detail_item_quantity_title">x</string>
+    <string name="order_detail_name_title">Nama Menu</string>
+    <string name="order_detail_payment_title">Pembayaran:</string>
+    <string name="order_detail_price_title">Total Harga</string>
+    <string name="order_detail_qty_title">Qty</string>
 
     <!--  Report Detail  -->
     <string name="report_detail_bill_title">Total Harga :</string>
     <string name="report_detail_change_title">Kembali :</string>
     <string name="report_detail_payment_title">Dibayar :</string>
-    <string name="report_detail_status_title">status:</string>
-    <string name="report_detail_table_number_title">nomor meja:</string>
+    <string name="report_detail_status_title">Status\t\t\t\t:\t</string>
+    <string name="report_detail_table_number_title">Nomor meja\t:\t</string>
     <string name="report_item_thumbnail_image">thumbnail pada item laporan</string>
-    <string name="report_item_table_number_title">nomor meja:</string>
-    <string name="report_item_status_title">status:</string>
+    <string name="report_item_table_number_title">Nomor meja\t:\t</string>
+    <string name="report_item_status_title">Status\t\t\t\t:\t</string>
 
     <!--  Update Dish  -->
     <string name="update_dish_thumbnail_image">thumbnail pada update hidangan</string>
@@ -129,7 +141,7 @@
     <string name="update_dish_stock_quantity_title">Kuantitas:</string>
     <string name="update_dish_menu_image">gambar menu update hidangan</string>
     <string name="update_dish_food_menu_title">Perbarui Makanan</string>
-    <string name="order_detail_item_quantity_title">x</string>
+
 
     <!--  ****************************************  -->
 </resources>

@@ -93,7 +93,7 @@ class DrinkFragment : Fragment() {
     fun showDialog(drink: Drink) {
         val builder = AlertDialog.Builder(requireContext())
 
-        builder.setTitle("Tambahin minuman")
+//        builder.setTitle("Tambahin minuman")
 
         val inflater = LayoutInflater.from(requireContext())
 
@@ -183,7 +183,7 @@ class DrinkFragment : Fragment() {
 
             val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
-            if (drink.stock.toInt() > quantityInt) {
+            if (drink.stock.toInt() >= quantityInt) {
                 dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                     Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
@@ -201,7 +201,7 @@ class DrinkFragment : Fragment() {
                                     if (dishName == drinkie.name) {
                                         var stockInt = drinkie.stock!!.toInt()
 
-                                        if (quantityInt < stockInt) {
+                                        if (quantityInt <= stockInt) {
                                             stockInt -= quantity.toInt()
 
                                             dbReference.child("Dish").child("Drink")

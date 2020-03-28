@@ -6,16 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_dish_dialog"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_dish_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/dish_dialog_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_dish_dialog_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_dish_dialog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_dish_dialog"
         tools:text="@tools:sample/lorem/random" />
 
     <androidx.cardview.widget.CardView
@@ -23,14 +48,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
         android:elevation="2dp"
+        app:cardElevation="2dp"
         app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toTopOf="@id/text_dish_dialog_price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_dish_dialog_name">
+        app:layout_constraintBottom_toBottomOf="@id/text_dish_dialog_price"
+        app:layout_constraintStart_toEndOf="@id/guideline_dish_dialog"
+        app:layout_constraintTop_toTopOf="@id/text_dish_dialog_name">
 
         <LinearLayout
             android:id="@+id/layout_dish_dialog_quantity"
@@ -57,7 +81,7 @@
                 android:layout_height="@dimen/tv_item_food_amount"
                 android:gravity="center"
                 android:maxLength="2"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:text="@string/dialog_dish_quantity_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/black" />
@@ -76,19 +100,29 @@
 
     <TextView
         android:id="@+id/text_dish_dialog_price"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
         android:singleLine="true"
         android:text="@string/text_zero_amount"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_dish_dialog_quantity" />
+        android:layout_marginBottom="24dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_dish_dialog"
+        app:layout_constraintStart_toStartOf="@id/text_dish_dialog_name"
+        app:layout_constraintTop_toBottomOf="@id/text_dish_dialog_name" />
+
+    <!--    <Button-->
+    <!--        android:text="@string/action_add"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        android:layout_marginBottom="24dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/text_dish_dialog_price"-->
+    <!--        android:id="@+id/button_dish_dialog_add_item"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

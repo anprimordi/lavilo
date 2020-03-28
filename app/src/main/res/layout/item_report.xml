@@ -16,23 +16,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/text_item_report_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="24/03/2020 24:10" />
+
+    <TextView
         android:id="@+id/text_item_report_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@id/text_item_report_timestamp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_item_report_timestamp"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView
         android:id="@+id/title_item_report_table_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:text="@string/report_item_table_number_title"
         app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/text_item_report_bill" />
@@ -49,6 +58,7 @@
         android:id="@+id/title_item_report_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:text="@string/report_item_status_title"
         app:layout_constraintStart_toEndOf="@id/image_item_report_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/title_item_report_table_number" />
@@ -72,22 +82,13 @@
         app:layout_constraintTop_toBottomOf="@id/text_item_report_id"
         tools:text="50000" />
 
-    <TextView
-        android:id="@+id/text_item_report_timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="24/03/2020 24:10" />
-
     <Button
         android:id="@+id/button_item_report_delete"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:text="@string/action_delete"
         android:textColor="@android:color/holo_red_light"
         app:icon="@drawable/ic_item_stock_delete_red_24dp"

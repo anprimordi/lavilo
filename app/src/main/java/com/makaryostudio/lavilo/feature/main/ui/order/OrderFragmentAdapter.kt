@@ -4,11 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Order
+import java.text.NumberFormat
+import java.util.*
 
 class OrderFragmentAdapter(
     val context: Context,
@@ -32,7 +34,13 @@ class OrderFragmentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = listOrder[position]
 
+        val locale = Locale("in", "ID")
+        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+
+        val rupiah = formatRupiah.format(order.bill!!.toDouble())
+
         holder.tableNumber.text = order.tableNumber
+        holder.totalBill.text = rupiah
 
         holder.layout.setOnClickListener {
             listener.onClickListener(order)
@@ -40,7 +48,8 @@ class OrderFragmentAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val layout: LinearLayout = itemView.findViewById(R.id.layout_order_list)
+        val layout: ConstraintLayout = itemView.findViewById(R.id.layout_order_list)
         var tableNumber: TextView = itemView.findViewById(R.id.text_item_order_list_table_number)
+        var totalBill: TextView = itemView.findViewById(R.id.text_item_order_list_total_bill)
     }
 }

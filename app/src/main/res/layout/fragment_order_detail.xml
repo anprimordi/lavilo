@@ -6,26 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".feature.main.ui.order.detail.OrderDetailFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_order_detail"
+    <TextView
+        android:id="@+id/text_order_detail_table_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Meja 1" />
+
+    <TextView
+        android:id="@+id/title_order_detail_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/order_detail_qty_title"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_order_detail_table_number" />
+
+    <TextView
+        android:id="@+id/title_order_detail_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/order_detail_name_title"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/title_order_detail_quantity"
+        app:layout_constraintEnd_toStartOf="@id/title_order_detail_price"
+        app:layout_constraintStart_toEndOf="@id/title_order_detail_quantity"
+        app:layout_constraintTop_toTopOf="@id/title_order_detail_quantity" />
+
+    <TextView
+        android:id="@+id/title_order_detail_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="end"
+        android:text="@string/order_detail_price_title"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/title_order_detail_quantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title_order_detail_name"
+        app:layout_constraintTop_toTopOf="@id/title_order_detail_quantity" />
+
+    <View
+        android:id="@+id/div_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/title_order_detail_quantity" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/layout_payment"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_order_detail" />
+        app:layout_constraintTop_toBottomOf="@id/title_order_detail_quantity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_order_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_order_detail" />
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/container_test"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <View
-            android:id="@+id/div_top"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--        <View-->
+        <!--            android:id="@+id/div_top"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:background="@android:color/darker_gray"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
             android:id="@+id/title_order_detail_bill"
@@ -33,7 +101,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/order_detail_bill_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/text_order_detail_bill"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_order_detail_bill" />
@@ -42,10 +112,10 @@
             android:id="@+id/text_order_detail_bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,24 +126,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/order_detail_payment_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintBottom_toBottomOf="@id/edit_order_detail_payment"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/text_order_detail_rp"
             app:layout_constraintStart_toStartOf="@id/title_order_detail_bill"
+            app:layout_constraintTop_toBottomOf="@id/text_order_detail_bill" />
+
+        <TextView
+            android:id="@+id/text_order_detail_rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_item_rp_text"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edit_order_detail_payment"
+            app:layout_constraintStart_toStartOf="@id/title_order_detail_payment"
             app:layout_constraintTop_toTopOf="@id/edit_order_detail_payment" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_order_detail_payment"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:hint="@string/order_detail_payment_hint"
             android:importantForAutofill="no"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="@id/text_order_detail_bill"
-            app:layout_constraintStart_toEndOf="@id/title_order_detail_payment"
-            app:layout_constraintTop_toBottomOf="@id/text_order_detail_bill"
-            tools:ignore="LabelFor"
-            tools:text="1000000" />
+            app:layout_constraintStart_toEndOf="@id/text_order_detail_rp"
+            app:layout_constraintTop_toBottomOf="@id/title_order_detail_payment">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/button_order_list_payment"

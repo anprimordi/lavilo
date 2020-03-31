@@ -200,7 +200,11 @@ class UpdateDrinkFragment : Fragment() {
                                 }
                             }
                         }
-                        Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            requireContext(),
+                            "Menu berhasil diperbarui",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                         findNavController().navigate(R.id.action_updateDrinkFragment_to_checkDishFragment)
                     }
@@ -231,7 +235,7 @@ class UpdateDrinkFragment : Fragment() {
                 drink.key = drinkie.key
                 databaseReference.child("Dish").child("Drink").child(drink.key!!)
                     .setValue(drink)
-                Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Menu berhasil diperbarui", Toast.LENGTH_SHORT)
                     .show()
                 findNavController().navigate(R.id.action_updateDrinkFragment_to_checkDishFragment)
             }

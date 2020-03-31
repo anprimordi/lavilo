@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Order
+import com.makaryostudio.lavilo.data.model.OrderDetail
 import kotlinx.android.synthetic.main.fragment_check_report.*
 
 /**
@@ -22,7 +23,6 @@ class CheckReportFragment : Fragment() {
     private lateinit var listOrder: ArrayList<Order>
     private lateinit var adapter: CheckReportAdapter
     private lateinit var dbReference: DatabaseReference
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,18 +61,47 @@ class CheckReportFragment : Fragment() {
 
                 dbReference.child("Order").child(selectedId!!).removeValue()
                     .addOnCompleteListener {
-                        for (i in 0..10) {
-                            val key = dbReference.child("OrderDetail").push().key
-                            dbReference.child("OrderDetail").child(key!!).child("id")
-                                .child(selectedId).removeValue()
-                            Toast.makeText(
-                                requireContext(),
-                                "item berhasil dihapus",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                            adapter.notifyItemRemoved(position)
-                        }
+                        //                        for (i in 0..10) {
+//                            val key = dbReference.child("OrderDetail").push().key
+//                            dbReference.child("OrderDetail").child(key!!).child("id")
+//                                .child(selectedId).removeValue()
+//
+//                            adapter.notifyItemRemoved(position)
+//                        }
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "item berhasil dihapus",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+
+                        dbReference.child("OrderDetail")
+                            .addValueEventListener(object : ValueEventListener {
+                                override fun onCancelled(p0: DatabaseError) {
+                                    Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+
+                                override fun onDataChange(p0: DataSnapshot) {
+                                    for (postSnapshot in p0.children) {
+                                        val orderDetail =
+                                            postSnapshot.getValue(OrderDetail::class.java)!!
+                                        if (selectedId == orderDetail.id) {
+                                            val key = postSnapshot.key!!
+                                            dbReference.child("OrderDetail").child(key)
+                                                .child("id")
+                                                .child(selectedId).removeValue()
+
+                                            adapter.notifyItemRemoved(position)
+                                        }
+                                    }
+                                }
+                            })
+
+                        Toast.makeText(
+                            requireContext(),
+                            "item berhasil dihapus",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     }.addOnFailureListener {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()

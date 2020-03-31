@@ -197,7 +197,11 @@ class UpdateFoodFragment : Fragment() {
                                 }
                             }
                         }
-                        Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            requireContext(),
+                            "Menu berhasil diperbarui",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                         findNavController().navigate(R.id.action_updateFoodFragment_to_checkDishFragment)
 
@@ -229,7 +233,11 @@ class UpdateFoodFragment : Fragment() {
                 food.key = foodie.key
                 databaseReference.child("Dish").child("Food").child(food.key!!)
                     .setValue(food).addOnCompleteListener {
-                        Toast.makeText(requireContext(), "upload successful", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            requireContext(),
+                            "Menu berhasil diperbarui",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                         findNavController().navigate(R.id.action_updateFoodFragment_to_checkDishFragment)
                     }.addOnFailureListener {

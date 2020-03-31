@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -57,10 +56,11 @@
         android:id="@+id/text_report_detail_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toBottomOf="@id/title_report_detail_status"
         app:layout_constraintStart_toEndOf="@id/title_report_detail_status"
         app:layout_constraintTop_toTopOf="@id/title_report_detail_status"
-        tools:text="lunas" />
+        tools:text="Belum Lunas" />
 
     <TextView
         android:id="@+id/title_report_detail_quantity"
@@ -219,6 +219,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:enabled="false"
             android:text="@string/action_print_bill_receipt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_report_detail_change" />

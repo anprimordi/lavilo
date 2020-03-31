@@ -35,27 +35,10 @@ class AddEmployeeFragment : Fragment() {
 
         dbReference = FirebaseDatabase.getInstance().reference
 
-//        spinner_add_employee_type.onItemSelectedListener =
-//            object : AdapterView.OnItemSelectedListener {
-//                override fun onNothingSelected(parent: AdapterView<*>?) {
-//
-//                }
-//
-//                override fun onItemSelected(
-//                    parent: AdapterView<*>?,
-//                    view: View?,
-//                    position: Int,
-//                    id: Long
-//                ) {
-//                    val selectedItem = parent?.getItemAtPosition(position).toString()
-//
-//                }
-//            }
-
         button_add_employee.setOnClickListener {
             var go = true
             if (edit_add_employee_name.text.toString() == "") {
-                edit_add_employee_name.error = "Nama karyawan nggak boleh kosong"
+                edit_add_employee_name.error = "Nama karyawan nggak boleh kosong ya"
                 edit_add_employee_name.requestFocus()
                 go = false
             }

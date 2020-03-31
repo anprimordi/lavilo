@@ -205,7 +205,6 @@ class AddDishFragment : Fragment() {
     }
 
     private fun getFileExtension(uri: Uri): String? {
-//        val contentResolver = context?.contentResolver
         val mimeTypeMap = MimeTypeMap.getSingleton()
         return mimeTypeMap.getExtensionFromMimeType(requireContext().contentResolver!!.getType(uri))
     }
@@ -246,7 +245,7 @@ class AddDishFragment : Fragment() {
                             }
                         }
                     }
-                    //                        progressBar.setVisibility(View.GONE);
+                    progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireContext(),
                         "Berhasil menambahkan makanan",
@@ -313,13 +312,8 @@ class AddDishFragment : Fragment() {
                             }
                         }
                     }
-                    //                        progressBar.setVisibility(View.GONE);
-                    Toast.makeText(
-                        requireContext(),
-                        "Berhasil menambahkan minuman",
-                        Toast.LENGTH_SHORT
-                    ).show()
-//                    startActivity(Intent(this, MainActivity::class.java))
+                    progressBar.visibility = View.GONE
+
                     findNavController().navigate(R.id.action_addDishFragment_to_managementFragment)
                 }
                 .addOnFailureListener { e: Exception ->

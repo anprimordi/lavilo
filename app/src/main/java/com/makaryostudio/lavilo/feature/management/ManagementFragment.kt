@@ -27,6 +27,9 @@ class ManagementFragment : Fragment() {
 
         authStateListener = FirebaseAuth.AuthStateListener {
             val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser == null) {
+                findNavController().navigate(R.id.action_managementFragment_to_navigation_admin)
+            }
         }
 
         // Inflate the layout for this fragment
@@ -76,7 +79,7 @@ class ManagementFragment : Fragment() {
 
         cardLogout.setOnClickListener {
             firebaseAuth.signOut()
-            findNavController().navigate(R.id.action_managementFragment_to_navigation_admin)
+//            findNavController().navigate(R.id.action_managementFragment_to_navigation_admin)
         }
     }
 

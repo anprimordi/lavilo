@@ -238,10 +238,12 @@ class OrderDetailFragment : Fragment() {
 
                 val itemPrice = totalPrice / quantity
 
+                val itemRupiah = formatRupiah.format(itemPrice.toDouble())
+
                 addNewItemWithFourColumn(
                     document,
                     orderDetail.name,
-                    itemPrice.toString(),
+                    itemRupiah,
                     orderDetail.quantity,
                     priceRupiah,
                     itemStyle,
@@ -300,7 +302,7 @@ class OrderDetailFragment : Fragment() {
 
             document.close()
 
-            Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
 
             printPdf()
         } catch (e: Exception) {

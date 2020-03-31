@@ -221,12 +221,12 @@ class CartFragment : Fragment() {
 
                 val order = Order(
                     orderKey!!,
-                    "belum dibayar",
+                    "Belum dibayar",
                     timestamp,
                     totalBill.toString(),
                     spinnerTableNumber.selectedItem.toString(),
-                    "",
-                    ""
+                    "0",
+                    "0"
                 )
 
                 dbReference.child("Order").child(orderKey).setValue(order)

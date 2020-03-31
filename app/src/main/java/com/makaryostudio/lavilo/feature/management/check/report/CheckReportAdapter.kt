@@ -1,6 +1,7 @@
 package com.makaryostudio.lavilo.feature.management.check.report
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,10 @@ class CheckReportAdapter(
         holder.textBill.text = rupiah
         holder.textTableNumber.text = order.tableNumber
         holder.textStatus.text = order.status
+
+        if (order.status == "Lunas") {
+            holder.textStatus.setTextColor(Color.rgb(165, 217, 213))
+        }
 
         holder.layoutReport.setOnClickListener {
             clickListener.onItemClick(order)

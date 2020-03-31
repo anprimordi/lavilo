@@ -2,6 +2,7 @@ package com.makaryostudio.lavilo.feature.management.check.report.detail
 
 import android.Manifest
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
@@ -85,6 +86,11 @@ class CheckReportDetailFragment : Fragment() {
         text_report_detail_bill.text = billRupiah
         text_report_detail_payment.text = paymentRupiah
         text_report_detail_change.text = changeRupiah
+
+        if (order.status == "Lunas") {
+            text_report_detail_status.setTextColor(Color.rgb(165, 217, 213))
+            button_report_detail_payment.isEnabled = true
+        }
 
         dbReference.child("OrderDetail")
             .addValueEventListener(object : ValueEventListener {
@@ -302,7 +308,7 @@ class CheckReportDetailFragment : Fragment() {
 
             document.close()
 
-            Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "Berhasil", Toast.LENGTH_SHORT).show()
 
             printPdf()
         } catch (e: Exception) {

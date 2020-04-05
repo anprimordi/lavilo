@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.makaryostudio.lavilo.R
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_add_employee.*
 
 class AddEmployeeFragment : Fragment() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var dbReference: DatabaseReference
 
     override fun onCreateView(
@@ -64,6 +66,8 @@ class AddEmployeeFragment : Fragment() {
     }
 
     private fun uploadEmployee() {
+        auth = FirebaseAuth.getInstance()
+
         val employee = Employee(
             edit_add_employee_name.text.toString(),
             edit_add_employee_email.text.toString(),
@@ -71,11 +75,27 @@ class AddEmployeeFragment : Fragment() {
             edit_add_employee_salary.text.toString(),
             spinner_add_employee_type.selectedItem.toString()
         )
+
         val key = dbReference.child("Employee").push().key
         dbReference.child("Employee").child(key!!).setValue(employee)
             .addOnCompleteListener {
-                Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_addEmployeeFragment_to_managementFragment)
+                if (spinner_add_employee_type.selectedItem.toString() == "Admin") {
+                    auth.createUserWithEmailAndPassword(
+                        edit_add_employee_email.text.toString(),
+                        edit_add_employee_password.text.toString()
+                    ).addOnCompleteListener {
+                        Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT)
+                            .show()
+                        findNavController().navigate(R.id.action_addEmployeeFragment_to_managementFragment)
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
+                            .show()
+                        Log.e("AddEmployeeFragment", it.message!!)
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_addEmployeeFragment_to_managementFragment)
+                }
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 Log.e("AddEmployeeFragment", it.message!!)

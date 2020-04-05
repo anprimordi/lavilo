@@ -67,7 +67,7 @@ class CheckReportDetailFragment : Fragment() {
 
         val locale = Locale("in", "ID")
 
-        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+        val formatRupiah = NumberFormat.getNumberInstance(locale)
 
         val billRupiah = formatRupiah.format(order.bill!!.toDouble())
 
@@ -149,7 +149,7 @@ class CheckReportDetailFragment : Fragment() {
         val bill = order.bill!!.toInt()
         val change = order.change!!.toInt()
 
-        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+        val formatRupiah = NumberFormat.getNumberInstance(locale)
 
 
         val billRupiah = formatRupiah.format(bill.toDouble())
@@ -214,13 +214,6 @@ class CheckReportDetailFragment : Fragment() {
 
             addNewItemWithFourColumn(
                 document,
-                "Menu",
-                "Harga",
-                "Porsi",
-                "Jumlah",
-                valueStyle,
-                valueStyle,
-                valueStyle,
                 valueStyle
             )
 
@@ -237,12 +230,13 @@ class CheckReportDetailFragment : Fragment() {
 
                 val itemRupiah = formatRupiah.format(itemPrice.toDouble())
 
-                addNewItemWithFourColumn(
+                addNewItemWithFiveColumns(
                     document,
                     orderDetail.name,
                     itemRupiah,
                     orderDetail.quantity,
                     priceRupiah,
+                    itemStyle,
                     itemStyle,
                     itemStyle,
                     itemStyle,
@@ -258,25 +252,25 @@ class CheckReportDetailFragment : Fragment() {
 
             addLineSeparator(document)
             addSpace(document)
-            addNewItemWithLeftAndRight(
+            addNewItemWithThreeColumns(
                 document,
-                "Total Harga:",
+                "Total Harga",
                 billRupiah,
                 headingStyle,
                 itemStyle
             )
 
-            addNewItemWithLeftAndRight(
+            addNewItemWithThreeColumns(
                 document,
-                "Dibayar:",
+                "Dibayar",
                 paymentRupiah,
                 headingStyle,
                 itemStyle
             )
 
-            addNewItemWithLeftAndRight(
+            addNewItemWithThreeColumns(
                 document,
-                "Kembali:",
+                "Kembali",
                 changeRupiah,
                 headingStyle,
                 itemStyle
@@ -328,7 +322,7 @@ class CheckReportDetailFragment : Fragment() {
     }
 
     @Throws(DocumentException::class)
-    private fun addNewItemWithLeftAndRight(
+    private fun addNewItemWithThreeColumns(
         document: Document,
         textLeft: String,
         textRight: String,
@@ -338,32 +332,18 @@ class CheckReportDetailFragment : Fragment() {
         val chunkTextLeft = Chunk(textLeft, leftStyle)
         val chunkTextRight = Chunk(textRight, rightStyle)
         val p = Paragraph(Chunk.TABBING)
-        p.tabSettings = TabSettings(300f)
+        p.tabSettings = TabSettings(50f)
+        p.add(Chunk.TABBING)
+        p.add(Chunk.TABBING)
+        p.add(Chunk.TABBING)
+        p.add(Chunk.TABBING)
+        p.add(Chunk.TABBING)
         p.add(chunkTextLeft)
+        p.add(Chunk.TABBING)
+        p.add(Chunk(":", rightStyle))
+        p.add(Chunk.TABBING)
+        p.add(Chunk("Rp", rightStyle))
         p.add(Chunk(VerticalPositionMark()))
-        p.add(chunkTextRight)
-        document.add(p)
-    }
-
-    @Throws(DocumentException::class)
-    private fun addNewItemWithThreeColumns(
-        document: Document,
-        textLeft: String,
-        textCenter: String,
-        textRight: String,
-        leftStyle: Font,
-        centerStyle: Font,
-        rightStyle: Font
-    ) {
-        val chunkTextLeft = Chunk(textLeft, leftStyle)
-        val chunkTextCenter = Chunk(textCenter, centerStyle)
-        val chunkTextRight = Chunk(textRight, rightStyle)
-        val p: Paragraph
-        p = Paragraph(chunkTextLeft)
-        p.tabSettings = TabSettings(225f)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextCenter)
-        p.add(Chunk.TABBING)
         p.add(chunkTextRight)
         document.add(p)
     }
@@ -371,19 +351,12 @@ class CheckReportDetailFragment : Fragment() {
     @Throws(DocumentException::class)
     private fun addNewItemWithFourColumn(
         document: Document,
-        textFirst: String,
-        textSecond: String,
-        textThird: String,
-        textFourth: String,
-        styleFirst: Font,
-        styleSecond: Font,
-        styleThird: Font,
-        styleFourth: Font
+        style: Font
     ) {
-        val chunkTextFirst = Chunk(textFirst, styleFirst)
-        val chunkTextSecond = Chunk(textSecond, styleSecond)
-        val chunkTextThird = Chunk(textThird, styleThird)
-        val chunkTextFourth = Chunk(textFourth, styleFourth)
+        val chunkTextFirst = Chunk("Menu", style)
+        val chunkTextSecond = Chunk("Harga", style)
+        val chunkTextThird = Chunk("Porsi", style)
+        val chunkTextFourth = Chunk("Jumlah", style)
 
         val p = Paragraph(chunkTextFirst)
         p.tabSettings = TabSettings(152f)
@@ -393,6 +366,38 @@ class CheckReportDetailFragment : Fragment() {
         p.add(chunkTextThird)
         p.add(Chunk(VerticalPositionMark()))
         p.add(chunkTextFourth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
+    private fun addNewItemWithFiveColumns(
+        document: Document,
+        textFirst: String,
+        textSecond: String,
+        textThird: String,
+        textFifth: String,
+        styleFirst: Font,
+        styleSecond: Font,
+        styleThird: Font,
+        styleFourth: Font,
+        styleFifth: Font
+    ) {
+        val chunkTextFirst = Chunk(textFirst, styleFirst)
+        val chunkTextSecond = Chunk(textSecond, styleSecond)
+        val chunkTextThird = Chunk(textThird, styleThird)
+        val chunkTextFourth = Chunk("Rp", styleFourth)
+        val chunkTextFifth = Chunk(textFifth, styleFifth)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextFourth)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFifth)
         document.add(p)
     }
 
@@ -424,4 +429,8 @@ class CheckReportDetailFragment : Fragment() {
         p.alignment = alignment
         document.add(p)
     }
+
+//    private fun convertToCurrency(nominal: Int, locale: Locale) : String {
+//        return NumberFormat.getNumberInstance(locale).format(nominal)
+//    }
 }

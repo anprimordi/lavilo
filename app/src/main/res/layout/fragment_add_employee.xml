@@ -54,6 +54,16 @@
         app:layout_constraintStart_toEndOf="@id/image_add_employee"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/add_employee_background_image"
+        android:src="@drawable/ic_add_employee_grey_128dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_25" />
+
     <ScrollView
         android:id="@+id/scrollview_add_employee"
         android:layout_width="match_parent"
@@ -68,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:background="@android:color/white"
             android:elevation="2dp"
             app:cardCornerRadius="8dp">
 
@@ -152,15 +163,4 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/add_employee_background_image"
-        android:src="@drawable/ic_add_employee_grey_128dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_25" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

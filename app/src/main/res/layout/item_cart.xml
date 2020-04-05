@@ -29,24 +29,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:singleLine="true"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline_item_cart"
+        app:layout_constraintEnd_toStartOf="@id/text_item_cart_rp"
         app:layout_constraintStart_toEndOf="@id/text_item_cart_quantity"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView
+        android:id="@+id/text_item_cart_rp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_item_rp_text"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@id/text_item_cart_name"
+        app:layout_constraintEnd_toStartOf="@id/guideline_item_cart"
+        app:layout_constraintTop_toTopOf="@id/text_item_cart_name" />
+
+    <TextView
         android:id="@+id/text_item_cart_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/text_item_cart_name"
         app:layout_constraintEnd_toStartOf="@id/button_item_cart_delete"
         app:layout_constraintStart_toEndOf="@id/guideline_item_cart"

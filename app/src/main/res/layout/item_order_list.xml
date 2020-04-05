@@ -7,6 +7,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_item_order_list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.67" />
+
     <TextView
         android:id="@+id/text_item_order_list_table_number"
         android:layout_width="wrap_content"
@@ -23,6 +30,16 @@
         tools:text="1" />
 
     <TextView
+        android:id="@+id/text_item_order_list_rp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_item_rp_text"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_item_order_list"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/text_item_order_list_total_bill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Rp.20.000" />
+        tools:text="20.000" />
 
     <View
         android:layout_width="match_parent"

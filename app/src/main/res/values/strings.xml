@@ -57,6 +57,7 @@
         <item>Chef</item>
         <item>Head Chef</item>
         <item>Hall Manager</item>
+        <item>Admin</item>
     </string-array>
 
     <!--  Add Table  -->
@@ -119,18 +120,18 @@
     <string name="order_detail_item_quantity_title">x</string>
     <string name="order_detail_name_title">Nama Menu</string>
     <string name="order_detail_payment_title">Pembayaran:</string>
-    <string name="order_detail_price_title">Total Harga</string>
+    <string name="order_detail_price_title">Total Harga Item</string>
     <string name="order_detail_qty_title">Qty</string>
 
     <!--  Report Detail  -->
     <string name="report_detail_bill_title">Total Harga :</string>
     <string name="report_detail_change_title">Kembali :</string>
     <string name="report_detail_payment_title">Dibayar :</string>
-    <string name="report_detail_status_title">Status\t\t\t\t\t\t:\t</string>
+    <string name="report_detail_status_title">Status\t\t\t\t\t:\t</string>
     <string name="report_detail_table_number_title">Nomor meja\t:\t</string>
     <string name="report_item_thumbnail_image">thumbnail pada item laporan</string>
     <string name="report_item_table_number_title">Nomor meja\t:\t</string>
-    <string name="report_item_status_title">Status\t\t\t\t\t\t:\t</string>
+    <string name="report_item_status_title">Status\t\t\t\t\t:\t</string>
 
     <!--  Update Dish  -->
     <string name="update_dish_thumbnail_image">thumbnail pada update hidangan</string>

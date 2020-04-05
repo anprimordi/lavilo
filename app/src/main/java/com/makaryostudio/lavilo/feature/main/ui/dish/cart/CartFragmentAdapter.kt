@@ -39,7 +39,7 @@ class CartFragmentAdapter(
 
         val locale = Locale("in", "ID")
 
-        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+        val formatRupiah = NumberFormat.getNumberInstance(locale)
 
         val rupiah = formatRupiah.format(cart.price.toDouble())
 

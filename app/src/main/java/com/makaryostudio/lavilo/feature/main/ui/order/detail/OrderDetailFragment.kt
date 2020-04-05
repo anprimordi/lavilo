@@ -156,7 +156,7 @@ class OrderDetailFragment : Fragment() {
 
         val locale = Locale("in", "ID")
 
-        val formatRupiah = NumberFormat.getCurrencyInstance(locale)
+        val formatRupiah = NumberFormat.getNumberInstance(locale)
 
         val change = payment - bill
 
@@ -217,13 +217,6 @@ class OrderDetailFragment : Fragment() {
 
             addNewItemWithFourColumn(
                 document,
-                "Menu",
-                "Harga",
-                "Porsi",
-                "Jumlah",
-                valueStyle,
-                valueStyle,
-                valueStyle,
                 valueStyle
             )
 
@@ -240,12 +233,13 @@ class OrderDetailFragment : Fragment() {
 
                 val itemRupiah = formatRupiah.format(itemPrice.toDouble())
 
-                addNewItemWithFourColumn(
+                addNewItemWithFiveColumns(
                     document,
                     orderDetail.name,
                     itemRupiah,
                     orderDetail.quantity,
                     priceRupiah,
+                    itemStyle,
                     itemStyle,
                     itemStyle,
                     itemStyle,
@@ -274,25 +268,47 @@ class OrderDetailFragment : Fragment() {
             addLineSeparator(document)
 
             addSpace(document)
-            addNewItemWithLeftAndRight(
+            addNewItemWithThreeColumns(
                 document,
-                "Total Harga:",
+                "Total Harga",
                 billRupiah,
                 headingStyle,
                 itemStyle
             )
-            addNewItemWithLeftAndRight(document, "Dibayar:", paymentRupiah, headingStyle, itemStyle)
-            addNewItemWithLeftAndRight(document, "Kembali:", changeRupiah, headingStyle, itemStyle)
+
+            addNewItemWithThreeColumns(
+                document,
+                "Dibayar",
+                paymentRupiah,
+                headingStyle,
+                itemStyle
+            )
+
+            addNewItemWithThreeColumns(
+                document,
+                "Kembali",
+                changeRupiah,
+                headingStyle,
+                itemStyle
+            )
 
             addSpace(document)
             addSpace(document)
 
             addNewItem(
                 document,
-                "Terima kasih atas kunjungan anda",
+                "Terima kasih",
                 Element.ALIGN_CENTER,
-                titleStyle
+                valueStyle
             )
+
+            addNewItem(
+                document,
+                "atas kunjungan anda",
+                Element.ALIGN_CENTER,
+                valueStyle
+            )
+
             addNewItem(
                 document,
                 "resto lava",
@@ -322,7 +338,7 @@ class OrderDetailFragment : Fragment() {
     }
 
     @Throws(DocumentException::class)
-    private fun addNewItemWithLeftAndRight(
+    private fun addNewItemWithThreeColumns(
         document: Document,
         textLeft: String,
         textRight: String,
@@ -332,31 +348,17 @@ class OrderDetailFragment : Fragment() {
         val chunkTextLeft = Chunk(textLeft, leftStyle)
         val chunkTextRight = Chunk(textRight, rightStyle)
         val p = Paragraph(Chunk.TABBING)
-        p.tabSettings = TabSettings(350f)
-        p.add(chunkTextLeft)
-        p.add(Chunk(VerticalPositionMark()))
-        p.add(chunkTextRight)
-        document.add(p)
-    }
-
-    @Throws(DocumentException::class)
-    private fun addNewItemWithThreeColumns(
-        document: Document,
-        textLeft: String,
-        textCenter: String,
-        textRight: String,
-        leftStyle: Font,
-        centerStyle: Font,
-        rightStyle: Font
-    ) {
-        val chunkTextLeft = Chunk(textLeft, leftStyle)
-        val chunkTextCenter = Chunk(textCenter, centerStyle)
-        val chunkTextRight = Chunk(textRight, rightStyle)
-        val p: Paragraph
-        p = Paragraph(chunkTextLeft)
-        p.tabSettings = TabSettings(225f)
+        p.tabSettings = TabSettings(50f)
         p.add(Chunk.TABBING)
-        p.add(chunkTextCenter)
+        p.add(Chunk.TABBING)
+        p.add(Chunk.TABBING)
+        p.add(Chunk.TABBING)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextLeft)
+        p.add(Chunk.TABBING)
+        p.add(Chunk(":", rightStyle))
+        p.add(Chunk.TABBING)
+        p.add(Chunk("Rp", rightStyle))
         p.add(Chunk(VerticalPositionMark()))
         p.add(chunkTextRight)
         document.add(p)
@@ -365,19 +367,12 @@ class OrderDetailFragment : Fragment() {
     @Throws(DocumentException::class)
     private fun addNewItemWithFourColumn(
         document: Document,
-        textFirst: String,
-        textSecond: String,
-        textThird: String,
-        textFourth: String,
-        styleFirst: Font,
-        styleSecond: Font,
-        styleThird: Font,
-        styleFourth: Font
+        style: Font
     ) {
-        val chunkTextFirst = Chunk(textFirst, styleFirst)
-        val chunkTextSecond = Chunk(textSecond, styleSecond)
-        val chunkTextThird = Chunk(textThird, styleThird)
-        val chunkTextFourth = Chunk(textFourth, styleFourth)
+        val chunkTextFirst = Chunk("Menu", style)
+        val chunkTextSecond = Chunk("Harga", style)
+        val chunkTextThird = Chunk("Porsi", style)
+        val chunkTextFourth = Chunk("Jumlah", style)
 
         val p = Paragraph(chunkTextFirst)
         p.tabSettings = TabSettings(152f)
@@ -387,6 +382,38 @@ class OrderDetailFragment : Fragment() {
         p.add(chunkTextThird)
         p.add(Chunk(VerticalPositionMark()))
         p.add(chunkTextFourth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
+    private fun addNewItemWithFiveColumns(
+        document: Document,
+        textFirst: String,
+        textSecond: String,
+        textThird: String,
+        textFifth: String,
+        styleFirst: Font,
+        styleSecond: Font,
+        styleThird: Font,
+        styleFourth: Font,
+        styleFifth: Font
+    ) {
+        val chunkTextFirst = Chunk(textFirst, styleFirst)
+        val chunkTextSecond = Chunk(textSecond, styleSecond)
+        val chunkTextThird = Chunk(textThird, styleThird)
+        val chunkTextFourth = Chunk("Rp", styleFourth)
+        val chunkTextFifth = Chunk(textFifth, styleFifth)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextFourth)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFifth)
         document.add(p)
     }
 

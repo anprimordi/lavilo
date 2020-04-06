@@ -236,7 +236,7 @@ class FoodFragment : Fragment() {
 
             val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
 
-            if (food.stock.toInt() >= quantityInt) {
+            if (food.stock!!.toInt() >= quantityInt) {
                 dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
                     Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
 
@@ -258,7 +258,7 @@ class FoodFragment : Fragment() {
                                             stockInt -= quantity.toInt()
 
                                             dbReference.child("Dish").child("Food")
-                                                .child(foodie.key)
+                                                .child(foodie.key!!)
                                                 .child("stock")
                                                 .setValue(stockInt.toString())
                                         } else {

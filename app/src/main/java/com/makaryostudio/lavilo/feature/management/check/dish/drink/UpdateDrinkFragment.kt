@@ -83,7 +83,7 @@ class UpdateDrinkFragment : Fragment() {
         editPrice.setText(drink.price)
         editStock.setText(drink.stock)
 
-        quantity = drink.stock.toInt()
+        quantity = drink.stock!!.toInt()
 
         imageThumbnail.setOnClickListener {
             openFileChooser()
@@ -223,7 +223,7 @@ class UpdateDrinkFragment : Fragment() {
                         progressBar.progress = progress.toInt()
                     }
             }
-            drinkie.imageUrl.isNotEmpty() -> {
+            drinkie.imageUrl!!.isNotEmpty() -> {
                 val drink =
                     Drink(
                         drinkie.imageUrl,

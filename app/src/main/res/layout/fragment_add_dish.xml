@@ -40,7 +40,6 @@
         app:layout_constraintBottom_toTopOf="@id/guideline_25"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
         android:id="@+id/image_add_dish_menu"
         android:layout_width="wrap_content"
@@ -91,18 +90,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:contentDescription="@string/add_dish_thumbnail_image"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_add_dish_placeholder_grey_256dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/text_add_dish_directory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_dish_directory_text"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/image_add_dish_thumbnail"
                     app:layout_constraintStart_toStartOf="@id/image_add_dish_thumbnail"
                     app:layout_constraintTop_toBottomOf="@id/image_add_dish_thumbnail" />
@@ -204,7 +203,7 @@
                     android:id="@+id/button_add_dish_upload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_upload"
+                    android:text="@string/action_add"
                     app:layout_constraintTop_toBottomOf="@id/rg_add_dish_type" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

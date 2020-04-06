@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.40"
+        app:layout_constraintGuide_percent="0.25"
         app:layout_constraintStart_toStartOf="parent" />
 
     <RelativeLayout
@@ -100,33 +100,6 @@
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
-                    tools:ignore="LabelFor" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_employee_type_title" />
-
-                <Spinner
-                    android:id="@+id/spinner_add_employee_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:entries="@array/array_employee_types"
-                    android:spinnerMode="dialog" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_employee_salary_title" />
-
-                <EditText
-                    android:id="@+id/edit_add_employee_salary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
                     tools:ignore="LabelFor" />
 
                 <TextView

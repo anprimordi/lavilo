@@ -82,7 +82,7 @@ class UpdateFoodFragment : Fragment() {
         editPrice.setText(food.price)
         editStock.setText(food.stock)
 
-        quantity = food.stock.toInt()
+        quantity = food.stock!!.toInt()
 
         imageThumbnail.setOnClickListener {
             openFileChooser()
@@ -221,7 +221,7 @@ class UpdateFoodFragment : Fragment() {
                         progressBar.progress = progress.toInt()
                     }
             }
-            foodie.imageUrl.isNotEmpty() -> {
+            foodie.imageUrl!!.isNotEmpty() -> {
                 val food =
                     Food(
                         foodie.imageUrl,
@@ -229,7 +229,7 @@ class UpdateFoodFragment : Fragment() {
                         editPrice.text.toString(),
                         editStock.text.toString()
                     )
-                //                                val uid = databaseReference.child("Dish").child("Food").push().key
+                // val uid = databaseReference.child("Dish").child("Food").push().key
                 food.key = foodie.key
                 databaseReference.child("Dish").child("Food").child(food.key!!)
                     .setValue(food).addOnCompleteListener {

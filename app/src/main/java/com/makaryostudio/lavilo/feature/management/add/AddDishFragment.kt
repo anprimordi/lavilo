@@ -121,7 +121,7 @@ class AddDishFragment : Fragment() {
                             go = false
                         }
                         if (editPrice.text.toString() == "" || editPrice.text.toString() == "0") {
-                            editPrice.error = "Hidangan mau digratisin?"
+                            editPrice.error = "Harga nggak boleh gratis"
                             editPrice.requestFocus()
                             go = false
                         }

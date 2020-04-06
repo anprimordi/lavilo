@@ -33,12 +33,12 @@
     <!-- Add Dish  -->
     <string name="add_dish_name_hint">Nama hidangan</string>
     <string name="add_dish_price_hint">Harga hidangan</string>
-    <string name="add_dish_menu_image">gambar tambah daftar menu</string>
-    <string name="add_dish_thumbnail_image">thumbnail untuk tambah daftar menu</string>
+    <string name="add_dish_menu_image">gambar tambah hidangan</string>
+    <string name="add_dish_thumbnail_image">thumbnail untuk tambah hidangan</string>
     <string name="add_dish_directory_text"><u> Upload gambar </u></string>
     <string name="add_dish_food_radio_button_text">Makanan</string>
     <string name="add_dish_drink_radio_button_text">Minuman</string>
-    <string name="add_dish_menu_title">Tambah Daftar Menu</string>
+    <string name="add_dish_menu_title">Tambah Hidangan</string>
     <string name="add_dish_stock_title">Kuantitas:</string>
     <string name="add_dish_type_title">Jenis Hidangan:</string>
 
@@ -46,7 +46,7 @@
     <string name="add_employee_background_image">gambar background pada tambah karyawan</string>
     <string name="add_employee_menu_image">gambar menu tambah karyawan</string>
     <string name="add_employee_email_title">Email</string>
-    <string name="add_employee_menu_title">Tambah Karyawan</string>
+    <string name="add_employee_menu_title">Tambah Admin</string>
     <string name="add_employee_name_title">Nama</string>
     <string name="add_employee_password_title">Password</string>
     <string name="add_employee_salary_title">Gaji</string>
@@ -97,7 +97,7 @@
     <string name="management_check_dish_image">gambar lihat hidangan pada manajemen</string>
     <string name="management_check_report_image">gambar untuk check report</string>
     <string name="management_add_dish_text">Hidangan</string>
-    <string name="management_add_employee_text">Karyawan</string>
+    <string name="management_add_employee_text">Admin</string>
     <string name="management_add_table_text">Meja</string>
     <string name="management_check_dish_text">Menu untuk memperbarui atau menghapus stok</string>
     <string name="management_check_report_text">Riwayat semua pesanan yang telah dibuat…</string>

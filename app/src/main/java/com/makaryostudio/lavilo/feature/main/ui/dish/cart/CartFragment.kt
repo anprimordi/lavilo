@@ -99,11 +99,11 @@ class CartFragment : Fragment() {
                                 val food = postSnapshot.getValue(Food::class.java)!!
                                 food.key = postSnapshot.key
                                 if (selectedName == food.name) {
-                                    var stockItemFood = food.stock.toInt()
+                                    var stockItemFood = food.stock!!.toInt()
 
                                     stockItemFood += selectedQuantity
 
-                                    dbReference.child("Dish").child("Food").child(food.key)
+                                    dbReference.child("Dish").child("Food").child(food.key!!)
                                         .child("stock").setValue(stockItemFood.toString())
                                 }
                             }
@@ -125,7 +125,7 @@ class CartFragment : Fragment() {
 
                                     stockItemDrink += selectedQuantity
 
-                                    dbReference.child("Dish").child("Drink").child(drink.key)
+                                    dbReference.child("Dish").child("Drink").child(drink.key!!)
                                         .child("stock").setValue(stockItemDrink.toString())
                                 }
                             }

@@ -40,7 +40,7 @@ class DrinkFragmentAdapter(
 
         val formatRupiah = NumberFormat.getCurrencyInstance(locale)
 
-        val rupiah = formatRupiah.format(drink.price.toDouble())
+        val rupiah = formatRupiah.format(drink.price!!.toDouble())
 
         Glide.with(context).load(drink.imageUrl).into(holder.image)
         holder.name.text = drink.name

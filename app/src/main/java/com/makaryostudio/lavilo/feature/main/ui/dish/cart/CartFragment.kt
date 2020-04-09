@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.*
+import com.makaryostudio.lavilo.model.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +26,7 @@ class CartFragment : Fragment() {
     private lateinit var listCart: ArrayList<Cart>
 
     private lateinit var adapter: CartFragmentAdapter
-    private lateinit var clickListener: CartFragmentItemClickListener
+    private lateinit var clickListener: CartItemClickListener
     private lateinit var dbReference: DatabaseReference
     private lateinit var dbListener: ValueEventListener
 
@@ -68,8 +68,8 @@ class CartFragment : Fragment() {
         dbReference = FirebaseDatabase.getInstance().reference
         val refTable = FirebaseDatabase.getInstance().reference.child("Table")
 
-        clickListener = object : CartFragmentItemClickListener {
-            override fun deleteCartItem(cart: Cart, position: Int) {
+        clickListener = object : CartItemClickListener {
+            override fun onDeleteCartItem(cart: Cart, position: Int) {
 
                 if (listCart.isEmpty()) {
                     textEmpty.visibility = View.VISIBLE

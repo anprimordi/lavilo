@@ -27,9 +27,9 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Order
-import com.makaryostudio.lavilo.data.model.OrderDetail
 import com.makaryostudio.lavilo.feature.main.ui.order.detail.PdfDocumentAdapter
+import com.makaryostudio.lavilo.model.Order
+import com.makaryostudio.lavilo.model.OrderDetail
 import com.makaryostudio.lavilo.utils.Common
 import kotlinx.android.synthetic.main.fragment_check_report_detail.*
 import java.io.File

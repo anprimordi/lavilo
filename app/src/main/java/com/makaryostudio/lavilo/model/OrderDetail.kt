@@ -1,4 +1,4 @@
-package com.makaryostudio.lavilo.data.model
+package com.makaryostudio.lavilo.model
 
 import android.os.Parcel
 import android.os.Parcelable

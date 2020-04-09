@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Order
-import com.makaryostudio.lavilo.data.model.OrderDetail
+import com.makaryostudio.lavilo.model.Order
+import com.makaryostudio.lavilo.model.OrderDetail
 import kotlinx.android.synthetic.main.fragment_check_report.*
 
 /**

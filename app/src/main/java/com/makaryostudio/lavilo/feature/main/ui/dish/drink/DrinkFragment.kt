@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Cart
-import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.model.Cart
+import com.makaryostudio.lavilo.model.Drink
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,7 +29,7 @@ class DrinkFragment : Fragment() {
     private lateinit var adapter: DrinkFragmentAdapter
     private lateinit var rvDrink: RecyclerView
     private lateinit var listDrink: ArrayList<Drink>
-    private lateinit var clickListener: DrinkFragmentItemClickListener
+    private lateinit var clickListener: DrinkItemClickListener
     private lateinit var dbReference: DatabaseReference
     private lateinit var progressBar: ProgressBar
 
@@ -52,7 +52,7 @@ class DrinkFragment : Fragment() {
 
         rvDrink.layoutManager = LinearLayoutManager(requireContext())
 
-        clickListener = object : DrinkFragmentItemClickListener {
+        clickListener = object : DrinkItemClickListener {
             override fun amountClickListener(drink: Drink) {
                 showDialog(drink)
 

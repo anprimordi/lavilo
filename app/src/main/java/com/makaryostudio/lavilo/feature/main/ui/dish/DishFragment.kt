@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -18,7 +15,6 @@ import com.makaryostudio.lavilo.R
 
 class DishFragment : Fragment() {
 
-    private lateinit var dishViewModel: DishViewModel
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
     private lateinit var exFabCart: ExtendedFloatingActionButton
@@ -28,15 +24,7 @@ class DishFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dishViewModel =
-            ViewModelProviders.of(this).get(DishViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dish, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        dishViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-
-        return root
+        return inflater.inflate(R.layout.fragment_dish, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

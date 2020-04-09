@@ -22,7 +22,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Food
+import com.makaryostudio.lavilo.model.Food
 
 /**
  * A simple [Fragment] subclass.

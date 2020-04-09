@@ -1,10 +1,10 @@
-package com.makaryostudio.lavilo.data.model
+package com.makaryostudio.lavilo.model
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
 
-data class Drink(
+class Food(
     var imageUrl: String? = null,
     var name: String? = null,
     var price: String? = null,
@@ -38,15 +38,14 @@ data class Drink(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Drink> {
-        override fun createFromParcel(parcel: Parcel): Drink {
-            return Drink(parcel)
+    companion object CREATOR : Parcelable.Creator<Food> {
+        override fun createFromParcel(parcel: Parcel): Food {
+            return Food(parcel)
         }
 
-        override fun newArray(size: Int): Array<Drink?> {
+        override fun newArray(size: Int): Array<Food?> {
             return arrayOfNulls(size)
         }
     }
-
 
 }

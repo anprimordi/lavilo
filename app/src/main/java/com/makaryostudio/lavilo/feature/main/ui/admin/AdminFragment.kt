@@ -8,11 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -25,28 +22,20 @@ import kotlinx.android.synthetic.main.fragment_admin.*
 
 class AdminFragment : Fragment() {
 
-    private lateinit var adminViewModel: AdminViewModel
     private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
     //    private lateinit var buttonLogin: Button
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
-    val databaseReference = firebaseDatabase.getReference("Admin")
+    private val databaseReference = firebaseDatabase.getReference("Admin")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        adminViewModel =
-            ViewModelProviders.of(this).get(AdminViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_admin, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        adminViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
 
-        return root
+        return inflater.inflate(R.layout.fragment_admin, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

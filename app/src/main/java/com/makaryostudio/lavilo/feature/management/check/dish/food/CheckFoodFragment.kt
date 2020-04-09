@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Food
 import com.makaryostudio.lavilo.feature.management.check.dish.CheckDishFragmentDirections
+import com.makaryostudio.lavilo.model.Food
 import kotlinx.android.synthetic.main.fragment_check_food.*
 
 /**

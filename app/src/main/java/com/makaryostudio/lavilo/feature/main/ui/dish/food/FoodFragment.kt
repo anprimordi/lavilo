@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Cart
-import com.makaryostudio.lavilo.data.model.Food
+import com.makaryostudio.lavilo.model.Cart
+import com.makaryostudio.lavilo.model.Food
 import kotlinx.android.synthetic.main.fragment_food.*
 import java.text.NumberFormat
 import java.util.*
@@ -26,7 +26,7 @@ class FoodFragment : Fragment() {
     private lateinit var foodAdapter: FoodFragmentAdapter
     private lateinit var rvFood: RecyclerView
     private lateinit var listFood: ArrayList<Food>
-    private lateinit var foodFragmentItemClickListener: FoodFragmentItemClickListener
+    private lateinit var clickListener: FoodItemClickListener
     private lateinit var dbReference: DatabaseReference
     private lateinit var progressBar: ProgressBar
 
@@ -46,13 +46,13 @@ class FoodFragment : Fragment() {
         rvFood = view.findViewById(R.id.rv_food)
         progressBar = view.findViewById(R.id.progress_food)
 
-        foodFragmentItemClickListener = object : FoodFragmentItemClickListener {
+        clickListener = object : FoodItemClickListener {
             override fun amountClickListener(food: Food) {
                 showDialog(food)
             }
         }
 
-        foodAdapter = FoodFragmentAdapter(requireContext(), listFood, foodFragmentItemClickListener)
+        foodAdapter = FoodFragmentAdapter(requireContext(), listFood, clickListener)
 
         rvFood.layoutManager = LinearLayoutManager(requireContext())
         rv_food.adapter = foodAdapter

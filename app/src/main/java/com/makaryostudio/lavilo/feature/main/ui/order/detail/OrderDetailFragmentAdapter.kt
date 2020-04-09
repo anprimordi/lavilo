@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.OrderDetail
+import com.makaryostudio.lavilo.model.OrderDetail
 import java.text.NumberFormat
 import java.util.*
 

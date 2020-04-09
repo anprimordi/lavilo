@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Employee
+import com.makaryostudio.lavilo.model.Employee
 import kotlinx.android.synthetic.main.fragment_add_employee.*
 
 class AddEmployeeFragment : Fragment() {

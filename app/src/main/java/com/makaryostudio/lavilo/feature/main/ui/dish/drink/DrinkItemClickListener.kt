@@ -1,7 +1,7 @@
 package com.makaryostudio.lavilo.feature.main.ui.dish.drink
 
-import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.model.Drink
 
-interface DrinkFragmentItemClickListener {
+interface DrinkItemClickListener {
     fun amountClickListener(drink: Drink)
 }

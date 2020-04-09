@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Table
+import com.makaryostudio.lavilo.model.Table
 import kotlinx.android.synthetic.main.fragment_add_table.*
 
 class AddTableFragment : Fragment() {

@@ -9,14 +9,14 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Cart
+import com.makaryostudio.lavilo.model.Cart
 import java.text.NumberFormat
 import java.util.*
 
 class CartFragmentAdapter(
-    val context: Context,
+    private val context: Context,
     private val listCart: ArrayList<Cart>,
-    private val clickListener: CartFragmentItemClickListener
+    private val clickListener: CartItemClickListener
 ) :
     RecyclerView.Adapter<CartFragmentAdapter.ViewHolder>() {
 
@@ -48,7 +48,7 @@ class CartFragmentAdapter(
         holder.textPrice.text = rupiah
 
         holder.imageDelete.setOnClickListener {
-            clickListener.deleteCartItem(cart, position)
+            clickListener.onDeleteCartItem(cart, position)
         }
     }
 

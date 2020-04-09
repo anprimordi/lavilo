@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.model.Drink
 import java.text.NumberFormat
 import java.util.*
 

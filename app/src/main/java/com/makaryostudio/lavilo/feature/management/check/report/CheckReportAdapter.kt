@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Order
+import com.makaryostudio.lavilo.model.Order
 import java.text.NumberFormat
 import java.util.*
 

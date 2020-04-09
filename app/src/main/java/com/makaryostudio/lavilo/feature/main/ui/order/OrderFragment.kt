@@ -10,18 +10,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.data.model.Order
+import com.makaryostudio.lavilo.model.Order
 import kotlinx.android.synthetic.main.fragment_order.*
 
 class OrderFragment : Fragment() {
 
-    private lateinit var orderViewModel: OrderViewModel
     private lateinit var adapter: OrderFragmentAdapter
     private lateinit var listOrder: ArrayList<Order>
     private lateinit var listener: OrderFragmentListener
@@ -34,15 +31,8 @@ class OrderFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        orderViewModel =
-            ViewModelProviders.of(this).get(OrderViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_order, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        orderViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
 
-        return root
+        return inflater.inflate(R.layout.fragment_order, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

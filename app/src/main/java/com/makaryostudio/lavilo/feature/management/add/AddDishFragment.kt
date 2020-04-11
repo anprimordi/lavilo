@@ -22,8 +22,8 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Drink
-import com.makaryostudio.lavilo.model.Food
+import com.makaryostudio.lavilo.data.model.Drink
+import com.makaryostudio.lavilo.data.model.Food
 
 class AddDishFragment : Fragment() {
 
@@ -313,6 +313,12 @@ class AddDishFragment : Fragment() {
                         }
                     }
                     progressBar.visibility = View.GONE
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Hidangan berhasil ditambahkan",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                     findNavController().navigate(R.id.action_addDishFragment_to_managementFragment)
                 }

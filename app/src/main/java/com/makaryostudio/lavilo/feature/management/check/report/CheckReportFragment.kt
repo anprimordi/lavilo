@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Order
-import com.makaryostudio.lavilo.model.OrderDetail
+import com.makaryostudio.lavilo.data.model.Order
+import com.makaryostudio.lavilo.data.model.OrderDetail
 import kotlinx.android.synthetic.main.fragment_check_report.*
 
 /**
@@ -61,18 +61,6 @@ class CheckReportFragment : Fragment() {
 
                 dbReference.child("Order").child(selectedId!!).removeValue()
                     .addOnCompleteListener {
-                        //                        for (i in 0..10) {
-//                            val key = dbReference.child("OrderDetail").push().key
-//                            dbReference.child("OrderDetail").child(key!!).child("id")
-//                                .child(selectedId).removeValue()
-//
-//                            adapter.notifyItemRemoved(position)
-//                        }
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "item berhasil dihapus",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
 
                         dbReference.child("OrderDetail")
                             .addValueEventListener(object : ValueEventListener {

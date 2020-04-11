@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Food
+import com.makaryostudio.lavilo.data.model.Food
 import java.text.NumberFormat
 import java.util.*
 

@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Cart
-import com.makaryostudio.lavilo.model.Food
+import com.makaryostudio.lavilo.data.model.Cart
+import com.makaryostudio.lavilo.data.model.Food
 import kotlinx.android.synthetic.main.fragment_food.*
 import java.text.NumberFormat
 import java.util.*
@@ -86,8 +86,6 @@ class FoodFragment : Fragment() {
     private fun showDialog(food: Food) {
         val builder = AlertDialog.Builder(requireContext())
 
-//        builder.setTitle("Tambahin makanan")
-
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_dish, null)
 
         var quantityInt = 1
@@ -155,66 +153,6 @@ class FoodFragment : Fragment() {
         }
 
         builder.setView(view)
-
-//        buttonAddItem.setOnClickListener {
-//            val dialog: DialogInterface?
-//            val dishName = textDishName.text.toString().trim()
-//
-//            val quantity = textQuantity.text.toString().trim()
-//
-//            val key = food.key
-//
-//            if (quantity.isEmpty()) {
-//                Toast.makeText(
-//                    requireContext(),
-//                    "Pesanannya nggak boleh kosong ya",
-//                    Toast.LENGTH_SHORT
-//                )
-//                    .show()
-//                return@setOnClickListener
-//            }
-//
-//            val cart = Cart(key!!, dishName, quantity, totalPrice.toString())
-//
-//            if (food.stock.toInt() > quantityInt) {
-//                dbReference.child("Cart").child(key).setValue(cart).addOnCompleteListener {
-//                    Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
-//
-//                    dbReference.child("Dish").child("Food")
-//                        .addListenerForSingleValueEvent(object : ValueEventListener {
-//                            override fun onCancelled(p0: DatabaseError) {
-//                                Toast.makeText(requireContext(), p0.message, Toast.LENGTH_SHORT)
-//                                    .show()
-//                            }
-//
-//                            override fun onDataChange(p0: DataSnapshot) {
-//                                for (postSnapshot in p0.children) {
-//                                    val foodie = postSnapshot.getValue(Food::class.java)!!
-//                                    foodie.key = postSnapshot.key
-//                                    if (dishName == foodie.name) {
-//                                        var stockInt = foodie.stock!!.toInt()
-//
-//                                        if (quantityInt < stockInt) {
-//                                            stockInt -= quantity.toInt()
-//
-//                                            dbReference.child("Dish").child("Food")
-//                                                .child(foodie.key)
-//                                                .child("stock")
-//                                                .setValue(stockInt.toString())
-//                                        } else {
-//                                            textQuantity.error = "Maaf stok makanan masih kurang"
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        })
-//                }
-//            } else {
-//                Toast.makeText(requireContext(), "Maaf stok makanan kurang", Toast.LENGTH_SHORT)
-//                    .show()
-//                return@setOnClickListener
-//            }
-//        }
 
         builder.setPositiveButton("TAMBAH") { _, _ ->
 

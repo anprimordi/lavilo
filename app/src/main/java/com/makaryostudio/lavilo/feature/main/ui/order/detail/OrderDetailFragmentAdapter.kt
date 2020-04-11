@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.OrderDetail
+import com.makaryostudio.lavilo.data.model.OrderDetail
 import java.text.NumberFormat
 import java.util.*
 
 class OrderDetailFragmentAdapter(
-    val context: Context,
-    val listOrderDetail: ArrayList<OrderDetail>
+    private val context: Context,
+    private val listOrderDetail: ArrayList<OrderDetail>
 ) : RecyclerView.Adapter<OrderDetailFragmentAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.*
+import com.makaryostudio.lavilo.data.model.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*

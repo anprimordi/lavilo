@@ -84,38 +84,7 @@ class AdminFragment : Fragment() {
                         databaseReference.addListenerForSingleValueEvent(object :
                             ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                                    val admin: Admin = dataSnapshot.value as Admin
-//                                    if (admin != null) {
-//                                        if (admin.type == "Hall Manager" && editEmail.text.toString() == admin.email) {
-//                                            databaseReference.removeEventListener(this)
-//                                            val intent = Intent(
-//                                                requireContext(),
-//                                                TutorialActivity::class.java
-//                                            )
-//                                            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-//                                            Toast.makeText(
-//                                                requireContext(),
-//                                                "You are " + admin.type.toString(),
-//                                                Toast.LENGTH_SHORT
-//                                            ).show()
-//                                            startActivity(intent)
-//                                        }
-//                                        if (admin.type == "Head Chef" && editEmail.text.toString() == admin.email) {
-//                                            databaseReference.removeEventListener(this)
-//                                            val intent = Intent(
-//                                                requireContext(),
-//                                                TutorialActivity::class.java
-//                                            )
-//                                            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-//                                            Toast.makeText(
-//                                                requireContext(),
-//                                                "You are " + admin.type.toString(),
-//                                                Toast.LENGTH_SHORT
-//                                            ).show()
-//                                            startActivity(intent)
-//                                        }
-//
-//                                    }
+
                                 if (editEmail.text.toString() == "admin@gmail.com") {
                                     databaseReference.removeEventListener(this)
 
@@ -124,7 +93,6 @@ class AdminFragment : Fragment() {
                                         "Login sukses",
                                         Toast.LENGTH_SHORT
                                     ).show()
-//                                    findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
                                 }
                             }
 

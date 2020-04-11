@@ -27,9 +27,9 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.makaryostudio.lavilo.R
+import com.makaryostudio.lavilo.data.model.Order
+import com.makaryostudio.lavilo.data.model.OrderDetail
 import com.makaryostudio.lavilo.feature.main.ui.order.detail.PdfDocumentAdapter
-import com.makaryostudio.lavilo.model.Order
-import com.makaryostudio.lavilo.model.OrderDetail
 import com.makaryostudio.lavilo.utils.Common
 import kotlinx.android.synthetic.main.fragment_check_report_detail.*
 import java.io.File
@@ -203,16 +203,13 @@ class CheckReportDetailFragment : Fragment() {
             addNewItem(document, "Waktu Pemesanan", Element.ALIGN_LEFT, headingStyle)
             addNewItem(document, order.timestamp!!, Element.ALIGN_LEFT, valueStyle)
 
-//            addNewItem(document, "Account Name", Element.ALIGN_LEFT, headingStyle)
-//            addNewItem(document, "John Doe", Element.ALIGN_LEFT, valueStyle)
-
             addLineSeparator(document)
 
             addLineSpace(document)
 
             addNewItem(document, "Rincian Pesanan", Element.ALIGN_LEFT, headingStyle)
 
-            addNewItemWithFourColumn(
+            addOrderItemTitleColumn(
                 document,
                 valueStyle
             )
@@ -220,26 +217,22 @@ class CheckReportDetailFragment : Fragment() {
             for (i in 0 until listOrderDetail.size) {
                 val orderDetail = listOrderDetail[i]
 
+                val priceRupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
+
                 val totalPrice = orderDetail.totalPrice.toInt()
 
                 val quantity = orderDetail.quantity.toInt()
 
                 val itemPrice = totalPrice / quantity
 
-                val priceRupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
-
                 val itemRupiah = formatRupiah.format(itemPrice.toDouble())
 
-                addNewItemWithFiveColumns(
+                addOrderItemColumn(
                     document,
                     orderDetail.name,
                     itemRupiah,
                     orderDetail.quantity,
                     priceRupiah,
-                    itemStyle,
-                    itemStyle,
-                    itemStyle,
-                    itemStyle,
                     itemStyle
                 )
 
@@ -251,8 +244,9 @@ class CheckReportDetailFragment : Fragment() {
             addLineSpace(document)
 
             addLineSeparator(document)
+
             addSpace(document)
-            addNewItemWithThreeColumns(
+            addPaymentColumn(
                 document,
                 "Total Harga",
                 billRupiah,
@@ -260,7 +254,7 @@ class CheckReportDetailFragment : Fragment() {
                 itemStyle
             )
 
-            addNewItemWithThreeColumns(
+            addPaymentColumn(
                 document,
                 "Dibayar",
                 paymentRupiah,
@@ -268,7 +262,7 @@ class CheckReportDetailFragment : Fragment() {
                 itemStyle
             )
 
-            addNewItemWithThreeColumns(
+            addPaymentColumn(
                 document,
                 "Kembali",
                 changeRupiah,
@@ -302,8 +296,6 @@ class CheckReportDetailFragment : Fragment() {
 
             document.close()
 
-//            Toast.makeText(requireContext(), "Berhasil", Toast.LENGTH_SHORT).show()
-
             printPdf()
         } catch (e: Exception) {
             Log.e("document exception", e.message!!)
@@ -322,7 +314,56 @@ class CheckReportDetailFragment : Fragment() {
     }
 
     @Throws(DocumentException::class)
-    private fun addNewItemWithThreeColumns(
+    private fun addOrderItemTitleColumn(
+        document: Document,
+        style: Font
+    ) {
+        val chunkTextFirst = Chunk("Menu", style)
+        val chunkTextSecond = Chunk("Harga", style)
+        val chunkTextThird = Chunk("Porsi", style)
+        val chunkTextFourth = Chunk("Jumlah", style)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFourth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
+    private fun addOrderItemColumn(
+        document: Document,
+        textDish: String,
+        textPrice: String,
+        textQuantity: String,
+        textTotal: String,
+        style: Font
+    ) {
+        val chunkTextFirst = Chunk(textDish, style)
+        val chunkTextSecond = Chunk(textPrice, style)
+        val chunkTextThird = Chunk(textQuantity, style)
+        val chunkTextFourth = Chunk("Rp", style)
+        val chunkTextFifth = Chunk(textTotal, style)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextFourth)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFifth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
+    private fun addPaymentColumn(
         document: Document,
         textLeft: String,
         textRight: String,
@@ -345,59 +386,6 @@ class CheckReportDetailFragment : Fragment() {
         p.add(Chunk("Rp", rightStyle))
         p.add(Chunk(VerticalPositionMark()))
         p.add(chunkTextRight)
-        document.add(p)
-    }
-
-    @Throws(DocumentException::class)
-    private fun addNewItemWithFourColumn(
-        document: Document,
-        style: Font
-    ) {
-        val chunkTextFirst = Chunk("Menu", style)
-        val chunkTextSecond = Chunk("Harga", style)
-        val chunkTextThird = Chunk("Porsi", style)
-        val chunkTextFourth = Chunk("Jumlah", style)
-
-        val p = Paragraph(chunkTextFirst)
-        p.tabSettings = TabSettings(152f)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextSecond)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextThird)
-        p.add(Chunk(VerticalPositionMark()))
-        p.add(chunkTextFourth)
-        document.add(p)
-    }
-
-    @Throws(DocumentException::class)
-    private fun addNewItemWithFiveColumns(
-        document: Document,
-        textFirst: String,
-        textSecond: String,
-        textThird: String,
-        textFifth: String,
-        styleFirst: Font,
-        styleSecond: Font,
-        styleThird: Font,
-        styleFourth: Font,
-        styleFifth: Font
-    ) {
-        val chunkTextFirst = Chunk(textFirst, styleFirst)
-        val chunkTextSecond = Chunk(textSecond, styleSecond)
-        val chunkTextThird = Chunk(textThird, styleThird)
-        val chunkTextFourth = Chunk("Rp", styleFourth)
-        val chunkTextFifth = Chunk(textFifth, styleFifth)
-
-        val p = Paragraph(chunkTextFirst)
-        p.tabSettings = TabSettings(152f)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextSecond)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextThird)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextFourth)
-        p.add(Chunk(VerticalPositionMark()))
-        p.add(chunkTextFifth)
         document.add(p)
     }
 
@@ -429,8 +417,4 @@ class CheckReportDetailFragment : Fragment() {
         p.alignment = alignment
         document.add(p)
     }
-
-//    private fun convertToCurrency(nominal: Int, locale: Locale) : String {
-//        return NumberFormat.getNumberInstance(locale).format(nominal)
-//    }
 }

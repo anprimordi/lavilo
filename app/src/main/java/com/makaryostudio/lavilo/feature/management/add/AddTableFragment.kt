@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Table
+import com.makaryostudio.lavilo.data.model.Table
 import kotlinx.android.synthetic.main.fragment_add_table.*
 
 class AddTableFragment : Fragment() {
@@ -83,7 +83,8 @@ class AddTableFragment : Fragment() {
 
         dbReference.child("Table").child(edit_add_table_number.text.toString()).setValue(table)
             .addOnCompleteListener {
-                Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Meja berhasil ditambahkan", Toast.LENGTH_SHORT)
+                    .show()
                 findNavController().navigate(R.id.action_addTableFragment_to_managementFragment)
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()

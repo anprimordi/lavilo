@@ -9,7 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Cart
+import com.makaryostudio.lavilo.data.model.Cart
 import java.text.NumberFormat
 import java.util.*
 

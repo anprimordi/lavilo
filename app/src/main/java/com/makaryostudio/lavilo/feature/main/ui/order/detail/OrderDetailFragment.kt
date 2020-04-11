@@ -29,8 +29,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Order
-import com.makaryostudio.lavilo.model.OrderDetail
+import com.makaryostudio.lavilo.data.model.Order
+import com.makaryostudio.lavilo.data.model.OrderDetail
 import com.makaryostudio.lavilo.utils.Common
 import kotlinx.android.synthetic.main.fragment_order_detail.*
 import java.io.File
@@ -215,7 +215,7 @@ class OrderDetailFragment : Fragment() {
 
             addNewItem(document, "Rincian Pesanan", Element.ALIGN_LEFT, headingStyle)
 
-            addNewItemWithFourColumn(
+            addOrderItemTitleColumn(
                 document,
                 valueStyle
             )
@@ -233,33 +233,17 @@ class OrderDetailFragment : Fragment() {
 
                 val itemRupiah = formatRupiah.format(itemPrice.toDouble())
 
-                addNewItemWithFiveColumns(
+                addOrderItemColumn(
                     document,
                     orderDetail.name,
                     itemRupiah,
                     orderDetail.quantity,
                     priceRupiah,
-                    itemStyle,
-                    itemStyle,
-                    itemStyle,
-                    itemStyle,
                     itemStyle
                 )
 
                 addLineSpace(document)
             }
-
-////            item 1
-//            addNewItemWithLeftAndRight(document, "Pizza 25", "(0.0%)", titleStyle, valueStyle)
-//            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
-//
-//            addLineSeparator(document)
-//
-////            item 2
-//            addNewItemWithLeftAndRight(document, "Pizza 26", "(0.0%)", titleStyle, valueStyle)
-//            addNewItemWithLeftAndRight(document, "12.0*1000", "12000.0", titleStyle, valueStyle)
-//
-//            addLineSeparator(document)
 
 //            total
             addLineSpace(document)
@@ -268,7 +252,7 @@ class OrderDetailFragment : Fragment() {
             addLineSeparator(document)
 
             addSpace(document)
-            addNewItemWithThreeColumns(
+            addPaymentColumn(
                 document,
                 "Total Harga",
                 billRupiah,
@@ -276,7 +260,7 @@ class OrderDetailFragment : Fragment() {
                 itemStyle
             )
 
-            addNewItemWithThreeColumns(
+            addPaymentColumn(
                 document,
                 "Dibayar",
                 paymentRupiah,
@@ -284,7 +268,7 @@ class OrderDetailFragment : Fragment() {
                 itemStyle
             )
 
-            addNewItemWithThreeColumns(
+            addPaymentColumn(
                 document,
                 "Kembali",
                 changeRupiah,
@@ -318,8 +302,6 @@ class OrderDetailFragment : Fragment() {
 
             document.close()
 
-//            Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
-
             printPdf()
         } catch (e: Exception) {
             Log.e("document exception", e.message!!)
@@ -338,7 +320,56 @@ class OrderDetailFragment : Fragment() {
     }
 
     @Throws(DocumentException::class)
-    private fun addNewItemWithThreeColumns(
+    private fun addOrderItemTitleColumn(
+        document: Document,
+        style: Font
+    ) {
+        val chunkTextFirst = Chunk("Menu", style)
+        val chunkTextSecond = Chunk("Harga", style)
+        val chunkTextThird = Chunk("Porsi", style)
+        val chunkTextFourth = Chunk("Jumlah", style)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFourth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
+    private fun addOrderItemColumn(
+        document: Document,
+        textDish: String,
+        textPrice: String,
+        textQuantity: String,
+        textTotal: String,
+        style: Font
+    ) {
+        val chunkTextFirst = Chunk(textDish, style)
+        val chunkTextSecond = Chunk(textPrice, style)
+        val chunkTextThird = Chunk(textQuantity, style)
+        val chunkTextFourth = Chunk("Rp", style)
+        val chunkTextFifth = Chunk(textTotal, style)
+
+        val p = Paragraph(chunkTextFirst)
+        p.tabSettings = TabSettings(152f)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextSecond)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextThird)
+        p.add(Chunk.TABBING)
+        p.add(chunkTextFourth)
+        p.add(Chunk(VerticalPositionMark()))
+        p.add(chunkTextFifth)
+        document.add(p)
+    }
+
+    @Throws(DocumentException::class)
+    private fun addPaymentColumn(
         document: Document,
         textLeft: String,
         textRight: String,
@@ -361,59 +392,6 @@ class OrderDetailFragment : Fragment() {
         p.add(Chunk("Rp", rightStyle))
         p.add(Chunk(VerticalPositionMark()))
         p.add(chunkTextRight)
-        document.add(p)
-    }
-
-    @Throws(DocumentException::class)
-    private fun addNewItemWithFourColumn(
-        document: Document,
-        style: Font
-    ) {
-        val chunkTextFirst = Chunk("Menu", style)
-        val chunkTextSecond = Chunk("Harga", style)
-        val chunkTextThird = Chunk("Porsi", style)
-        val chunkTextFourth = Chunk("Jumlah", style)
-
-        val p = Paragraph(chunkTextFirst)
-        p.tabSettings = TabSettings(152f)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextSecond)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextThird)
-        p.add(Chunk(VerticalPositionMark()))
-        p.add(chunkTextFourth)
-        document.add(p)
-    }
-
-    @Throws(DocumentException::class)
-    private fun addNewItemWithFiveColumns(
-        document: Document,
-        textFirst: String,
-        textSecond: String,
-        textThird: String,
-        textFifth: String,
-        styleFirst: Font,
-        styleSecond: Font,
-        styleThird: Font,
-        styleFourth: Font,
-        styleFifth: Font
-    ) {
-        val chunkTextFirst = Chunk(textFirst, styleFirst)
-        val chunkTextSecond = Chunk(textSecond, styleSecond)
-        val chunkTextThird = Chunk(textThird, styleThird)
-        val chunkTextFourth = Chunk("Rp", styleFourth)
-        val chunkTextFifth = Chunk(textFifth, styleFifth)
-
-        val p = Paragraph(chunkTextFirst)
-        p.tabSettings = TabSettings(152f)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextSecond)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextThird)
-        p.add(Chunk.TABBING)
-        p.add(chunkTextFourth)
-        p.add(Chunk(VerticalPositionMark()))
-        p.add(chunkTextFifth)
         document.add(p)
     }
 

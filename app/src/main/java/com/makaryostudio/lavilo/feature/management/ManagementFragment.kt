@@ -94,7 +94,6 @@ class ManagementFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.management_menu, menu)
         return super.onCreateOptionsMenu(menu, inflater)
     }

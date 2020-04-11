@@ -22,7 +22,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Drink
+import com.makaryostudio.lavilo.data.model.Drink
 
 /**
  * A simple [Fragment] subclass.
@@ -202,7 +202,7 @@ class UpdateDrinkFragment : Fragment() {
                         }
                         Toast.makeText(
                             requireContext(),
-                            "Menu berhasil diperbarui",
+                            "Hidangan berhasil diperbarui",
                             Toast.LENGTH_SHORT
                         )
                             .show()
@@ -235,7 +235,7 @@ class UpdateDrinkFragment : Fragment() {
                 drink.key = drinkie.key
                 databaseReference.child("Dish").child("Drink").child(drink.key!!)
                     .setValue(drink)
-                Toast.makeText(requireContext(), "Menu berhasil diperbarui", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Hidangan berhasil diperbarui", Toast.LENGTH_SHORT)
                     .show()
                 findNavController().navigate(R.id.action_updateDrinkFragment_to_checkDishFragment)
             }

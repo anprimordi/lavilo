@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Employee
+import com.makaryostudio.lavilo.data.model.Employee
 import kotlinx.android.synthetic.main.fragment_add_employee.*
 
 class AddEmployeeFragment : Fragment() {
@@ -78,7 +78,11 @@ class AddEmployeeFragment : Fragment() {
                     edit_add_employee_email.text.toString(),
                     edit_add_employee_password.text.toString()
                 ).addOnCompleteListener {
-                    Toast.makeText(requireContext(), "Upload berhasil", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        "Admin berhasil ditambahkan",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                     findNavController().navigate(R.id.action_addEmployeeFragment_to_managementFragment)
                 }.addOnFailureListener {

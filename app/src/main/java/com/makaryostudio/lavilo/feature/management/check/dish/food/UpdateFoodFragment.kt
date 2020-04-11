@@ -22,7 +22,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.makaryostudio.lavilo.R
-import com.makaryostudio.lavilo.model.Food
+import com.makaryostudio.lavilo.data.model.Food
 
 /**
  * A simple [Fragment] subclass.
@@ -199,7 +199,7 @@ class UpdateFoodFragment : Fragment() {
                         }
                         Toast.makeText(
                             requireContext(),
-                            "Menu berhasil diperbarui",
+                            "Hidangan berhasil diperbarui",
                             Toast.LENGTH_SHORT
                         )
                             .show()
@@ -235,7 +235,7 @@ class UpdateFoodFragment : Fragment() {
                     .setValue(food).addOnCompleteListener {
                         Toast.makeText(
                             requireContext(),
-                            "Menu berhasil diperbarui",
+                            "Hidangan berhasil diperbarui",
                             Toast.LENGTH_SHORT
                         )
                             .show()

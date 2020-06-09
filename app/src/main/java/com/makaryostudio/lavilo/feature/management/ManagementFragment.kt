@@ -79,7 +79,6 @@ class ManagementFragment : Fragment() {
 
         cardLogout.setOnClickListener {
             firebaseAuth.signOut()
-//            findNavController().navigate(R.id.action_managementFragment_to_navigation_admin)
         }
     }
 

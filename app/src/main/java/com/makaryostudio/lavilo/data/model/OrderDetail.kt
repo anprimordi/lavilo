@@ -3,6 +3,7 @@ package com.makaryostudio.lavilo.data.model
 import android.os.Parcel
 import android.os.Parcelable
 
+// kelas model data daftar hidangan yang dipesan
 data class OrderDetail(
     val id: String,
     val name: String,

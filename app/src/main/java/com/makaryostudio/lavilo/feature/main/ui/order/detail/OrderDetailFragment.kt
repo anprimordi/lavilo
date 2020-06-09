@@ -152,162 +152,164 @@ class OrderDetailFragment : Fragment() {
             .check()
     }
 
-    private fun createPdfFile(path: String, order: Order, payment: Int, bill: Int) {
+//    buat file pdf
+private fun createPdfFile(path: String, order: Order, payment: Int, bill: Int) {
 
-        val locale = Locale("in", "ID")
+    val locale = Locale("in", "ID")
 
-        val formatRupiah = NumberFormat.getNumberInstance(locale)
+    val formatRupiah = NumberFormat.getNumberInstance(locale)
 
-        val change = payment - bill
+    val change = payment - bill
 
-        val billRupiah = formatRupiah.format(bill.toDouble())
-        val paymentRupiah = formatRupiah.format(payment.toDouble())
-        val changeRupiah = formatRupiah.format(change.toDouble())
+    val billRupiah = formatRupiah.format(bill.toDouble())
+    val paymentRupiah = formatRupiah.format(payment.toDouble())
+    val changeRupiah = formatRupiah.format(change.toDouble())
 
-        if (File(path).exists()) File(path).delete()
-        try {
-            val document = Document()
-            PdfWriter.getInstance(document, FileOutputStream(path))
+    if (File(path).exists()) File(path).delete()
+    try {
+        val document = Document()
+        PdfWriter.getInstance(document, FileOutputStream(path))
 
 //            open to write
-            document.open()
+        document.open()
 
 //            setting
-            document.pageSize = PageSize.A4
-            document.addCreationDate()
-            document.addAuthor("Lava View Lodge")
-            document.addCreator("Makaryo Studio")
+        document.pageSize = PageSize.A4
+        document.addCreationDate()
+        document.addAuthor("Lava View Lodge")
+        document.addCreator("Makaryo Studio")
 
 //            font setting
-            val headingFontSize = 20.0f
-            val fontSize = 26.0f
-            val smallSize = 18.0f
+        val headingFontSize = 20.0f
+        val fontSize = 26.0f
+        val smallSize = 18.0f
 
 //            custom font
-            val bebasNeueFont =
-                BaseFont.createFont("assets/BebasNeueRegular.otf", "UTF-8", BaseFont.EMBEDDED)
+        val bebasNeueFont =
+            BaseFont.createFont("assets/BebasNeueRegular.otf", "UTF-8", BaseFont.EMBEDDED)
 
-            val colorAccent = BaseColor(247, 149, 29, 255)
+        val colorAccent = BaseColor(247, 149, 29, 255)
 
 //            add title to document
-            val titleStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, BaseColor.BLACK)
+        val titleStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, BaseColor.BLACK)
 
-            val restoStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, colorAccent)
+        val restoStyle = Font(bebasNeueFont, 36.0f, Font.NORMAL, colorAccent)
 
-            addNewItem(document, "Lava View Lodge", Element.ALIGN_CENTER, titleStyle)
+        addNewItem(document, "Lava View Lodge", Element.ALIGN_CENTER, titleStyle)
 
-            val headingStyle = Font(bebasNeueFont, headingFontSize, Font.NORMAL, colorAccent)
-            addNewItem(document, "ID Pesanan", Element.ALIGN_LEFT, headingStyle)
+        val headingStyle = Font(bebasNeueFont, headingFontSize, Font.NORMAL, colorAccent)
+        addNewItem(document, "ID Pesanan", Element.ALIGN_LEFT, headingStyle)
 
-            val valueStyle = Font(bebasNeueFont, fontSize, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, order.id!!, Element.ALIGN_LEFT, valueStyle)
+        val valueStyle = Font(bebasNeueFont, fontSize, Font.NORMAL, BaseColor.BLACK)
+        addNewItem(document, order.id!!, Element.ALIGN_LEFT, valueStyle)
 
-            val itemStyle = Font(bebasNeueFont, smallSize, Font.NORMAL, BaseColor.BLACK)
+        val itemStyle = Font(bebasNeueFont, smallSize, Font.NORMAL, BaseColor.BLACK)
 
-            addLineSeparator(document)
+        addLineSeparator(document)
 
-            addNewItem(document, "Waktu Pemesanan", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, order.timestamp!!, Element.ALIGN_LEFT, valueStyle)
+        addNewItem(document, "Waktu Pemesanan", Element.ALIGN_LEFT, headingStyle)
+        addNewItem(document, order.timestamp!!, Element.ALIGN_LEFT, valueStyle)
 
-            addLineSeparator(document)
+        addLineSeparator(document)
 
-            addLineSpace(document)
+        addLineSpace(document)
 
-            addNewItem(document, "Rincian Pesanan", Element.ALIGN_LEFT, headingStyle)
+        addNewItem(document, "Rincian Pesanan", Element.ALIGN_LEFT, headingStyle)
 
-            addOrderItemTitleColumn(
+        addOrderItemTitleColumn(
+            document,
+            valueStyle
+        )
+
+        for (i in 0 until listOrderDetail.size) {
+            val orderDetail = listOrderDetail[i]
+
+            val priceRupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
+
+            val totalPrice = orderDetail.totalPrice.toInt()
+
+            val quantity = orderDetail.quantity.toInt()
+
+            val itemPrice = totalPrice / quantity
+
+            val itemRupiah = formatRupiah.format(itemPrice.toDouble())
+
+            addOrderItemColumn(
                 document,
-                valueStyle
+                orderDetail.name,
+                itemRupiah,
+                orderDetail.quantity,
+                priceRupiah,
+                itemStyle
             )
 
-            for (i in 0 until listOrderDetail.size) {
-                val orderDetail = listOrderDetail[i]
-
-                val priceRupiah = formatRupiah.format(orderDetail.totalPrice.toDouble())
-
-                val totalPrice = orderDetail.totalPrice.toInt()
-
-                val quantity = orderDetail.quantity.toInt()
-
-                val itemPrice = totalPrice / quantity
-
-                val itemRupiah = formatRupiah.format(itemPrice.toDouble())
-
-                addOrderItemColumn(
-                    document,
-                    orderDetail.name,
-                    itemRupiah,
-                    orderDetail.quantity,
-                    priceRupiah,
-                    itemStyle
-                )
-
-                addLineSpace(document)
-            }
+            addLineSpace(document)
+        }
 
 //            total
-            addLineSpace(document)
-            addLineSpace(document)
+        addLineSpace(document)
+        addLineSpace(document)
 
-            addLineSeparator(document)
+        addLineSeparator(document)
 
-            addSpace(document)
-            addPaymentColumn(
-                document,
-                "Total Harga",
-                billRupiah,
-                headingStyle,
-                itemStyle
-            )
+        addSpace(document)
+        addPaymentColumn(
+            document,
+            "Total Harga",
+            billRupiah,
+            headingStyle,
+            itemStyle
+        )
 
-            addPaymentColumn(
-                document,
-                "Dibayar",
-                paymentRupiah,
-                headingStyle,
-                itemStyle
-            )
+        addPaymentColumn(
+            document,
+            "Dibayar",
+            paymentRupiah,
+            headingStyle,
+            itemStyle
+        )
 
-            addPaymentColumn(
-                document,
-                "Kembali",
-                changeRupiah,
-                headingStyle,
-                itemStyle
-            )
+        addPaymentColumn(
+            document,
+            "Kembali",
+            changeRupiah,
+            headingStyle,
+            itemStyle
+        )
 
-            addSpace(document)
-            addSpace(document)
+        addSpace(document)
+        addSpace(document)
 
-            addNewItem(
-                document,
-                "Terima kasih",
-                Element.ALIGN_CENTER,
-                valueStyle
-            )
+        addNewItem(
+            document,
+            "Terima kasih",
+            Element.ALIGN_CENTER,
+            valueStyle
+        )
 
-            addNewItem(
-                document,
-                "atas kunjungan anda",
-                Element.ALIGN_CENTER,
-                valueStyle
-            )
+        addNewItem(
+            document,
+            "atas kunjungan anda",
+            Element.ALIGN_CENTER,
+            valueStyle
+        )
 
-            addNewItem(
-                document,
-                "resto lava",
-                Element.ALIGN_CENTER,
-                restoStyle
-            )
+        addNewItem(
+            document,
+            "resto lava",
+            Element.ALIGN_CENTER,
+            restoStyle
+        )
 
-            document.close()
+        document.close()
 
-            printPdf()
-        } catch (e: Exception) {
-            Log.e("document exception", e.message!!)
-        }
+        printPdf()
+    } catch (e: Exception) {
+        Log.e("document exception", e.message!!)
     }
+}
 
+    //    print pdf
     private fun printPdf() {
         val printManager = requireActivity().getSystemService(Context.PRINT_SERVICE) as PrintManager
         try {
@@ -319,6 +321,7 @@ class OrderDetailFragment : Fragment() {
         }
     }
 
+    //    tambah nama kolom pada detail pesanan
     @Throws(DocumentException::class)
     private fun addOrderItemTitleColumn(
         document: Document,
@@ -340,6 +343,7 @@ class OrderDetailFragment : Fragment() {
         document.add(p)
     }
 
+    //    tambah item pada pesanan
     @Throws(DocumentException::class)
     private fun addOrderItemColumn(
         document: Document,
@@ -368,6 +372,7 @@ class OrderDetailFragment : Fragment() {
         document.add(p)
     }
 
+    //    tambah elemen pembayaran
     @Throws(DocumentException::class)
     private fun addPaymentColumn(
         document: Document,
@@ -395,6 +400,7 @@ class OrderDetailFragment : Fragment() {
         document.add(p)
     }
 
+    //    tambah garis
     @Throws(DocumentException::class)
     private fun addLineSeparator(document: Document) {
         val lineSeparator = LineSeparator()
@@ -405,11 +411,13 @@ class OrderDetailFragment : Fragment() {
         addLineSpace(document)
     }
 
+    //    tambah spasi
     @Throws(DocumentException::class)
     private fun addLineSpace(document: Document) {
         document.add(Paragraph(""))
     }
 
+    //    tambah spasi independen
     @Throws(DocumentException::class)
     private fun addSpace(document: Document) {
         val chunk = Chunk(" ")
@@ -417,6 +425,7 @@ class OrderDetailFragment : Fragment() {
         document.add(p)
     }
 
+    //    tambah item baru
     @Throws(DocumentException::class)
     private fun addNewItem(document: Document, text: String, alignment: Int, textStyle: Font) {
         val chunk = Chunk(text, textStyle)
@@ -425,6 +434,7 @@ class OrderDetailFragment : Fragment() {
         document.add(p)
     }
 
+    //    update status pesanan
     private fun updateOrderStatus(receivedOrderId: String?, payment: Int, bill: Int) {
         dbReference.child("Order").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {

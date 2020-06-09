@@ -1,5 +1,6 @@
 package com.makaryostudio.lavilo.data.model
 
+// Kelas model data keranjang
 data class Cart(
     var id: String = "",
     var dishName: String = "",

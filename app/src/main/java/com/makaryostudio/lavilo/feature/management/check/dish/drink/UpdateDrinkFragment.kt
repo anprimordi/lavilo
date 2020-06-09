@@ -134,13 +134,15 @@ class UpdateDrinkFragment : Fragment() {
         }
     }
 
-    private fun openFileChooser() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, RC_IMAGE)
-    }
+//    buka file chooser
+private fun openFileChooser() {
+    val intent = Intent()
+    intent.type = "image/*"
+    intent.action = Intent.ACTION_GET_CONTENT
+    startActivityForResult(intent, RC_IMAGE)
+}
 
+    //    dapatkan hasil file chooser
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
@@ -156,12 +158,14 @@ class UpdateDrinkFragment : Fragment() {
         }
     }
 
+    //    dapatkan ekstensi berkas
     private fun getFileExtension(uri: Uri): String? {
 //        val contentResolver = context?.contentResolver
         val mimeTypeMap = MimeTypeMap.getSingleton()
         return mimeTypeMap.getExtensionFromMimeType(requireContext().contentResolver!!.getType(uri))
     }
 
+    //    upload atribut minuman
     private fun uploadFileDrink(drinkie: Drink) {
 
         when {
@@ -249,6 +253,7 @@ class UpdateDrinkFragment : Fragment() {
         }
     }
 
+    //    request code
     companion object {
         private const val RC_IMAGE = 701
     }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.feature.main.MainActivity
 
+// kelas splashscreen
 class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

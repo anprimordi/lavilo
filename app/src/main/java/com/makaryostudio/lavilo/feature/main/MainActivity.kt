@@ -1,6 +1,7 @@
 package com.makaryostudio.lavilo.feature.main
 
 import android.os.Bundle
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.makaryostudio.lavilo.R
 
+//kelas utama
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +27,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_dish, R.id.navigation_order, R.id.navigation_admin
             )
         )
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+
+        this.setActionBar(toolbar)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)

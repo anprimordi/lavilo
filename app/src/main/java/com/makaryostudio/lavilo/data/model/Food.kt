@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
 
+// Kelas model data makanan
 class Food(
     var imageUrl: String? = null,
     var name: String? = null,

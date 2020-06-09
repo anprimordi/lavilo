@@ -1,5 +1,6 @@
 package com.makaryostudio.lavilo.data.model
 
+// Kelas model data karyawan
 data class Employee(
     var id: String? = null,
     var name: String? = null,

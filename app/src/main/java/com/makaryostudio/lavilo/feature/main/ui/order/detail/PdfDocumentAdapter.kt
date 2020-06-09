@@ -21,23 +21,24 @@ class PdfDocumentAdapter(context: Context, path: String) : PrintDocumentAdapter(
         this.path = path
     }
 
-    override fun onLayout(
-        oldAttributes: PrintAttributes?,
-        newAttributes: PrintAttributes?,
-        cancellationSignal: CancellationSignal?,
-        callback: LayoutResultCallback?,
-        extras: Bundle?
-    ) {
-        if (cancellationSignal!!.isCanceled)
-            callback?.onLayoutCancelled()
-        else {
-            val builder = PrintDocumentInfo.Builder("fileName")
-            builder.setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
-                .setPageCount(PrintDocumentInfo.PAGE_COUNT_UNKNOWN)
-                .build()
-            callback?.onLayoutFinished(builder.build(), newAttributes != oldAttributes)
-        }
+//    background process
+override fun onLayout(
+    oldAttributes: PrintAttributes?,
+    newAttributes: PrintAttributes?,
+    cancellationSignal: CancellationSignal?,
+    callback: LayoutResultCallback?,
+    extras: Bundle?
+) {
+    if (cancellationSignal!!.isCanceled)
+        callback?.onLayoutCancelled()
+    else {
+        val builder = PrintDocumentInfo.Builder("fileName")
+        builder.setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
+            .setPageCount(PrintDocumentInfo.PAGE_COUNT_UNKNOWN)
+            .build()
+        callback?.onLayoutFinished(builder.build(), newAttributes != oldAttributes)
     }
+}
 
     override fun onWrite(
         pages: Array<out PageRange>?,

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.management.check.dish.CheckDishFragment">
+    tools:context=".ui.management.check.dish.CheckDishFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_check_dish"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image_background_login"
-    tools:context=".feature.main.ui.order.OrderFragment">
+    tools:context=".ui.main.order.OrderFragment">
 
     <TextView
         android:id="@+id/text_dashboard"

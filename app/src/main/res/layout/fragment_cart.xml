@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.main.ui.dish.cart.CartFragment">
+    tools:context=".ui.main.dish.cart.CartFragment">
 
     <include layout="@layout/content_cart" />
 

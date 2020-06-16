@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.main.ui.order.detail.OrderDetailFragment">
+    tools:context=".ui.main.order.detail.OrderDetailFragment">
 
     <TextView
         android:id="@+id/text_order_detail_table_number"

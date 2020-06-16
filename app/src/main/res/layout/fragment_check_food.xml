@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.management.check.dish.food.CheckFoodFragment">
+    tools:context=".ui.management.check.dish.food.CheckFoodFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_check_food"

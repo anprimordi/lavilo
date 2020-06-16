@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".feature.main.MainActivity"
+            android:name="com.makaryostudio.lavilo.ui.main.MainActivity"
             android:label="@string/title_activity_main" />
         <activity
-            android:name=".feature.splashscreen.SplashScreenActivity"
+            android:name="com.makaryostudio.lavilo.ui.splashscreen.SplashScreenActivity"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

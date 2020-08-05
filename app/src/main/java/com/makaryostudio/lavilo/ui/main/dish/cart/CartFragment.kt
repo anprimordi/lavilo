@@ -202,8 +202,6 @@ class CartFragment : Fragment() {
             }
         })
 
-
-
         buttonMakeOrder.setOnClickListener {
 
             if (listCart.isNotEmpty()) {

@@ -23,7 +23,6 @@ class CheckDrinkFragment : Fragment() {
 
     private lateinit var adapter: CheckDrinkFragmentAdapter
     private lateinit var dbReference: DatabaseReference
-    private lateinit var dbListener: ValueEventListener
     private lateinit var storage: FirebaseStorage
 
     override fun onCreateView(

@@ -8,7 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.database.*
 import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Order
@@ -39,6 +43,17 @@ class CheckReportFragment : Fragment() {
         listOrder = ArrayList()
 
         dbReference = FirebaseDatabase.getInstance().reference
+
+        val toolbar: MaterialToolbar = view.findViewById(R.id.toolbar_check_report)
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.dishFragment, R.id.orderFragment, R.id.adminFragment
+            )
+        )
+
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

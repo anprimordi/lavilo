@@ -3,32 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_dish">
+    app:startDestination="@+id/splashScreenFragment">
 
     <fragment
-        android:id="@+id/navigation_dish"
-        android:label="Daftar Menu"
+        android:id="@+id/dishFragment"
         android:name="com.makaryostudio.lavilo.ui.main.dish.DishFragment"
+        android:label="Daftar Menu"
         tools:layout="@layout/fragment_dish">
         <action
-            android:id="@+id/action_navigation_dish_to_cartFragment"
+            android:id="@+id/action_dishFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_admin"
-        android:label="Admin"
+        android:id="@+id/adminFragment"
         android:name="com.makaryostudio.lavilo.ui.main.admin.AdminFragment"
+        android:label="Admin"
         tools:layout="@layout/fragment_admin">
         <action
             android:id="@+id/action_navigation_admin_to_managementFragment"
-            app:destination="@id/managementFragment" />
+            app:destination="@id/managementFragment"
+            app:popUpTo="@id/dishFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_order"
-        android:label="Pesanan"
+        android:id="@+id/orderFragment"
         android:name="com.makaryostudio.lavilo.ui.main.order.OrderFragment"
+        android:label="Pesanan"
         tools:layout="@layout/fragment_order">
         <action
             android:id="@+id/action_navigation_order_to_orderDetailFragment"
@@ -40,8 +42,8 @@
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_navigation_order"
-            app:destination="@id/navigation_order"
-            app:popUpTo="@id/navigation_dish" />
+            app:destination="@id/orderFragment"
+            app:popUpTo="@id/dishFragment" />
     </fragment>
     <fragment
         android:id="@+id/managementFragment"
@@ -67,7 +69,7 @@
             app:destination="@id/checkReportFragment" />
         <action
             android:id="@+id/action_managementFragment_to_navigation_admin"
-            app:destination="@id/navigation_admin" />
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDishFragment"
@@ -95,8 +97,8 @@
     </fragment>
     <fragment
         android:id="@+id/checkDishFragment"
-        android:label="Manajemen Admin"
         android:name="com.makaryostudio.lavilo.ui.management.check.dish.CheckDishFragment"
+        android:label="Lihat Hidangan"
         tools:layout="@layout/fragment_check_dish">
         <action
             android:id="@+id/action_checkDishFragment_to_checkFoodFragment"
@@ -113,8 +115,8 @@
     </fragment>
     <fragment
         android:id="@+id/checkReportFragment"
-        android:label="Riwayat Pemesanan"
         android:name="com.makaryostudio.lavilo.ui.management.check.report.CheckReportFragment"
+        android:label="Riwayat Pemesanan"
         tools:layout="@layout/fragment_check_report">
         <action
             android:id="@+id/action_checkReportFragment_to_checkReportDetailFragment"
@@ -122,8 +124,8 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
-        android:label="Pembayaran"
         android:name="com.makaryostudio.lavilo.ui.main.order.detail.OrderDetailFragment"
+        android:label="Pembayaran"
         tools:layout="@layout/fragment_order_detail">
         <argument
             android:name="order"
@@ -131,7 +133,7 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_orderDetailFragment_to_navigation_order"
-            app:destination="@id/navigation_order" />
+            app:destination="@id/orderFragment" />
     </fragment>
     <fragment
         android:id="@+id/checkReportDetailFragment"
@@ -186,5 +188,17 @@
         <action
             android:id="@+id/action_updateDrinkFragment_to_checkDishFragment"
             app:destination="@id/checkDishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.makaryostudio.lavilo.ui.splashscreen.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_dishFragment"
+            app:destination="@id/dishFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

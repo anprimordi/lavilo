@@ -6,21 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.management.check.dish.CheckDishFragment">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_check_dish"
-        style="@style/Widget.MaterialComponents.TabLayout.Colored"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_check_dish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_check_dish"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.AppBarOverlay" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_check_dish"
+            style="@style/Widget.MaterialComponents.TabLayout.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_check_dish"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_check_dish" />
+        app:layout_constraintTop_toBottomOf="@id/appbar_check_dish" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

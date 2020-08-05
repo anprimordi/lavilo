@@ -25,6 +25,7 @@ import com.makaryostudio.lavilo.R
 import com.makaryostudio.lavilo.data.model.Drink
 import com.makaryostudio.lavilo.data.model.Food
 
+@Suppress("DEPRECATION")
 class AddDishFragment : Fragment() {
 
     private var quantity = 0

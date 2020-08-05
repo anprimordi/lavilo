@@ -29,7 +29,8 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.18"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_login_admin" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_home_admin_50"
@@ -93,69 +94,85 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="24dp"
-            android:paddingTop="40dp"
             android:paddingEnd="24dp">
 
-            <ImageView
-                android:id="@+id/image_email"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_admin_login"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:contentDescription="@string/admin_email_image"
-                android:src="@drawable/ic_email_orange_24dp"
-                app:layout_constraintBottom_toTopOf="@id/image_password"
-                app:layout_constraintEnd_toStartOf="@id/edit_email"
+                android:layout_marginTop="24dp"
+                android:text="Log in"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@id/text_admin_login_instruction"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/image_password"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_admin_login_instruction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/admin_password_image"
-                android:src="@drawable/ic_password_orange_24dp"
-                app:layout_constraintBottom_toTopOf="@id/button_login"
-                app:layout_constraintEnd_toStartOf="@id/edit_password"
+                android:text="untuk masuk ke manajemen admin"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@id/field_admin_email"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_email" />
+                app:layout_constraintTop_toBottomOf="@id/text_admin_login" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_email"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/field_admin_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/field_admin_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_login_instruction"
+                app:startIconDrawable="@drawable/ic_admin_email_orange_24dp"
+                app:startIconTint="@color/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/admin_email_hint"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/field_admin_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginTop="4dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:hint="@string/admin_email_hint"
-                android:inputType="textEmailAddress"
-                app:layout_constraintBottom_toBottomOf="@id/image_email"
+                app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_email"
-                app:layout_constraintTop_toTopOf="@id/image_email" />
+                app:layout_constraintBottom_toTopOf="@id/button_login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/field_admin_email"
+                app:startIconDrawable="@drawable/ic_admin_password_orange_24dp"
+                app:startIconTint="@color/colorPrimary">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:hint="@string/admin_password_hint"
-                android:inputType="textPassword"
-                app:layout_constraintBottom_toBottomOf="@id/image_password"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_password"
-                app:layout_constraintTop_toTopOf="@id/image_password" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/admin_password_hint"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/button_login"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_login"
+                android:layout_marginBottom="24dp"
                 android:text="@string/action_login"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_password" />
+                app:layout_constraintTop_toBottomOf="@id/field_admin_password" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

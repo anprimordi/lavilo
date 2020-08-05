@@ -22,10 +22,6 @@
     <!--  Main Activity  -->
     <string name="title_activity_main">MainActivity</string>
 
-    <!--  Splashscreen  -->
-    <string name="splashscreen_app_logo_insignia">application logo insignia</string>
-    <string name="splashscreen_app_logo_text">application logo text</string>
-
     <!--  ****************************************  -->
 
     <!--  Fragment Usage  -->
@@ -133,6 +129,10 @@
     <string name="report_item_table_number_title">Nomor meja\t:\t</string>
     <string name="report_item_status_title">Status\t\t\t\t\t:\t</string>
 
+    <!--  Splashscreen  -->
+    <string name="splashscreen_app_logo_insignia">application logo insignia</string>
+    <string name="splashscreen_app_logo_text">application logo text</string>
+
     <!--  Update Dish  -->
     <string name="update_dish_thumbnail_image">thumbnail pada update hidangan</string>
     <string name="update_drink_menu_image">gambar menu perbarui minuman</string>
@@ -142,6 +142,13 @@
     <string name="update_dish_stock_quantity_title">Kuantitas:</string>
     <string name="update_dish_menu_image">gambar menu update hidangan</string>
     <string name="update_dish_food_menu_title">Perbarui Makanan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  Bottom Navigation Menu  -->
+    <string name="bot_nav_menu_dish_title">Hidangan</string>
+    <string name="bot_nav_menu_order_title">Pesanan</string>
+    <string name="bot_nav_menu_admin_title">Admin</string>
 
 
     <!--  ****************************************  -->

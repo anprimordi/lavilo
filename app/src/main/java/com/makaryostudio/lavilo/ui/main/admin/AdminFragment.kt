@@ -47,7 +47,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     val editPassword: TextInputEditText = view.findViewById(R.id.edit_password)
 
     authStateListener = FirebaseAuth.AuthStateListener {
-        val firebaseUser = firebaseAuth.currentUser
+        val firebaseUser = it.currentUser
         if (firebaseUser != null) {
             findNavController().navigate(R.id.action_navigation_admin_to_managementFragment)
         }

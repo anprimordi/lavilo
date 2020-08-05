@@ -26,7 +26,6 @@ class CheckFoodFragment : Fragment() {
 
     private lateinit var adapter: CheckFoodFragmentAdapter
     private lateinit var dbReference: DatabaseReference
-    private lateinit var dbListener: ValueEventListener
     private lateinit var storage: FirebaseStorage
 
     override fun onCreateView(

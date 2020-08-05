@@ -27,6 +27,7 @@ import com.makaryostudio.lavilo.data.model.Food
 /**
  * A simple [Fragment] subclass.
  */
+@Suppress("DEPRECATION")
 class UpdateFoodFragment : Fragment() {
 
     private var quantity = 0
